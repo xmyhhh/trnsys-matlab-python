@@ -1,0 +1,15 @@
+**/checksum**
+**/*.asv
+**/simulink_cache.xml
+**/varInfo.mat
+
+
+**/venv
+**/runs
+**/run
+**/*.log
+**/slprj
+
+**/code/*.slxc
+**/__pycache__
+/.idea
