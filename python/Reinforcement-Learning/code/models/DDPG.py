@@ -70,10 +70,9 @@ class DDPG(object):
             to_tensor(next_state_batch, volatile=True),
             self.actor_target(to_tensor(next_state_batch, volatile=True)),
         ])
-        next_q_values.volatile = False
 
         target_q_batch = to_tensor(reward_batch) + \
-                         self.discount * to_tensor(terminal_batch.astype(np.float)) * next_q_values
+                         self.discount * to_tensor(terminal_batch.astype(np.float64)) * next_q_values
 
         # Critic update
         self.critic.zero_grad()

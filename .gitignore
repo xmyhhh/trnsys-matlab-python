@@ -13,3 +13,4 @@
 **/code/*.slxc
 **/__pycache__
 /.idea
+*.auto*

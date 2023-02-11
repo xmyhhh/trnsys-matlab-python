@@ -73,7 +73,7 @@ if __name__ == "__main__":
     # writer = SummaryWriter()
     prg_bar = range(args.bsize)
 
-    x_set = random.random() * 15 + 8
+    x_set = 25
     done = True
     episode_steps = 0
     episode_reward = 0
@@ -86,18 +86,22 @@ if __name__ == "__main__":
 
         if (state == None):
             heatPumpSimModel.Reset()
-            state = heatPumpSimModel.Init()
+            state = deepcopy(heatPumpSimModel.Init())
+            agent.reset(state)
 
         action = agent.select_action(state)
+
         state = heatPumpSimModel.Step(action)
-        reward = x_set - state[1]
-        agent.observe(reward, state, done)
+        state = deepcopy(state)
+        reward = -abs(x_set - state[1])
+        agent.observe(reward, deepcopy(state), done)
 
         if batch > args.warmup:
             agent.update_policy()
 
         episode_steps += 1
         episode_reward += reward
+        state = deepcopy(state)
 
         if done:  # end of episode
             # writer.add_scalar('episode_reward', episode_reward, episode)

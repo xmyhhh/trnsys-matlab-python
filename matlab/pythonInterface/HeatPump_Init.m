@@ -12,9 +12,10 @@ function outputArg = HeatPump_Init(inputArg)
     assignin('base','Ge_in',14);
     assignin('base','Tc_in',35);
     assignin('base','Gc_in',8);
+    assignin('base','compressor_wc',15);
 
     options = simset('SrcWorkspace','base','Solver','ode45');
-    out = sim('H_P.slx',[0, 0.01], options);
+    out = sim('H_P.slx',[0, 8000], options);
 
 
     outputArg(1) = getdatasamples(out.pc, [get(out.tcw12).Length]);

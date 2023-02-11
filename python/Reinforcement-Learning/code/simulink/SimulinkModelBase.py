@@ -19,4 +19,4 @@ class SimulinkModelBase:
         pass
 
     def MATLAB_return_to_ndarray(self, value):
-        return np.array(value, dtype=np.float64).squeeze()
+        return np.array(value).squeeze()
