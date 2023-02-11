@@ -1,7 +1,9 @@
 function outputArg = HeatPump_Step(inputArg)
     %disp('call HeatPump_Step')
+    assignin('base','test_v', evalin('base', 'test_v') + 1);
+
     options = simset('SrcWorkspace','base','Solver','ode45');
-    out = sim('H_P.slx',[0, 120], options);
+    out = sim('H_P.slx',[0, 1000], options);
 
     disp('set compressor_wc')
     assignin('base','compressor_wc', (inputArg + 1.0) / 2.0 * 60.0);
@@ -25,5 +27,6 @@ function outputArg = HeatPump_Step(inputArg)
     outputArg(7) = getdatasamples(out.h1, [get(out.tcw12).Length]);
     outputArg(8) = getdatasamples(out.vd, [get(out.tcw12).Length]);
     outputArg(9) = getdatasamples(out.Qe, [get(out.tcw12).Length]);
+    outputArg(10) = evalin('base', 'test_v');
 end
 

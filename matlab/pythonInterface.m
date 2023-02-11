@@ -1,6 +1,6 @@
 function outputArg = pythonInterface(inputArg, callType)
-   addpath("pythonInterface/")
-   addpath("simulinkModel/")
+   %addpath("pythonInterface/")
+   %addpath("simulinkModel/")
 
    switch callType
     case 'init'   %call init
