@@ -83,10 +83,11 @@ if __name__ == "__main__":
     train_env = make_vec_env(lambda: env, n_envs=1)
 
     #定义模型
+    print("model init")
     model = PPO('MlpPolicy', train_env, verbose=0)
+    print("start evl")
+    print(evaluate_policy(model, env, n_eval_episodes=1))
+    print("end evl")
+    model.learn(total_timesteps=2000, progress_bar=False)
 
-    evaluate_policy(model, env, n_eval_episodes=20)
-
-    model.learn(total_timesteps=2000, progress_bar=True)
-
-    evaluate_policy(model, env, n_eval_episodes=20)
+    print(evaluate_policy(model, env, n_eval_episodes=1))

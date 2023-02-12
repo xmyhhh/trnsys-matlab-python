@@ -25,6 +25,7 @@ class HeatPump_env(gym.Env):
         self.observation_space = spaces.Box(self.low, self.high, dtype=np.float32)
 
     def reset(self):
+        print("call reset")
         self.episode_steps = 0
         self.heatPumpModel.Reset()
         self.state = self.heatPumpModel.Init()
