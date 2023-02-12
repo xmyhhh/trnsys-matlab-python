@@ -4,8 +4,10 @@ import random
 import time
 import os.path as osp
 from copy import deepcopy
-
-
+import gym
+from stable_baselines3 import A2C
+from stable_baselines3.common.env_checker import check_env
+from stable_baselines3.common.evaluation import evaluate_policy
 from torch.utils.tensorboard import SummaryWriter
 import matlab.engine
 import logging
@@ -13,7 +15,7 @@ import numpy as np
 import torch
 from tqdm import tqdm
 
-from models.DDPG import DDPG
+from gymEnv.HeatPump_env import HeatPump_env
 from simulink.HeatPump import HeatPump
 from tools.file import create_all_dirs
 from util import get_output_folder, setup_logger
@@ -67,72 +69,24 @@ if __name__ == "__main__":
     logger.info('exp {} start!'.format(start, args.exp_name))
     logger.info('config: {}'.format(args))
 
-    # Step 2: Init simulink model and ddpg
-    heatPumpSimModel = HeatPump(os.getcwd() + "/../../../matlab")
-    logger.info('init HeatPump simulink model success!'.format(start, args.exp_name))
-    agent = DDPG(9, 1, args)
-    logger.info('init DDPG success!'.format(start, args.exp_name))
-    writer = SummaryWriter()
-    prg_bar = range(args.bsize)
+    # Step 2: Init simulink model and Rl model
+    env = HeatPump_env()
 
-    x_set = 40
-    done = False
-    episode_steps = 0
-    episode_reward = 0
-    episode = 0
-    state = None
+    # 检查环境是否合法
+    check_env(env, warn=True)
+    logger.info('init HeatPump simulink model xand RL env from stable_baselines3.common.env_checker import check_env!'.format(start, args.exp_name))
 
-    for batch in tqdm(prg_bar):
-        if episode_steps >= args.max_episode_steps - 1:
-            done = True
-            logger.info('reach max_episode_steps!')
+    from stable_baselines3 import PPO
+    from stable_baselines3.common.env_util import make_vec_env
 
-        if (isinstance(state, type(None))):
-            logger.info('model reset:')
-            heatPumpSimModel.Reset()
-            state = deepcopy(heatPumpSimModel.Init())
-            logger.info('   init state: {}'.format(state))
-            agent.reset(state)
+    #包装环境
+    train_env = make_vec_env(lambda: env, n_envs=1)
 
+    #定义模型
+    model = PPO('MlpPolicy', train_env, verbose=0)
 
-        logger.info('action select_action:')
-        action = agent.select_action(state)
-        logger.info('   action: {}'.format(action))
+    evaluate_policy(model, env, n_eval_episodes=20)
 
-        state = heatPumpSimModel.Step(action)
-        logger.info('model step:')
-        logger.info('   state: {}'.format(state))
+    model.learn(total_timesteps=2000, progress_bar=True)
 
-        state = deepcopy(state)
-        reward = -abs(x_set - state[1]) + 10.0
-        logger.info('   reward: {}'.format(reward))
-
-        agent.observe(reward, deepcopy(state), done)
-
-        if batch > args.warmup:
-            agent.update_policy()
-
-        episode_steps += 1
-        episode_reward += reward
-        state = deepcopy(state)
-
-        if done:  # end of episode
-            writer.add_scalar('episode_reward', episode_reward, episode)
-            logger.info('done:')
-            logger.info('   episode_reward:{}'.format(episode_reward))
-            print("done, episode_reward:" + str(episode_reward))
-            agent.memory.append(
-                state,
-                agent.select_action(state),
-                0., False
-            )
-
-            # reset
-            state = None
-            done = False
-            episode += 1
-            episode_steps = 0
-            episode_reward = 0.
-
-    save_path = os.path.join('../experiments', args.exp_name)
-    agent.save_model(save_path)
+    evaluate_policy(model, env, n_eval_episodes=20)
