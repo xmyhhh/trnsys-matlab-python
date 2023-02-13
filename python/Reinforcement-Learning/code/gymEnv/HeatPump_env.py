@@ -33,8 +33,8 @@ class HeatPump_env(gym.Env):
 
     def step(self, action: np.ndarray):
         self.episode_steps += 1
-        state = self.heatPumpModel.Step(action)
-        reward = -abs(40 - state[1]) + 10.0
+        self.state = self.heatPumpModel.Step(action)
+        reward = -abs(40 - self.state[1]) + 10.0
         done = False
         if(self.episode_steps>60):
             done = True

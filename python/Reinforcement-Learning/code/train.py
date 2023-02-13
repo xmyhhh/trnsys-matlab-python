@@ -88,6 +88,10 @@ if __name__ == "__main__":
     print("start evl")
     print(evaluate_policy(model, env, n_eval_episodes=1))
     print("end evl")
-    model.learn(total_timesteps=2000, progress_bar=False)
+    model.learn(total_timesteps=1, progress_bar=True)
 
     print(evaluate_policy(model, env, n_eval_episodes=1))
+
+    # 保存模型
+    model.save(experiments_root+'/models/save')
+

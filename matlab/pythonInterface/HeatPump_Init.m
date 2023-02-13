@@ -13,10 +13,10 @@ function outputArg = HeatPump_Init(inputArg)
     assignin('base','Tc_in',35);   %冷凝器进水温度
     assignin('base','Gc_in',8);    %冷凝器进水流量 = 冷凝器出水流量
 
-    assignin('base','compressor_wc', 15);
+    assignin('base','compressor_wc', 0.0001);
 
     options = simset('SrcWorkspace','base','Solver','ode45');
-    out = sim('H_P.slx',[0, 10], options);
+    out = sim('H_P.slx',[0, 0.001], options);
 
 
     outputArg(1) = getdatasamples(out.pc, [get(out.tcw12).Length]);
