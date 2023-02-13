@@ -5,7 +5,7 @@ import time
 import os.path as osp
 from copy import deepcopy
 import gym
-from stable_baselines3 import A2C, PPO
+from stable_baselines3 import A2C, PPO, DDPG
 from stable_baselines3.common.env_checker import check_env
 from stable_baselines3.common.evaluation import evaluate_policy
 from torch.utils.tensorboard import SummaryWriter
@@ -32,11 +32,11 @@ if __name__ == "__main__":
     experiments_root = osp.join(osp.abspath(osp.join(__file__, osp.pardir)), '../experiments',
                                 args.exp_name)
 
-    model = PPO.load(experiments_root + '/save')
+    model = DDPG.load(experiments_root + '/models/save')
     env = HeatPump_env()
 
     obs = env.reset()
     for i in range(1000):
         action, _state = model.predict(obs, deterministic=True)
         obs, reward, done, info = env.step(action)
-        print(obs)
+        print("obs: {},  reward: {}".format(obs, reward))

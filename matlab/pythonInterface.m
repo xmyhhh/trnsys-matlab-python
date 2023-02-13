@@ -4,6 +4,7 @@ function outputArg = pythonInterface(inputArg, callType)
 
    switch callType
     case 'init'   %call init
+        outputArg = 0;
         outputArg = HeatPump_Init(inputArg);
     case 'step'   %call step
         outputArg = HeatPump_Step(inputArg);

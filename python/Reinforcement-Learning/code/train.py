@@ -5,7 +5,7 @@ import time
 import os.path as osp
 from copy import deepcopy
 import gym
-from stable_baselines3 import A2C
+from stable_baselines3 import A2C, DDPG
 from stable_baselines3.common.env_checker import check_env
 from stable_baselines3.common.evaluation import evaluate_policy
 from torch.utils.tensorboard import SummaryWriter
@@ -84,14 +84,14 @@ if __name__ == "__main__":
 
     #定义模型
     print("model init")
-    model = PPO('MlpPolicy', train_env, verbose=0)
+    model = DDPG('MlpPolicy', train_env, verbose=0)
     print("start evl")
     print(evaluate_policy(model, env, n_eval_episodes=1))
     print("end evl")
-    model.learn(total_timesteps=1, progress_bar=True)
-
+    model.learn(total_timesteps=1000, progress_bar=True)
+    print("start evl 2")
     print(evaluate_policy(model, env, n_eval_episodes=1))
 
     # 保存模型
     model.save(experiments_root+'/models/save')
-
+6
