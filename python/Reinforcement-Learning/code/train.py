@@ -83,16 +83,18 @@ if __name__ == "__main__":
         from stable_baselines3 import PPO
         from stable_baselines3.common.env_util import make_vec_env
         # 包装环境
-        train_env = make_vec_env(make_env, n_envs=8, vec_env_cls=SubprocVecEnv)
-
+        train_env = make_vec_env(make_env, n_envs=1, vec_env_cls=SubprocVecEnv)
+        env = HeatPump_env()
         # 定义模型
         print("model init")
         model = PPO('MlpPolicy', train_env, verbose=0)
-        print("start evl")
 
-        model.learn(total_timesteps=10000, progress_bar=True)
+        print("start evl")
+        print(evaluate_policy(model, env, n_eval_episodes=1))
+
+        model.learn(total_timesteps=5000, progress_bar=True)
+
         print("start evl 2")
-        env = HeatPump_env()
         print(evaluate_policy(model, env, n_eval_episodes=1))
 
         # 保存模型
@@ -120,7 +122,7 @@ if __name__ == "__main__":
         print("start evl 2")
         print(evaluate_policy(model, env, n_eval_episodes=1))
         # 保存模型
-        model.save(experiments_root + '/models/ppo')
+        model.save(experiments_root + '/models/ddpg')
 
 
     PPO_test()

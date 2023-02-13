@@ -22,7 +22,6 @@ from util import get_output_folder, setup_logger
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='PyTorch on TORCS with Multi-modal')
-    parser.add_argument('--mode', default='train', type=str, help='support option: train/test')
     parser.add_argument('--exp_name', default='default', type=str, help='exp name')
     parser.add_argument('--output', default='output', type=str, help='')
     args = parser.parse_args()
@@ -32,11 +31,11 @@ if __name__ == "__main__":
     experiments_root = osp.join(osp.abspath(osp.join(__file__, osp.pardir)), '../experiments',
                                 args.exp_name)
 
-    model = PPO.load(experiments_root + '/models/ddpg')
+    model = PPO.load(experiments_root + '/models/ppo')
     env = HeatPump_env()
 
     obs = env.reset()
     for i in range(1000):
         action, _state = model.predict(obs, deterministic=True)
         obs, reward, done, info = env.step(action)
-        print("obs: {},  reward: {}".format(obs * env.high, reward))
+        print("obs: {}, action:{}, reward: {}".format(obs * env.high, action, reward))
