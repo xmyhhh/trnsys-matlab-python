@@ -39,4 +39,4 @@ if __name__ == "__main__":
     for i in range(1000):
         action, _state = model.predict(obs, deterministic=True)
         obs, reward, done, info = env.step(action)
-        print("obs: {},  reward: {}".format(obs, reward))
+        print("obs: {},  reward: {}".format(obs * env.high, reward))
