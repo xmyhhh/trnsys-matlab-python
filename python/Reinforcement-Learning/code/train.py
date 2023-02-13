@@ -8,6 +8,7 @@ import gym
 from stable_baselines3 import A2C, DDPG
 from stable_baselines3.common.env_checker import check_env
 from stable_baselines3.common.evaluation import evaluate_policy
+from stable_baselines3.common.vec_env import SubprocVecEnv
 from torch.utils.tensorboard import SummaryWriter
 import matlab.engine
 import logging
@@ -21,7 +22,6 @@ from tools.file import create_all_dirs
 from util import get_output_folder, setup_logger
 
 if __name__ == "__main__":
-
     parser = argparse.ArgumentParser(description='PyTorch on TORCS with Multi-modal')
 
     parser.add_argument('--mode', default='train', type=str, help='support option: train/test')
@@ -69,29 +69,58 @@ if __name__ == "__main__":
     logger.info('exp {} start!'.format(start, args.exp_name))
     logger.info('config: {}'.format(args))
 
+
+    def make_env():
+        return HeatPump_env()
+
+
     # Step 2: Init simulink model and Rl model
-    env = HeatPump_env()
+    def PPO_test():
+        # 检查环境是否合法
+        # check_env(env, warn=True)
+        # logger.info('init HeatPump simulink model xand RL env from stable_baselines3.common.env_checker import check_env!'.format(start, args.exp_name))
 
-    # 检查环境是否合法
-    check_env(env, warn=True)
-    logger.info('init HeatPump simulink model xand RL env from stable_baselines3.common.env_checker import check_env!'.format(start, args.exp_name))
+        from stable_baselines3 import PPO
+        from stable_baselines3.common.env_util import make_vec_env
+        # 包装环境
+        train_env = make_vec_env(make_env, n_envs=8, vec_env_cls=SubprocVecEnv)
 
-    from stable_baselines3 import PPO
-    from stable_baselines3.common.env_util import make_vec_env
+        # 定义模型
+        print("model init")
+        model = PPO('MlpPolicy', train_env, verbose=0)
+        print("start evl")
 
-    #包装环境
-    train_env = make_vec_env(lambda: env, n_envs=1)
+        model.learn(total_timesteps=10000, progress_bar=True)
+        print("start evl 2")
+        env = HeatPump_env()
+        print(evaluate_policy(model, env, n_eval_episodes=1))
 
-    #定义模型
-    print("model init")
-    model = DDPG('MlpPolicy', train_env, verbose=0)
-    print("start evl")
-    print(evaluate_policy(model, env, n_eval_episodes=1))
-    print("end evl")
-    model.learn(total_timesteps=1000, progress_bar=True)
-    print("start evl 2")
-    print(evaluate_policy(model, env, n_eval_episodes=1))
+        # 保存模型
+        model.save(experiments_root + '/models/ppo')
 
-    # 保存模型
-    model.save(experiments_root+'/models/save')
-6
+
+    def DDPG_test():
+        env = HeatPump_env()
+        # 检查环境是否合法
+        # check_env(env, warn=True)
+        # logger.info('init HeatPump simulink model xand RL env from stable_baselines3.common.env_checker import check_env!'.format(start, args.exp_name))
+
+        from stable_baselines3 import PPO
+        from stable_baselines3.common.env_util import make_vec_env
+        # 包装环境
+        train_env = make_vec_env(lambda: env, n_envs=1)
+
+        # 定义模型
+        print("model init")
+        model = DDPG('MlpPolicy', train_env, verbose=0)
+        print("start evl")
+        print(evaluate_policy(model, env, n_eval_episodes=1))
+        print("end evl")
+        model.learn(total_timesteps=10000, progress_bar=True)
+        print("start evl 2")
+        print(evaluate_policy(model, env, n_eval_episodes=1))
+        # 保存模型
+        model.save(experiments_root + '/models/ppo')
+
+
+    PPO_test()

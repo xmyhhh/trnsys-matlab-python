@@ -16,10 +16,10 @@ class HeatPump_env(gym.Env):
         self.episode_steps = 0
         self.heatPumpModel = HeatPump(os.getcwd() + "/../../../matlab")
         # 1940.47559,35.00086,259.99402,54.20593,8.00061,584.63422,410.00662,0.04032,188.64571
-
-        self.low = np.array([0, 0, 0, 0, 0, 0, 0, 0, 0], dtype=np.float32)
-        self.one = np.array([1, 1, 1, 1, 1, 1, 1, 1, 1], dtype=np.float32)
-        self.high = np.array([10000, 80, 500, 150, 50, 1000, 1000, 1, 500], dtype=np.float32)
+        self.episode_steps_max = 50
+        self.low = np.array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0], dtype=np.float32)
+        self.one = np.array([1, 1, 1, 1, 1, 1, 1, 1, 1, 1], dtype=np.float32)
+        self.high = np.array([10000, 80, 500, 150, 50, 1000, 1000, 1, 500, 130], dtype=np.float32)
 
         self.action_space = spaces.Box(
             low=-1, high=1, shape=(1,), dtype=np.float32
@@ -27,20 +27,19 @@ class HeatPump_env(gym.Env):
         self.observation_space = spaces.Box(self.low, self.one, dtype=np.float32)
 
     def reset(self):
-        print("call reset")
+        #print("call reset")
         self.episode_steps = 0
-
         self.state = self.heatPumpModel.Init() / self.high
         return self.state
 
     def step(self, action: np.ndarray):
         self.episode_steps += 1
         self.state = self.heatPumpModel.Step(action) / self.high
-        #reward = -abs(40 - self.state[1]) + 10.0
+        reward = (100 - pow(40 - self.state[1], 2)) * (self.episode_steps_max - self.episode_steps)
 
-        reward = -abs(action - 0.5).item()
-        print("action is {}".format(action.item()))
+        # reward = -abs(action - 0.5).item()
+        #print("action is {}".format(action.item()))
         done = False
-        if (self.episode_steps > 5):
+        if (self.episode_steps > self.episode_steps_max):
             done = True
         return self.state, reward, bool(done), {}

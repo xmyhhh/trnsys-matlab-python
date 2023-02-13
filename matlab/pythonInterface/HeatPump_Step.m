@@ -34,5 +34,6 @@ function outputArg = HeatPump_Step(inputArg)
     outputArg(8) = getdatasamples(out.vd, [get(out.tcw12).Length]);
     outputArg(9) = getdatasamples(out.Qe, [get(out.tcw12).Length]);
 
+    outputArg(10) = new_compressor_wc;
 end
 

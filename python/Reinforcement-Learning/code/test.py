@@ -32,7 +32,7 @@ if __name__ == "__main__":
     experiments_root = osp.join(osp.abspath(osp.join(__file__, osp.pardir)), '../experiments',
                                 args.exp_name)
 
-    model = DDPG.load(experiments_root + '/models/save')
+    model = PPO.load(experiments_root + '/models/ddpg')
     env = HeatPump_env()
 
     obs = env.reset()

@@ -29,5 +29,6 @@ function outputArg = HeatPump_Init(inputArg)
     outputArg(8) = getdatasamples(out.vd, [get(out.tcw12).Length]);
     outputArg(9) = getdatasamples(out.Qe, [get(out.tcw12).Length]);
 
+    outputArg(10) = evalin('base', 'compressor_wc');
 end
 
