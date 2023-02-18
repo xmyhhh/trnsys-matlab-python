@@ -108,20 +108,20 @@ assignin('base','TIME_DELAY',TIME_DELAY);
 
 %% MODEL parameters
 % Epsiode and time related
-MAX_EPISODES = 1;
+MAX_EPISODES = 10;
 
 Ts = 1.0;   % Ts: Sample time (secs)
 Tf = 150;   % Tf: Simulation length (secs)
 assignin('base','Ts',Ts);
 assignin('base','Tf',Tf);
 AVERAGE_WINDOW = 50;        % Average over 50 time-steps 
-ACCEPTABLE_DELTA = 0.05;
+ACCEPTABLE_DELTA = hyper_ACCEPTABLE_DELTA;
 
 % DDPG Hyper-paramaters
 criticLearningRate = 1e-03;
 actorLearningRate  = 1e-04;
 GAMMA = 0.90;
-BATCH_SIZE = 64;
+BATCH_SIZE = hyper_BATCH_SIZE;
 
 % Critic network: Neurons for fully-connected Observsation (state) and Action paths 
 neuronsOP_FC1 = 50; neuronsOP_FC2 = 25; neuronsAP_FC1 = 25;

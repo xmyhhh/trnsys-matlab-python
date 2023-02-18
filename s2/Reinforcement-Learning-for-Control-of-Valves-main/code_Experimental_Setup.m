@@ -100,6 +100,8 @@ env = rlSimulinkEnv(VALVE_SIMULATION_MODEL, RL_AGENT, obsInfo, actInfo);
 simOpts = rlSimulationOptions('MaxSteps', 100);
 experiences = sim(env, agent, simOpts);
 
+
+set(0,'DefaultFigureVisible','off');
 %plot RL&PID
 figure
 hold on

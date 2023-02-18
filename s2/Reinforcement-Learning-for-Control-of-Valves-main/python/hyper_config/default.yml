@@ -5,9 +5,14 @@ max_matlab_start : 1
 #### Train Settings
 Hyper_array:
   h0:
-    VALVE_SIMULATION_MODEL_Train: 'sm_DDPG_Training_Circuit'
+    VALVE_SIMULATION_MODEL_Train: 'sm_DDPG_Training_Circuit_h0'
     VALVE_SIMULATION_MODEL_Test: 'sm_Experimental_Setup'
-#  h1:
-#    VALVE_SIMULATION_MODEL: 'sm_DDPG_Training_Circuit'
+    batch: 32
+    ACCEPTABLE_DELTA : 0.02
+  h1:
+    VALVE_SIMULATION_MODEL_Train: 'sm_DDPG_Training_Circuit_h1'
+    VALVE_SIMULATION_MODEL_Test: 'sm_Experimental_Setup'
+    batch: 64
+    ACCEPTABLE_DELTA : 0.05
 #  h2:
 #    VALVE_SIMULATION_MODEL: 'sm_DDPG_Training_Circuit'
