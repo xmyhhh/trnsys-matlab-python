@@ -29,11 +29,10 @@
 % - GRADE_VI:   TIME_DELAY=2.5, fS = 8.4/1.0; fD = 3.5243/1.0
 %--------------------------------------------------------------------------
 
-clear all;
 
 %% Set paths
-MODELS_PATH = 'results/';
-VALVE_SIMULATION_MODEL = 'sm_Experimental_Setup'; % Simulink experimentation circuit
+MODELS_PATH = hyper_MODELS_PATH;
+VALVE_SIMULATION_MODEL = hyper_VALVE_SIMULATION_MODEL; % Simulink experimentation circuit
 RL_AGENT = strcat(VALVE_SIMULATION_MODEL, '/RL Sub-System/RL Agent');
 
 %% GRADED LEARNING models
@@ -55,10 +54,13 @@ RL_MODEL_FILE = strcat(MODELS_PATH, PRE_TRAINED_MODEL_FILE);
 Ts = 1.0;   % Ts: Sample time (secs)
 Tf = 200;   % Tf: Simulation length (secs)
 ACCEPTABLE_DELTA = 0.05;
-
+assignin('base','ACCEPTABLE_DELTA',ACCEPTABLE_DELTA);
+assignin('base','Ts',Ts);
+assignin('base','Tf',Tf);
 % Load experiences from pre-trained agent    
 sprintf('- Load model: %s', PRE_TRAINED_MODEL_FILE)
-load(RL_MODEL_FILE,'agent');
+
+load(RL_MODEL_FILE);
 
 % ----------------------------------------------------------------
 % Validate the learned agent against the model by simulation
@@ -95,6 +97,16 @@ sprintf (' ---- Testing model: %s', PRE_TRAINED_MODEL_FILE)
 sprintf (' ---- Parameters: Time-Delay: %3.2f, fS: %3.2f, fD: %3.2f', TIME_DELAY, fS, fD)
         
 env = rlSimulinkEnv(VALVE_SIMULATION_MODEL, RL_AGENT, obsInfo, actInfo);
-simOpts = rlSimulationOptions('MaxSteps', 2000);
+simOpts = rlSimulationOptions('MaxSteps', 100);
 experiences = sim(env, agent, simOpts);
-    
+
+%plot RL&PID
+figure
+hold on
+plot(experiences.SimulationInfo.tcw2_rl,'r')
+plot(experiences.SimulationInfo.reference,'g')
+plot(experiences.SimulationInfo.tcw2_pid,'b')
+legend('RL','Setting','PID')
+saveas(gcf, strcat(MODELS_PATH, "pid_vs_rl.png"))
+
+

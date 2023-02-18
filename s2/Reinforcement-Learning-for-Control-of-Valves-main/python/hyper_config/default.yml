@@ -5,10 +5,9 @@ max_matlab_start : 1
 #### Train Settings
 Hyper_array:
   h0:
-    max_episodes: 3
-  h1:
-    max_episodes: 6
-  h2:
-    max_episodes: 6
-  h3:
-    max_episodes: 6
+    VALVE_SIMULATION_MODEL_Train: 'sm_DDPG_Training_Circuit'
+    VALVE_SIMULATION_MODEL_Test: 'sm_Experimental_Setup'
+#  h1:
+#    VALVE_SIMULATION_MODEL: 'sm_DDPG_Training_Circuit'
+#  h2:
+#    VALVE_SIMULATION_MODEL: 'sm_DDPG_Training_Circuit'

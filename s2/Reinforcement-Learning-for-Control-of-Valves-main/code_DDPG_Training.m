@@ -77,7 +77,7 @@ tstart= datetime();
 
 %% Set paths
 MODELS_PATH = hyper_MODELS_PATH;
-VALVE_SIMULATION_MODEL = 'sm_DDPG_Training_Circuit'; % Simulink training circuit
+VALVE_SIMULATION_MODEL = hyper_VALVE_SIMULATION_MODEL; % Simulink training circuit
 
 %% Set version for model
 % For Graded Learning we apply transfer learning. Point to the pre-trained 
@@ -108,7 +108,7 @@ assignin('base','TIME_DELAY',TIME_DELAY);
 
 %% MODEL parameters
 % Epsiode and time related
-MAX_EPISODES = round(hyper_MAX_EPISODES);
+MAX_EPISODES = 1;
 
 Ts = 1.0;   % Ts: Sample time (secs)
 Tf = 150;   % Tf: Simulation length (secs)
@@ -266,7 +266,7 @@ end
 trainingStats = train(agent, env, trainOpts);
 % Save agent
 nEpisodes = length(trainingStats.EpisodeIndex);
-fname = strcat(MODELS_PATH, VERSION, '_', int2str(i), '.mat');
+fname = strcat(MODELS_PATH, VERSION, '.mat');
 sprintf ('Saving file: %s', fname)
 save(fname, "agent");
 display("End training: ")
