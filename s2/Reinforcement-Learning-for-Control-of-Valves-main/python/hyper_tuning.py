@@ -32,8 +32,8 @@ def start_train(exp_name, cfg_name, cfg):
         MATLAB_eng = matlab.engine.start_matlab()
         MATLAB_eng.addpath(MATLAB_eng.genpath(MATLAB_eng.fullfile("../")))
         MATLAB_eng.call_train(exp_name, cfg_name, cfg['max_eps'], cfg['VALVE_SIMULATION_MODEL_Train'], cfg['batch'],
-                              cfg['ACCEPTABLE_DELTA'])
-        MATLAB_eng.call_test(exp_name, cfg_name, cfg['VALVE_SIMULATION_MODEL_Test'])
+                              cfg['ACCEPTABLE_DELTA'], cfg['action_range'][0], cfg['action_range'][1])
+        MATLAB_eng.call_test(exp_name, cfg_name, cfg['VALVE_SIMULATION_MODEL_Test'], cfg['action_range'][0], cfg['action_range'][1])
     except:
         print("task error in", cfg)
 

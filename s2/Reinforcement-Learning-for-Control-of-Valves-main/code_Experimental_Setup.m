@@ -87,7 +87,7 @@ numObservations = obsInfo.Dimension(1);
 % obsInfo.Description = '[actual-signal, error, integrated error]';
 % numObservations = obsInfo.Dimension(1);
 
-actInfo = rlNumericSpec([1 1],'LowerLimit', 0.1, 'UpperLimit',130);
+actInfo = rlNumericSpec([1 1],'LowerLimit', hyper_action_min, 'UpperLimit', hyper_action_max);
 actInfo.Name = 'flow';
 numActions = numel(actInfo);
 
