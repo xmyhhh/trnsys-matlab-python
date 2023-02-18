@@ -1,0 +1,14 @@
+#### general settings
+name: default
+max_matlab_start : 1
+
+#### Train Settings
+Hyper_array:
+  h0:
+    max_episodes: 3
+  h1:
+    max_episodes: 6
+  h2:
+    max_episodes: 6
+  h3:
+    max_episodes: 6
