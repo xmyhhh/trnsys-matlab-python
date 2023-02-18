@@ -16,5 +16,6 @@
 *.auto*
 *.zip
 *.slxc
-
-**/results
+*.jpg
+*.png
+**/results/**
