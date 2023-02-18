@@ -8,11 +8,13 @@ Hyper_array:
     VALVE_SIMULATION_MODEL_Train: 'sm_DDPG_Training_Circuit_h0'
     VALVE_SIMULATION_MODEL_Test: 'sm_Experimental_Setup'
     batch: 64.0
+    max_eps: 10.0
     ACCEPTABLE_DELTA : 0.05
   h1:
     VALVE_SIMULATION_MODEL_Train: 'sm_DDPG_Training_Circuit_h1'
     VALVE_SIMULATION_MODEL_Test: 'sm_Experimental_Setup'
     batch: 64.0
+    max_eps: 20.0
     ACCEPTABLE_DELTA : 0.05
 #  h2:
 #    VALVE_SIMULATION_MODEL: 'sm_DDPG_Training_Circuit'

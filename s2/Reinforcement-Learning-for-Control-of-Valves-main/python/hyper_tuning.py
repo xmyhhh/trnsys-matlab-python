@@ -31,7 +31,7 @@ def start_train(exp_name, cfg_name, cfg):
     try:
         MATLAB_eng = matlab.engine.start_matlab()
         MATLAB_eng.addpath(MATLAB_eng.genpath(MATLAB_eng.fullfile("../")))
-        MATLAB_eng.call_train(exp_name, cfg_name, cfg['VALVE_SIMULATION_MODEL_Train'], cfg['batch'],
+        MATLAB_eng.call_train(exp_name, cfg_name, cfg['max_eps'], cfg['VALVE_SIMULATION_MODEL_Train'], cfg['batch'],
                               cfg['ACCEPTABLE_DELTA'])
         MATLAB_eng.call_test(exp_name, cfg_name, cfg['VALVE_SIMULATION_MODEL_Test'])
     except:

@@ -108,7 +108,7 @@ assignin('base','TIME_DELAY',TIME_DELAY);
 
 %% MODEL parameters
 % Epsiode and time related
-MAX_EPISODES = 10;
+MAX_EPISODES = hyper_MAX_EPISODES;
 
 Ts = 1.0;   % Ts: Sample time (secs)
 Tf = 150;   % Tf: Simulation length (secs)
