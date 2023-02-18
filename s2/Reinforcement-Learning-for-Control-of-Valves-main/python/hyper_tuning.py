@@ -28,10 +28,15 @@ def OrderedYaml():
 
 
 def start_train(exp_name, cfg_name, cfg):
-    MATLAB_eng = matlab.engine.start_matlab()
-    MATLAB_eng.addpath(MATLAB_eng.genpath(MATLAB_eng.fullfile("../")))
-    MATLAB_eng.call_train(exp_name, cfg_name, cfg['VALVE_SIMULATION_MODEL_Train'],  cfg['batch'], cfg['ACCEPTABLE_DELTA'])
-    MATLAB_eng.call_test(exp_name, cfg_name, cfg['VALVE_SIMULATION_MODEL_Test'])
+    try:
+        MATLAB_eng = matlab.engine.start_matlab()
+        MATLAB_eng.addpath(MATLAB_eng.genpath(MATLAB_eng.fullfile("../")))
+        MATLAB_eng.call_train(exp_name, cfg_name, cfg['VALVE_SIMULATION_MODEL_Train'], cfg['batch'],
+                              cfg['ACCEPTABLE_DELTA'])
+        MATLAB_eng.call_test(exp_name, cfg_name, cfg['VALVE_SIMULATION_MODEL_Test'])
+    except:
+        print("task error in", cfg)
+
     return cfg
 
 
