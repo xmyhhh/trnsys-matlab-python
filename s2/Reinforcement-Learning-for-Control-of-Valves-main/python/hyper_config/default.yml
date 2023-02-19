@@ -1,6 +1,11 @@
 #### general settings
 name: default
-max_matlab_start : 3
+max_matlab_start : 5
+task_type:
+  train: true
+  test: true
+
+  test_sample_time: 2000.0
 
 #### Train Settings
 Hyper_array:
@@ -8,7 +13,7 @@ Hyper_array:
     VALVE_SIMULATION_MODEL_Train: 'sm_DDPG_Training_Circuit_h0'
     VALVE_SIMULATION_MODEL_Test: 'sm_Experimental_Setup'
     batch: 128.0
-    max_eps: 2000.0
+    max_eps: 5000.0
     ACCEPTABLE_DELTA : 0.04
     action_range: [0.01, 130.0]
 
@@ -16,29 +21,55 @@ Hyper_array:
     VALVE_SIMULATION_MODEL_Train: 'sm_DDPG_Training_Circuit_h1'
     VALVE_SIMULATION_MODEL_Test: 'sm_Experimental_Setup'
     batch: 128.0
-    max_eps: 2000.0
+    max_eps: 5000.0
     ACCEPTABLE_DELTA : 0.04
     action_range: [0.01, 110.0]
   h3:
     VALVE_SIMULATION_MODEL_Train: 'sm_DDPG_Training_Circuit_h1'
     VALVE_SIMULATION_MODEL_Test: 'sm_Experimental_Setup'
     batch: 128.0
-    max_eps: 2000.0
+    max_eps: 5000.0
     ACCEPTABLE_DELTA: 0.04
     action_range: [0.01, 90.0]
   h4:
     VALVE_SIMULATION_MODEL_Train: 'sm_DDPG_Training_Circuit_h1'
     VALVE_SIMULATION_MODEL_Test: 'sm_Experimental_Setup'
     batch: 128.0
-    max_eps: 2000.0
+    max_eps: 5000.0
     ACCEPTABLE_DELTA: 0.04
     action_range: [0.01, 70.0]
   h5:
     VALVE_SIMULATION_MODEL_Train: 'sm_DDPG_Training_Circuit_h1'
     VALVE_SIMULATION_MODEL_Test: 'sm_Experimental_Setup'
     batch: 128.0
-    max_eps: 2000.0
+    max_eps: 5000.0
     ACCEPTABLE_DELTA: 0.04
     action_range: [0.01, 50.0]
-#  h2:
-#    VALVE_SIMULATION_MODEL: 'sm_DDPG_Training_Circuit'
+  h6:
+    VALVE_SIMULATION_MODEL_Train: 'sm_DDPG_Training_Circuit_h1'
+    VALVE_SIMULATION_MODEL_Test: 'sm_Experimental_Setup'
+    batch: 128.0
+    max_eps: 5000.0
+    ACCEPTABLE_DELTA: 0.04
+    action_range: [ 0.01, 30.0 ]
+  h7:
+    VALVE_SIMULATION_MODEL_Train: 'sm_DDPG_Training_Circuit_h1'
+    VALVE_SIMULATION_MODEL_Test: 'sm_Experimental_Setup'
+    batch: 128.0
+    max_eps: 5000.0
+    ACCEPTABLE_DELTA: 0.04
+    action_range: [ 0.01, 20.0 ]
+  h8:
+    VALVE_SIMULATION_MODEL_Train: 'sm_DDPG_Training_Circuit_h1'
+    VALVE_SIMULATION_MODEL_Test: 'sm_Experimental_Setup'
+    batch: 128.0
+    max_eps: 5000.0
+    ACCEPTABLE_DELTA: 0.04
+    action_range: [ 0.01, 15.0 ]
+  h9:
+    VALVE_SIMULATION_MODEL_Train: 'sm_DDPG_Training_Circuit_h1'
+    VALVE_SIMULATION_MODEL_Test: 'sm_Experimental_Setup'
+    batch: 128.0
+    max_eps: 5000.0
+    ACCEPTABLE_DELTA: 0.04
+    action_range: [ 0.01, 10.0 ]

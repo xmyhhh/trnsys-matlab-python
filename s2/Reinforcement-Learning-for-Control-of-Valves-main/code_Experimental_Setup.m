@@ -97,18 +97,38 @@ sprintf (' ---- Testing model: %s', PRE_TRAINED_MODEL_FILE)
 sprintf (' ---- Parameters: Time-Delay: %3.2f, fS: %3.2f, fD: %3.2f', TIME_DELAY, fS, fD)
         
 env = rlSimulinkEnv(VALVE_SIMULATION_MODEL, RL_AGENT, obsInfo, actInfo);
-simOpts = rlSimulationOptions('MaxSteps', 100);
+simOpts = rlSimulationOptions('MaxSteps', hyper_sample_time);
 experiences = sim(env, agent, simOpts);
 
 
 set(0,'DefaultFigureVisible','off');
 %plot RL&PID
 figure
-hold on
+set(gcf,'position',[50,50,5000,10000]);
+subplot(311)
+
 plot(experiences.SimulationInfo.tcw2_rl,'r')
+hold on
 plot(experiences.SimulationInfo.reference,'g')
+hold on
 plot(experiences.SimulationInfo.tcw2_pid,'b')
+title('rl-pid-ref')
 legend('RL','Setting','PID')
+
+subplot(312)
+plot(experiences.Action.flow,'r')
+title('rl_Action')
+legend('RL-Action')
+
+subplot(313)
+% plot(experiences.Observation.observations.Time, experiences.Observation.observations.Data(1,:), 'r');
+% hold on
+plot(experiences.Observation.observations.Time, experiences.Observation.observations.Data(2,:), 'g');
+hold on
+plot(experiences.Observation.observations.Time, experiences.Observation.observations.Data(3,:), 'b');
+title('rl_Observation')
+legend('Observation-delta','Observation-accDelta');
+
 saveas(gcf, strcat(MODELS_PATH, "pid_vs_rl.png"))
 
 

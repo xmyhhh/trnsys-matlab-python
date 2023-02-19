@@ -65,7 +65,7 @@
 
 
 delete(gcp('nocreate'))
-pool = parpool(3);
+pool = parpool(2);
 
 tstart= datetime();
 
@@ -87,8 +87,8 @@ USE_PRE_TRAINED_MODEL = false;
 PRE_TRAINED_MODEL_FILE = 'Grade_I.mat';
 
 %% Set training parameters
-SAVE_AGENT_THRESHOLD = 700;     % Save a point-model at this avg. reward 
-STOP_TRAINING = 730;            % Stop model training at this avg. reward 
+SAVE_AGENT_THRESHOLD = 900;     % Save a point-model at this avg. reward
+STOP_TRAINING = 1000;            % Stop model training at this avg. reward
 MAX_REWARD = STOP_TRAINING;     % Stop model training at this avg. reward
 
 %% GRADED LEARNING PARAMETERS
