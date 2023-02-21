@@ -1,0 +1,4028 @@
+!-   ===========  BUI-Template for TRNSYS 17 ==========
+!-T17_Template_Start
+!-*********************************************************************************************************************************************************************************************************
+!-*  TRNBuild   1.0.142
+!-*********************************************************************************************************************************************************************************************************
+!-*   BUILDING DESCRIPTIONS FILE TRNSYS
+!-*   FOR BUILDING:   
+!-*   GET BY WORKING WITH TRNBuild 1.0 for Windows
+!-*********************************************************************************************************************************************************************************************************
+!-*
+!-*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+!-*  C o m m e n t s
+!-*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+!-*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+!-*  P r o j e c t
+!-*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+!-*+++ PROJECT
+!-*+++ TITLE=UNDEFINED
+!-*+++ DESCRIPTION=UNDEFINED
+!-*+++ CREATED=UNDEFINED
+!-*+++ ADDRESS=UNDEFINED
+!-*+++ CITY=UNDEFINED
+!-*+++ SWITCH=UNDEFINED
+!-*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+!-*  P r o p e r t i e s
+!-*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+!-PROPERTIES
+!- DENSITY=1.204 : CAPACITY=1.012 : PRESSURE=101325.000 : HVAPOR=2454.0 : SIGMA=2.041e-007 : RTEMP=293.15
+!-*--- alpha calculation -------------------
+!- KFLOORUP=7.2 : EFLOORUP=0.31 : KFLOORDOWN=3.888 : EFLOORDOWN=0.31
+!- KCEILUP=7.2 : ECEILUP=0.31 : KCEILDOWN=3.888 : ECEILDOWN=0.31
+!- KVERTICAL=5.76 : EVERTICAL=0.3
+!-*
+!-*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+!-TYPES
+!-*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+!-*
+!-*--------------------------------------------------------------------------------------
+!-*  L a y e r s
+!-*--------------------------------------------------------------------------------------
+!-LAYER PLASTERBOA
+!- CONDUCTIVITY=  0.576 : CAPACITY=   0.84 : DENSITY=    950
+!-LAYER FBRGLS_ASHRAE
+!- CONDUCTIVITY=  0.144 : CAPACITY=   0.84 : DENSITY=     12
+!-LAYER WD_SIDN_ASHRA
+!- CONDUCTIVITY=  0.504 : CAPACITY=    0.9 : DENSITY=    530
+!-LAYER TMBR_FLR_ASHR
+!- CONDUCTIVITY=  0.504 : CAPACITY=    1.2 : DENSITY=    650
+!-LAYER INS_FLR_ASH
+!- RESISTANCE=    6.965
+!-LAYER RFDCK_ASHRAE
+!- CONDUCTIVITY=  0.504 : CAPACITY=    0.9 : DENSITY=    530
+!-LAYER CONC_SLAB
+!- CONDUCTIVITY=  4.068 : CAPACITY=      1 : DENSITY=   1400
+!-LAYER INS_FLR_ASH_900
+!- RESISTANCE=    6.993
+!-*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+!-*  I n p u t s
+!-*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+!-INPUTS TGROUND TBOUNDARY BRIGHT
+!-*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+!-*  S c h e d u l e s
+!-*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+!-SCHEDULE WORKDAY
+!- HOURS =0.000 8.000 18.000 24.0
+!- VALUES=0 1. 0 0 
+!-SCHEDULE WEEKEND
+!- HOURS =0.000 1.000 24.0
+!- VALUES=0 0 0 
+!-SCHEDULE WORKLIGHT
+!- HOURS =0.000 8.000 18.000 24.0
+!- VALUES=0 1. 0 0 
+!-SCHEDULE DAYNIGHT
+!- HOURS =0.000 6.000 18.000 24.0
+!- VALUES=0 1. 0 0 
+!-SCHEDULE USE
+!- DAYS=1 2 3 4 5 6 7
+!- HOURLY=WORKDAY WORKDAY WORKDAY WORKDAY WORKDAY WEEKEND WEEKEND
+!-SCHEDULE LIGHT
+!- DAYS=1 2 3 4 5 6 7
+!- HOURLY=WORKLIGHT WORKLIGHT WORKLIGHT WORKLIGHT WORKLIGHT WEEKEND WEEKEND
+!-SCHEDULE SETOFF
+!- DAYS=1 2 3 4 5 6 7
+!- HOURLY=DAYNIGHT DAYNIGHT DAYNIGHT DAYNIGHT DAYNIGHT WEEKEND WEEKEND
+!-*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+!-*  W a l l s
+!-*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+!-WALL BND_WALL
+!- LAYERS   = PLASTERBOA FBRGLS_ASHRAE PLASTERBOA 
+!- THICKNESS= 0.012      0.066         0.012     
+!- ABS-FRONT= 0.6   : ABS-BACK= 0.6  
+!- EPS-FRONT= 0.9   : EPS-BACK= 0.9  
+!- HFRONT   = 11 : HBACK= 11
+!-WALL EXT_WALL
+!- LAYERS   = PLASTERBOA FBRGLS_ASHRAE WD_SIDN_ASHRA 
+!- THICKNESS= 0.012      0.066         0.009     
+!- ABS-FRONT= 0.6   : ABS-BACK= 0.6  
+!- EPS-FRONT= 0.9   : EPS-BACK= 0.9  
+!- HFRONT   = 11 : HBACK= 64
+!-WALL EXT_ROOF
+!- LAYERS   = PLASTERBOA FBRGLS_ASHRAE RFDCK_ASHRAE  
+!- THICKNESS= 0.01       0.112         0.019      
+!- ABS-FRONT= 0.6   : ABS-BACK= 0.6  
+!- EPS-FRONT= 0.9   : EPS-BACK= 0.9  
+!- HFRONT   = 11 : HBACK= 64
+!-WALL EXT_FLOOR
+!- LAYERS   = TMBR_FLR_ASHR INS_FLR_ASH 
+!- THICKNESS= 0.03       0     
+!- ABS-FRONT= 0.6   : ABS-BACK= 0.6  
+!- EPS-FRONT= 0.9   : EPS-BACK= 0.9  
+!- HFRONT   = 11 : HBACK= 11
+!-WALL BND_CEILING
+!- LAYERS   = CONC_SLAB 
+!- THICKNESS= 0.08         
+!- ABS-FRONT= 0.6   : ABS-BACK= 0.6  
+!- EPS-FRONT= 0.9   : EPS-BACK= 0.9  
+!- HFRONT   = 11 : HBACK= 11
+!-WALL BND_FLOOR
+!- LAYERS   = TMBR_FLR_ASHR INS_FLR_ASH 
+!- THICKNESS= 0.03       0     
+!- ABS-FRONT= 0.6   : ABS-BACK= 0.6  
+!- EPS-FRONT= 0.9   : EPS-BACK= 0.9  
+!- HFRONT   = 11 : HBACK= 11
+!-WALL GROUND_FLOOR
+!- LAYERS   = CONC_SLAB INS_FLR_ASH_900
+!- THICKNESS= 0.08      0     
+!- ABS-FRONT= 0.6   : ABS-BACK= 0.6  
+!- EPS-FRONT= 0.9   : EPS-BACK= 0.9  
+!- HFRONT   = 11 : HBACK= 0.001
+!-WALL ADJ_WALL
+!- LAYERS   = PLASTERBOA FBRGLS_ASHRAE PLASTERBOA 
+!- THICKNESS= 0.012      0.066         0.012     
+!- ABS-FRONT= 0.6   : ABS-BACK= 0.6  
+!- EPS-FRONT= 0.9   : EPS-BACK= 0.9  
+!- HFRONT   = 11 : HBACK= 11
+!-WALL ADJ_CEILING
+!- LAYERS   = CONC_SLAB 
+!- THICKNESS= 0.08         
+!- ABS-FRONT= 0.6   : ABS-BACK= 0.6  
+!- EPS-FRONT= 0.9   : EPS-BACK= 0.9  
+!- HFRONT   = 11 : HBACK= 11
+!-*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+!-*  W i n d o w s
+!-*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+!-WINDOW EXT_WINDOW1
+!- WINID=6001 : HINSIDE=11 : HOUTSIDE=64 : SLOPE=90 : SPACID=0 : WWID=0.77 : WHEIG=1.08 : FFRAME=0.3 : UFRAME=10.9091 : ABSFRAME=0.6 : RISHADE=0 : RESHADE=0 : REFLISHADE=0.5 : REFLOSHADE=0.5 : ;
+!- CCISHADE=0.5 : EPSFRAME=0.9 : EPSISHADE=0.9
+!-WINDOW EXT_WINDOW2
+!- WINID=6001 : HINSIDE=11 : HOUTSIDE=64 : SLOPE=90 : SPACID=0 : WWID=0.77 : WHEIG=1.08 : FFRAME=0.3 : UFRAME=10.9091 : ABSFRAME=0.6 : RISHADE=0 : RESHADE=0 : REFLISHADE=0.5 : REFLOSHADE=0.5 : ;
+!- CCISHADE=0.5 : EPSFRAME=0.9 : EPSISHADE=0.9
+!-WINDOW ADJ_WINDOW
+!- WINID=6001 : HINSIDE=11 : HOUTSIDE=64 : SLOPE=90 : SPACID=0 : WWID=0.77 : WHEIG=1.08 : FFRAME=0.3 : UFRAME=10.9091 : ABSFRAME=0.6 : RISHADE=0 : RESHADE=0 : REFLISHADE=0.5 : REFLOSHADE=0.5 : ;
+!- CCISHADE=0.5 : EPSFRAME=0.9 : EPSISHADE=0.9
+!-*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+!-*  D e f a u l t  G a i n s
+!-*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+!-*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+!-*  O t h e r  G a i n s
+!-*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+!-*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+!-*  C o m f o r t
+!-*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+!-*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+!-*  I n f i l t r a t i o n
+!-*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+!-*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+!-*  V e n t i l a t i o n
+!-*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+!-*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+!-*  C o o l i n g
+!-*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+!-*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+!-*  H e a t i n g
+!-*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+!-*
+!-*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+!-*  Z o n e s
+!-*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+!-ZONES 
+!-*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+!-*  O r i e n t a t i o n s
+!-*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+!-ORIENTATIONS H_0_0 
+!-*
+!-*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+!-BUILDING
+!-*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+!-
+!-*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+!-*  O u t p u t s
+!-*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+!-OUTPUTS
+!- TRANSFER : TIMEBASE=1.000
+!- DEFAULT
+!-*
+!-*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+!-*  E n d
+!-*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+!-END
+!-
+!-_EXTENSION_WINPOOL_START_
+!-Window 5.2  v5.2.17  DOE-2 Data File : Multi Band Calculation
+!-Unit System : SI
+!-Name        : DOE-2 WINDOW LIB
+!-Desc        : ASH140 DBLE - MOD
+!-Window ID   : 6001
+!-Tilt        : 90.0
+!-Glazings    : 2
+!-Frame       :  2 Al w/break            5.680
+!-Spacer      :  1 Class1                2.330  -0.010   0.138
+!-Total Height: 1500.0 mm
+!-Total Width : 1200.0 mm
+!-Glass Height: 1385.7 mm
+!-Glass Width : 1085.7 mm
+!-Mullion     : None
+!-Gap        Thick    Cond  dCond    Vis   dVis   Dens   dDens     Pr     dPr
+!-1 Air       13.0 0.02407  7.760  1.722  4.940  1.292 -0.0046  0.720 -0.0002
+!-2              0       0      0      0      0      0       0      0       0
+!-3              0       0      0      0      0      0       0      0       0
+!-4              0       0      0      0      0      0       0      0       0
+!-5              0       0      0      0      0      0       0      0       0
+!-Angle     0    10    20    30    40    50    60    70    80    90 Hemis
+!-Tsol  0.747 0.747 0.745 0.740 0.730 0.707 0.652 0.517 0.263 0.000 0.652
+!-Abs1  0.064 0.065 0.066 0.068 0.071 0.075 0.080 0.086 0.094 0.000 0.080
+!-Abs2  0.052 0.053 0.053 0.055 0.057 0.058 0.059 0.054 0.041 0.000 0.059
+!-Abs3      0     0     0     0     0     0     0     0     0     0     0
+!-Abs4      0     0     0     0     0     0     0     0     0     0     0
+!-Abs5      0     0     0     0     0     0     0     0     0     0     0
+!-Abs6      0     0     0     0     0     0     0     0     0     0     0
+!-Rfsol 0.136 0.136 0.136 0.137 0.143 0.160 0.210 0.343 0.602 1.000 0.210
+!-Rbsol 0.136 0.136 0.136 0.137 0.143 0.160 0.210 0.343 0.602 1.000 0.210
+!-Tvis  0.747 0.747 0.745 0.740 0.730 0.707 0.652 0.517 0.263 0.000 0.652
+!-Rfvis 0.136 0.136 0.136 0.137 0.143 0.160 0.210 0.343 0.602 1.000 0.210
+!-Rbvis 0.136 0.136 0.136 0.137 0.143 0.160 0.210 0.343 0.602 1.000 0.210
+!-SHGC  0.789 0.789 0.787 0.782 0.769 0.739 0.668 0.519 0.267 0.000 0.688
+!-SC: 0.81
+!-Layer ID#         9991     9991        0        0        0        0
+!-Tir              0.000    0.000        0        0        0        0
+!-Emis F           0.840    0.840        0        0        0        0
+!-Emis B           0.840    0.840        0        0        0        0
+!-Thickness(mm)      3.2      3.2        0        0        0        0
+!-Cond(W/m2-K     ) 333.9    333.9        0        0        0        0
+!-Spectral File         None         None         None         None         None         None
+!-Overall and Center of Glass Ig U-values (W/m2-K)
+!-Outdoor Temperature                 -17.8 C      15.6 C      26.7 C      37.8 C
+!-Solar      WdSpd  hcout hrout  hin
+!-(W/m2)     (m/s)     (W/m2-K)
+!-0        0.00   4.00  3.39  2.43  2.12 2.12  2.24 2.24  2.32 2.32  2.49 2.49
+!-0        6.71  30.84  3.23  2.58  2.72 2.72  2.80 2.80  2.89 2.89  3.13 3.13
+!-783        0.00   4.00  3.52  2.03  2.12 2.12  2.24 2.24  2.32 2.32  2.49 2.49
+!-783        6.71  30.84  3.27  2.39  2.72 2.72  2.80 2.80  2.89 2.89  3.13 3.13
+!-*** END OF LIBRARY ***
+!-***************************************************************************************************
+!-*WinID   Description                              Design         U-Value g-value T-sol Rf-sol T-vis
+!-***************************************************************************************************
+!-  6001   ASH140 DBLE - MOD                        3.2/13/3.2       2.89  0.789  0.747  0.136  0.747
+!-_EXTENSION_WINPOOL_END_
+!-
+!-_EXTENSION_BuildingGeometry_START_
+!-
+!-_EXTENSION_BuildingGeometry_END_
+!-
+!-
+!-_EXTENSION_ExternalShadingGeometry_START_
+!-
+!-_EXTENSION_ExternalShadingGeometry_END_
+!-
+!-
+!-_EXTENSION_GeoPositionGeometry_START_
+!-_EXTENSION_GeoPositionGeometry_END_
+!-
+!-T17_Template_Stop
+
+
+!-   ===========  ALL OBJECTS IN CLASS: VERSION ===========
+Version,4;
+
+!-   ===========  ALL OBJECTS IN CLASS: BUILDING ===========
+Building,
+    TRNSYS17,                !- Name
+    0.0,                     !- North Axis {deg}
+    City,                    !- Terrain
+    0,                    !- Loads Convergence Tolerance Value
+    0,                     !- Temperature Convergence Tolerance Value {deltaC}
+    FullInteriorAndExterior, !- Solar Distribution
+    0;                      !- Maximum Number of Warmup Days
+
+!-   ===========  ALL OBJECTS IN CLASS: LOCATION ===========
+Site:Location,
+    not used,          !- LocationName
+    0.0,                 !- Latitude {deg}
+    0.0,                 !- Longitude {deg}
+    0.0,                 !- TimeZone {hr}
+    0;                 !- Elevation {m}
+
+GlobalGeometryRules,
+    UpperLeftCorner,         !- Starting Vertex Position
+    Counterclockwise,        !- Vertex Entry Direction
+    Absolute;                !- Coordinate System
+
+!-   ===========  ALL OBJECTS IN CLASS: CONSTRUCTION ===========
+Construction,
+    GROUND_FLOOR;      !- Name
+Construction,         
+    EXT_WALL;         !- Name
+Construction,    
+    EXT_FLOOR;        !- Name
+Construction,
+    EXT_ROOF;         !- Name
+Construction,
+    BND_WALL;         !- Name
+Construction,    
+    BND_FLOOR;        !- Name
+Construction,
+    BND_CEILING;      !- Name
+Construction,
+    ADJ_WALL;         !- Name
+Construction,
+    ADJ_CEILING;      !- Name
+Construction,
+    VirtualSurface;   !- Name
+Construction,
+    EXT_WINDOW1;         !- Name
+Construction,
+    EXT_WINDOW2;         !- Name
+Construction,
+    ADJ_WINDOW;          !- Name
+
+!-   ===========  ALL OBJECTS IN CLASS: SurfaceProperty:OtherSideCoefficients ===========
+SurfaceProperty:OtherSideCoefficients,
+    BOUNDARY=IDENTICAL;
+SurfaceProperty:OtherSideCoefficients,
+    BOUNDARY=INPUT 1*TBOUNDARY;
+SurfaceProperty:OtherSideCoefficients,   
+    BOUNDARY=INPUT 1*TGROUND;
+SurfaceProperty:OtherSideCoefficients,
+    BOUNDARY=20; 
+SurfaceProperty:OtherSideCoefficients,
+    BOUNDARY=15; 
+    
+!-   ===========  ALL OBJECTS IN CLASS: OUPUT ===========
+Output:VariableDictionary,Regular;  
+
+!-   ===========  ALL OBJECTS IN CLASS: Zone, Surface ===========
+
+
+
+
+Zone,
+  Room_4_Mult19_Flr_3,  !- Name
+  0.0000,  !- Direction of Relative North
+  0.0000,  !- X Origin
+  0.0000,  !- Y Origin
+  0.0000,  !- Z Origin
+  1,  !- Type
+  76,  !- Multiplier
+  ,  !- Ceiling Height
+  ,  !- Volume
+  ,  !- Zone Inside Convection Algorithm
+  ,  !- Zone Outside Convection Algorithm
+  Yes;  !- Part of Total Floor Area
+
+BuildingSurface:Detailed,
+  BD2E5A,  !- Name
+  Ceiling,  !- Surface Type
+  ADJ_CEILING,  !- Construction Name
+  Room_4_Mult19_Flr_3,  !- Zone Name
+  OtherSideCoefficients,  !- Outside Boundary Condition
+  BOUNDARY=IDENTICAL,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  0.0,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  10.363000000000,  22.860000000000,  10.056000000000,  !- X1, Y1, Z1
+  10.363000000000,  16.154000000000,  10.056000000000,  !- X2, Y2, Z2
+  14.021000000000,  16.154000000000,  10.056000000000,  !- X3, Y3, Z3
+  14.021000000000,  22.860000000000,  10.056000000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  D05F84,  !- Name
+  Floor,  !- Surface Type
+  ADJ_CEILING,  !- Construction Name
+  Room_4_Mult19_Flr_3,  !- Zone Name
+  OtherSideCoefficients,  !- Outside Boundary Condition
+  BOUNDARY=IDENTICAL,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  0.0,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  14.021000000000,  22.860000000000,  7.008000000000,  !- X1, Y1, Z1
+  14.021000000000,  16.154000000000,  7.008000000000,  !- X2, Y2, Z2
+  10.363000000000,  16.154000000000,  7.008000000000,  !- X3, Y3, Z3
+  10.363000000000,  22.860000000000,  7.008000000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  7CD0E2,  !- Name
+  Wall,  !- Surface Type
+  ADJ_WALL,  !- Construction Name
+  Room_4_Mult19_Flr_3,  !- Zone Name
+  OtherSideCoefficients,  !- Outside Boundary Condition
+  BOUNDARY=IDENTICAL,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  0.0,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  14.021000000000,  16.154000000000,  10.056000000000,  !- X1, Y1, Z1
+  14.021000000000,  16.154000000000,  7.008000000000,  !- X2, Y2, Z2
+  14.021000000000,  22.860000000000,  7.008000000000,  !- X3, Y3, Z3
+  14.021000000000,  22.860000000000,  10.056000000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  66B81B,  !- Name
+  Wall,  !- Surface Type
+  EXT_WALL,  !- Construction Name
+  Room_4_Mult19_Flr_3,  !- Zone Name
+  Outdoors,  !- Outside Boundary Condition
+  ,  !- Outside Boundary Condition Object
+  SunExposed,  !- Sun Exposure
+  WindExposed,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  14.021000000000,  22.860000000000,  10.056000000000,  !- X1, Y1, Z1
+  14.021000000000,  22.860000000000,  7.008000000000,  !- X2, Y2, Z2
+  10.363000000000,  22.860000000000,  7.008000000000,  !- X3, Y3, Z3
+  10.363000000000,  22.860000000000,  10.056000000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  1D949E,  !- Name
+  Wall,  !- Surface Type
+  ADJ_WALL,  !- Construction Name
+  Room_4_Mult19_Flr_3,  !- Zone Name
+  Surface,  !- Outside Boundary Condition
+  Room_4_Mult19_Flr_3_Wall_South,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  10.363000000000,  16.154000000000,  10.056000000000,  !- X1, Y1, Z1
+  10.363000000000,  16.154000000000,  7.008000000000,  !- X2, Y2, Z2
+  14.021000000000,  16.154000000000,  7.008000000000,  !- X3, Y3, Z3
+  14.021000000000,  16.154000000000,  10.056000000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  F2A3B8,  !- Name
+  Wall,  !- Surface Type
+  ADJ_WALL,  !- Construction Name
+  Room_4_Mult19_Flr_3,  !- Zone Name
+  Zone,  !- Outside Boundary Condition
+  Corridor_Flr_3,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  10.363000000000,  22.860000000000,  10.056000000000,  !- X1, Y1, Z1
+  10.363000000000,  22.860000000000,  7.008000000000,  !- X2, Y2, Z2
+  10.363000000000,  16.154000000000,  7.008000000000,  !- X3, Y3, Z3
+  10.363000000000,  16.154000000000,  10.056000000000;  !- X4, Y4, Z4
+
+FenestrationSurface:Detailed,
+  71ADBE,  !- Name
+  Window,  !- Surface Type
+  EXT_WINDOW1,  !- Construction Name
+  66B81B,  !- Building Surface Name
+  ,  !- Outside Boundary Condition Object
+  AutoCalculate,  !- View Factor to Ground
+  ,  !- Shading Control Name
+  ,  !- Frame and Divider Name
+  1.0000,  !- Multiplier
+  4,  !- Number of Vertices
+  13.701000000000,  22.860000000000,  9.331800000000,  !- X1, Y1, Z1
+  13.701000000000,  22.860000000000,  8.112800000000,  !- X2, Y2, Z2
+  10.683000000000,  22.860000000000,  8.112800000000,  !- X3, Y3, Z3
+  10.683000000000,  22.860000000000,  9.331800000000;  !- X4, Y4, Z4
+
+Zone,
+  Kitchen_Flr_6,  !- Name
+  0.0000,  !- Direction of Relative North
+  0.0000,  !- X Origin
+  0.0000,  !- Y Origin
+  0.0000,  !- Z Origin
+  1,  !- Type
+  1,  !- Multiplier
+  ,  !- Ceiling Height
+  ,  !- Volume
+  ,  !- Zone Inside Convection Algorithm
+  ,  !- Zone Outside Convection Algorithm
+  Yes;  !- Part of Total Floor Area
+
+BuildingSurface:Detailed,
+  420E65,  !- Name
+  Roof,  !- Surface Type
+  EXT_ROOF,  !- Construction Name
+  Kitchen_Flr_6,  !- Zone Name
+  Outdoors,  !- Outside Boundary Condition
+  ,  !- Outside Boundary Condition Object
+  SunExposed,  !- Sun Exposure
+  WindExposed,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  6,  !- Number of Vertices
+  79.553000000000,  22.860000000000,  19.200000000000,  !- X1, Y1, Z1
+  79.553000000000,  12.497000000000,  19.200000000000,  !- X2, Y2, Z2
+  81.991000000000,  12.497000000000,  19.200000000000,  !- X3, Y3, Z3
+  81.991000000000,  5.791000000000,  19.200000000000,  !- X4, Y4, Z4
+  86.563000000000,  5.791000000000,  19.200000000000,  !- X5, Y5, Z5
+  86.563000000000,  22.860000000000,  19.200000000000;  !- X6, Y6, Z6
+
+BuildingSurface:Detailed,
+  B8FA4C,  !- Name
+  Floor,  !- Surface Type
+  ADJ_CEILING,  !- Construction Name
+  Kitchen_Flr_6,  !- Zone Name
+  OtherSideCoefficients,  !- Outside Boundary Condition
+  BOUNDARY=IDENTICAL,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  0.0,  !- View Factor to Ground
+  6,  !- Number of Vertices
+  86.563000000000,  22.860000000000,  16.152000000000,  !- X1, Y1, Z1
+  86.563000000000,  5.791000000000,  16.152000000000,  !- X2, Y2, Z2
+  81.991000000000,  5.791000000000,  16.152000000000,  !- X3, Y3, Z3
+  81.991000000000,  12.497000000000,  16.152000000000,  !- X4, Y4, Z4
+  79.553000000000,  12.497000000000,  16.152000000000,  !- X5, Y5, Z5
+  79.553000000000,  22.860000000000,  16.152000000000;  !- X6, Y6, Z6
+
+BuildingSurface:Detailed,
+  8BB5AD,  !- Name
+  Wall,  !- Surface Type
+  EXT_WALL,  !- Construction Name
+  Kitchen_Flr_6,  !- Zone Name
+  Outdoors,  !- Outside Boundary Condition
+  ,  !- Outside Boundary Condition Object
+  SunExposed,  !- Sun Exposure
+  WindExposed,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  81.991000000000,  5.791000000000,  19.200000000000,  !- X1, Y1, Z1
+  81.991000000000,  5.791000000000,  16.152000000000,  !- X2, Y2, Z2
+  86.563000000000,  5.791000000000,  16.152000000000,  !- X3, Y3, Z3
+  86.563000000000,  5.791000000000,  19.200000000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  AFD0E1,  !- Name
+  Wall,  !- Surface Type
+  ADJ_WALL,  !- Construction Name
+  Kitchen_Flr_6,  !- Zone Name
+  Zone,  !- Outside Boundary Condition
+  Corridor_Flr_6,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  81.991000000000,  12.497000000000,  19.200000000000,  !- X1, Y1, Z1
+  81.991000000000,  12.497000000000,  16.152000000000,  !- X2, Y2, Z2
+  81.991000000000,  5.791000000000,  16.152000000000,  !- X3, Y3, Z3
+  81.991000000000,  5.791000000000,  19.200000000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  2E3F15,  !- Name
+  Wall,  !- Surface Type
+  ADJ_WALL,  !- Construction Name
+  Kitchen_Flr_6,  !- Zone Name
+  Surface,  !- Outside Boundary Condition
+  Kitchen_Flr_6_Wall_2_South,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  79.553000000000,  12.497000000000,  19.200000000000,  !- X1, Y1, Z1
+  79.553000000000,  12.497000000000,  16.152000000000,  !- X2, Y2, Z2
+  81.991000000000,  12.497000000000,  16.152000000000,  !- X3, Y3, Z3
+  81.991000000000,  12.497000000000,  19.200000000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  E7799E,  !- Name
+  Wall,  !- Surface Type
+  ADJ_WALL,  !- Construction Name
+  Kitchen_Flr_6,  !- Zone Name
+  Zone,  !- Outside Boundary Condition
+  Dining_Flr_6,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  79.553000000000,  22.860000000000,  19.200000000000,  !- X1, Y1, Z1
+  79.553000000000,  22.860000000000,  16.152000000000,  !- X2, Y2, Z2
+  79.553000000000,  12.497000000000,  16.152000000000,  !- X3, Y3, Z3
+  79.553000000000,  12.497000000000,  19.200000000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  CF0A6C,  !- Name
+  Wall,  !- Surface Type
+  EXT_WALL,  !- Construction Name
+  Kitchen_Flr_6,  !- Zone Name
+  Outdoors,  !- Outside Boundary Condition
+  ,  !- Outside Boundary Condition Object
+  SunExposed,  !- Sun Exposure
+  WindExposed,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  86.563000000000,  5.791000000000,  19.200000000000,  !- X1, Y1, Z1
+  86.563000000000,  5.791000000000,  16.152000000000,  !- X2, Y2, Z2
+  86.563000000000,  22.860000000000,  16.152000000000,  !- X3, Y3, Z3
+  86.563000000000,  22.860000000000,  19.200000000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  D575BB,  !- Name
+  Wall,  !- Surface Type
+  EXT_WALL,  !- Construction Name
+  Kitchen_Flr_6,  !- Zone Name
+  Outdoors,  !- Outside Boundary Condition
+  ,  !- Outside Boundary Condition Object
+  SunExposed,  !- Sun Exposure
+  WindExposed,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  86.563000000000,  22.860000000000,  19.200000000000,  !- X1, Y1, Z1
+  86.563000000000,  22.860000000000,  16.152000000000,  !- X2, Y2, Z2
+  79.553000000000,  22.860000000000,  16.152000000000,  !- X3, Y3, Z3
+  79.553000000000,  22.860000000000,  19.200000000000;  !- X4, Y4, Z4
+
+FenestrationSurface:Detailed,
+  A902A1,  !- Name
+  Window,  !- Surface Type
+  EXT_WINDOW1,  !- Construction Name
+  8BB5AD,  !- Building Surface Name
+  ,  !- Outside Boundary Condition Object
+  AutoCalculate,  !- View Factor to Ground
+  ,  !- Shading Control Name
+  ,  !- Frame and Divider Name
+  1.0000,  !- Multiplier
+  4,  !- Number of Vertices
+  82.391000000000,  5.791000000000,  18.484000000000,  !- X1, Y1, Z1
+  82.391000000000,  5.791000000000,  17.264000000000,  !- X2, Y2, Z2
+  86.163000000000,  5.791000000000,  17.264000000000,  !- X3, Y3, Z3
+  86.163000000000,  5.791000000000,  18.484000000000;  !- X4, Y4, Z4
+
+FenestrationSurface:Detailed,
+  2A0B56,  !- Name
+  Window,  !- Surface Type
+  EXT_WINDOW1,  !- Construction Name
+  CF0A6C,  !- Building Surface Name
+  ,  !- Outside Boundary Condition Object
+  AutoCalculate,  !- View Factor to Ground
+  ,  !- Shading Control Name
+  ,  !- Frame and Divider Name
+  1.0000,  !- Multiplier
+  4,  !- Number of Vertices
+  86.563000000000,  7.285000000000,  18.484000000000,  !- X1, Y1, Z1
+  86.563000000000,  7.285000000000,  17.264000000000,  !- X2, Y2, Z2
+  86.563000000000,  21.366000000000,  17.264000000000,  !- X3, Y3, Z3
+  86.563000000000,  21.366000000000,  18.484000000000;  !- X4, Y4, Z4
+
+FenestrationSurface:Detailed,
+  C1AAAD,  !- Name
+  Window,  !- Surface Type
+  EXT_WINDOW1,  !- Construction Name
+  D575BB,  !- Building Surface Name
+  ,  !- Outside Boundary Condition Object
+  AutoCalculate,  !- View Factor to Ground
+  ,  !- Shading Control Name
+  ,  !- Frame and Divider Name
+  1.0000,  !- Multiplier
+  4,  !- Number of Vertices
+  86.163000000000,  22.860000000000,  18.484000000000,  !- X1, Y1, Z1
+  86.163000000000,  22.860000000000,  17.264000000000,  !- X2, Y2, Z2
+  82.391000000000,  22.860000000000,  17.264000000000,  !- X3, Y3, Z3
+  82.391000000000,  22.860000000000,  18.484000000000;  !- X4, Y4, Z4
+
+Zone,
+  Mech_Flr_1,  !- Name
+  0.0000,  !- Direction of Relative North
+  0.0000,  !- X Origin
+  0.0000,  !- Y Origin
+  0.0000,  !- Z Origin
+  1,  !- Type
+  1,  !- Multiplier
+  ,  !- Ceiling Height
+  ,  !- Volume
+  ,  !- Zone Inside Convection Algorithm
+  ,  !- Zone Outside Convection Algorithm
+  Yes;  !- Part of Total Floor Area
+
+BuildingSurface:Detailed,
+  AE5EA8,  !- Name
+  Ceiling,  !- Surface Type
+  ADJ_CEILING,  !- Construction Name
+  Mech_Flr_1,  !- Zone Name
+  OtherSideCoefficients,  !- Outside Boundary Condition
+  BOUNDARY=IDENTICAL,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  0.0,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  53.950000000000,  22.860000000000,  3.962400000000,  !- X1, Y1, Z1
+  53.950000000000,  12.497000000000,  3.962400000000,  !- X2, Y2, Z2
+  69.799000000000,  12.497000000000,  3.962400000000,  !- X3, Y3, Z3
+  69.799000000000,  22.860000000000,  3.962400000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  DFBF83,  !- Name
+  Floor,  !- Surface Type
+  ADJ_CEILING,  !- Construction Name
+  Mech_Flr_1,  !- Zone Name
+  Zone,  !- Outside Boundary Condition
+  Basement,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  69.799000000000,  22.860000000000,  0.000000000000,  !- X1, Y1, Z1
+  69.799000000000,  12.497000000000,  0.000000000000,  !- X2, Y2, Z2
+  53.950000000000,  12.497000000000,  0.000000000000,  !- X3, Y3, Z3
+  53.950000000000,  22.860000000000,  0.000000000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  23DE08,  !- Name
+  Wall,  !- Surface Type
+  ADJ_WALL,  !- Construction Name
+  Mech_Flr_1,  !- Zone Name
+  Zone,  !- Outside Boundary Condition
+  Storage_Flr_1,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  69.799000000000,  12.497000000000,  3.962400000000,  !- X1, Y1, Z1
+  69.799000000000,  12.497000000000,  0.000000000000,  !- X2, Y2, Z2
+  69.799000000000,  22.860000000000,  0.000000000000,  !- X3, Y3, Z3
+  69.799000000000,  22.860000000000,  3.962400000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  F8FB16,  !- Name
+  Wall,  !- Surface Type
+  EXT_WALL,  !- Construction Name
+  Mech_Flr_1,  !- Zone Name
+  Outdoors,  !- Outside Boundary Condition
+  ,  !- Outside Boundary Condition Object
+  SunExposed,  !- Sun Exposure
+  WindExposed,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  69.799000000000,  22.860000000000,  3.962400000000,  !- X1, Y1, Z1
+  69.799000000000,  22.860000000000,  0.000000000000,  !- X2, Y2, Z2
+  53.950000000000,  22.860000000000,  0.000000000000,  !- X3, Y3, Z3
+  53.950000000000,  22.860000000000,  3.962400000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  40E6B9,  !- Name
+  Wall,  !- Surface Type
+  ADJ_WALL,  !- Construction Name
+  Mech_Flr_1,  !- Zone Name
+  Zone,  !- Outside Boundary Condition
+  Lobby_Flr_1,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  53.950000000000,  12.497000000000,  3.962400000000,  !- X1, Y1, Z1
+  53.950000000000,  12.497000000000,  0.000000000000,  !- X2, Y2, Z2
+  69.799000000000,  12.497000000000,  0.000000000000,  !- X3, Y3, Z3
+  69.799000000000,  12.497000000000,  3.962400000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  74A60B,  !- Name
+  Wall,  !- Surface Type
+  ADJ_WALL,  !- Construction Name
+  Mech_Flr_1,  !- Zone Name
+  Zone,  !- Outside Boundary Condition
+  Lobby_Flr_1,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  53.950000000000,  22.860000000000,  3.962400000000,  !- X1, Y1, Z1
+  53.950000000000,  22.860000000000,  0.000000000000,  !- X2, Y2, Z2
+  53.950000000000,  12.497000000000,  0.000000000000,  !- X3, Y3, Z3
+  53.950000000000,  12.497000000000,  3.962400000000;  !- X4, Y4, Z4
+
+Zone,
+  Room_3_Mult9_Flr_6,  !- Name
+  0.0000,  !- Direction of Relative North
+  0.0000,  !- X Origin
+  0.0000,  !- Y Origin
+  0.0000,  !- Z Origin
+  1,  !- Type
+  9,  !- Multiplier
+  ,  !- Ceiling Height
+  ,  !- Volume
+  ,  !- Zone Inside Convection Algorithm
+  ,  !- Zone Outside Convection Algorithm
+  Yes;  !- Part of Total Floor Area
+
+BuildingSurface:Detailed,
+  8AD440,  !- Name
+  Wall,  !- Surface Type
+  ADJ_WALL,  !- Construction Name
+  Room_3_Mult9_Flr_6,  !- Zone Name
+  OtherSideCoefficients,  !- Outside Boundary Condition
+  BOUNDARY=IDENTICAL,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  0.0,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  11.278000000000,  5.791000000000,  19.200000000000,  !- X1, Y1, Z1
+  11.278000000000,  5.791000000000,  16.152000000000,  !- X2, Y2, Z2
+  11.278000000000,  9.449000000000,  16.152000000000,  !- X3, Y3, Z3
+  11.278000000000,  9.449000000000,  19.200000000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  5C5A09,  !- Name
+  Roof,  !- Surface Type
+  EXT_ROOF,  !- Construction Name
+  Room_3_Mult9_Flr_6,  !- Zone Name
+  Outdoors,  !- Outside Boundary Condition
+  ,  !- Outside Boundary Condition Object
+  SunExposed,  !- Sun Exposure
+  WindExposed,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  4.572000000000,  9.449000000000,  19.200000000000,  !- X1, Y1, Z1
+  4.572000000000,  5.791000000000,  19.200000000000,  !- X2, Y2, Z2
+  11.278000000000,  5.791000000000,  19.200000000000,  !- X3, Y3, Z3
+  11.278000000000,  9.449000000000,  19.200000000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  840155,  !- Name
+  Floor,  !- Surface Type
+  ADJ_CEILING,  !- Construction Name
+  Room_3_Mult9_Flr_6,  !- Zone Name
+  OtherSideCoefficients,  !- Outside Boundary Condition
+  BOUNDARY=IDENTICAL,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  0.0,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  11.278000000000,  9.449000000000,  16.152000000000,  !- X1, Y1, Z1
+  11.278000000000,  5.791000000000,  16.152000000000,  !- X2, Y2, Z2
+  4.572000000000,  5.791000000000,  16.152000000000,  !- X3, Y3, Z3
+  4.572000000000,  9.449000000000,  16.152000000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  CAD322,  !- Name
+  Wall,  !- Surface Type
+  ADJ_WALL,  !- Construction Name
+  Room_3_Mult9_Flr_6,  !- Zone Name
+  Surface,  !- Outside Boundary Condition
+  Room_3_Mult9_Flr_6_Wall_North,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  11.278000000000,  9.449000000000,  19.200000000000,  !- X1, Y1, Z1
+  11.278000000000,  9.449000000000,  16.152000000000,  !- X2, Y2, Z2
+  4.572000000000,  9.449000000000,  16.152000000000,  !- X3, Y3, Z3
+  4.572000000000,  9.449000000000,  19.200000000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  5E881C,  !- Name
+  Wall,  !- Surface Type
+  EXT_WALL,  !- Construction Name
+  Room_3_Mult9_Flr_6,  !- Zone Name
+  Outdoors,  !- Outside Boundary Condition
+  ,  !- Outside Boundary Condition Object
+  SunExposed,  !- Sun Exposure
+  WindExposed,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  4.572000000000,  5.791000000000,  19.200000000000,  !- X1, Y1, Z1
+  4.572000000000,  5.791000000000,  16.152000000000,  !- X2, Y2, Z2
+  11.278000000000,  5.791000000000,  16.152000000000,  !- X3, Y3, Z3
+  11.278000000000,  5.791000000000,  19.200000000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  2519E8,  !- Name
+  Wall,  !- Surface Type
+  ADJ_WALL,  !- Construction Name
+  Room_3_Mult9_Flr_6,  !- Zone Name
+  Surface,  !- Outside Boundary Condition
+  Room_3_Mult9_Flr_6_Wall_West,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  4.572000000000,  9.449000000000,  19.200000000000,  !- X1, Y1, Z1
+  4.572000000000,  9.449000000000,  16.152000000000,  !- X2, Y2, Z2
+  4.572000000000,  5.791000000000,  16.152000000000,  !- X3, Y3, Z3
+  4.572000000000,  5.791000000000,  19.200000000000;  !- X4, Y4, Z4
+
+FenestrationSurface:Detailed,
+  C107AB,  !- Name
+  Window,  !- Surface Type
+  EXT_WINDOW1,  !- Construction Name
+  5E881C,  !- Building Surface Name
+  ,  !- Outside Boundary Condition Object
+  AutoCalculate,  !- View Factor to Ground
+  ,  !- Shading Control Name
+  ,  !- Frame and Divider Name
+  1.0000,  !- Multiplier
+  4,  !- Number of Vertices
+  5.159000000000,  5.791000000000,  18.484000000000,  !- X1, Y1, Z1
+  5.159000000000,  5.791000000000,  17.264000000000,  !- X2, Y2, Z2
+  10.691000000000,  5.791000000000,  17.264000000000,  !- X3, Y3, Z3
+  10.691000000000,  5.791000000000,  18.484000000000;  !- X4, Y4, Z4
+
+Zone,
+  Room_1_Flr_36,  !- Name
+  0.0000,  !- Direction of Relative North
+  0.0000,  !- X Origin
+  0.0000,  !- Y Origin
+  0.0000,  !- Z Origin
+  1,  !- Type
+  1,  !- Multiplier
+  ,  !- Ceiling Height
+  ,  !- Volume
+  ,  !- Zone Inside Convection Algorithm
+  ,  !- Zone Outside Convection Algorithm
+  Yes;  !- Part of Total Floor Area
+
+BuildingSurface:Detailed,
+  FC07F8,  !- Name
+  Roof,  !- Surface Type
+  EXT_ROOF,  !- Construction Name
+  Room_1_Flr_36,  !- Zone Name
+  Outdoors,  !- Outside Boundary Condition
+  ,  !- Outside Boundary Condition Object
+  SunExposed,  !- Sun Exposure
+  WindExposed,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  0.000000000000,  14.326000000000,  19.200000000000,  !- X1, Y1, Z1
+  0.000000000000,  5.791000000000,  19.200000000000,  !- X2, Y2, Z2
+  4.572000000000,  5.791000000000,  19.200000000000,  !- X3, Y3, Z3
+  4.572000000000,  14.326000000000,  19.200000000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  ADA745,  !- Name
+  Floor,  !- Surface Type
+  ADJ_CEILING,  !- Construction Name
+  Room_1_Flr_36,  !- Zone Name
+  OtherSideCoefficients,  !- Outside Boundary Condition
+  BOUNDARY=IDENTICAL,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  0.0,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  4.572000000000,  14.326000000000,  16.152000000000,  !- X1, Y1, Z1
+  4.572000000000,  5.791000000000,  16.152000000000,  !- X2, Y2, Z2
+  0.000000000000,  5.791000000000,  16.152000000000,  !- X3, Y3, Z3
+  0.000000000000,  14.326000000000,  16.152000000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  50EC97,  !- Name
+  Wall,  !- Surface Type
+  ADJ_WALL,  !- Construction Name
+  Room_1_Flr_36,  !- Zone Name
+  Surface,  !- Outside Boundary Condition
+  Room_1_Flr_6_Wall_East,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  4.572000000000,  5.791000000000,  19.200000000000,  !- X1, Y1, Z1
+  4.572000000000,  5.791000000000,  16.152000000000,  !- X2, Y2, Z2
+  4.572000000000,  14.326000000000,  16.152000000000,  !- X3, Y3, Z3
+  4.572000000000,  14.326000000000,  19.200000000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  395174,  !- Name
+  Wall,  !- Surface Type
+  ADJ_WALL,  !- Construction Name
+  Room_1_Flr_36,  !- Zone Name
+  Zone,  !- Outside Boundary Condition
+  Room_2_Flr_6,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  4.572000000000,  14.326000000000,  19.200000000000,  !- X1, Y1, Z1
+  4.572000000000,  14.326000000000,  16.152000000000,  !- X2, Y2, Z2
+  0.000000000000,  14.326000000000,  16.152000000000,  !- X3, Y3, Z3
+  0.000000000000,  14.326000000000,  19.200000000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  192AA2,  !- Name
+  Wall,  !- Surface Type
+  EXT_WALL,  !- Construction Name
+  Room_1_Flr_36,  !- Zone Name
+  Outdoors,  !- Outside Boundary Condition
+  ,  !- Outside Boundary Condition Object
+  SunExposed,  !- Sun Exposure
+  WindExposed,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  0.000000000000,  5.791000000000,  19.200000000000,  !- X1, Y1, Z1
+  0.000000000000,  5.791000000000,  16.152000000000,  !- X2, Y2, Z2
+  4.572000000000,  5.791000000000,  16.152000000000,  !- X3, Y3, Z3
+  4.572000000000,  5.791000000000,  19.200000000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  A463EC,  !- Name
+  Wall,  !- Surface Type
+  EXT_WALL,  !- Construction Name
+  Room_1_Flr_36,  !- Zone Name
+  Outdoors,  !- Outside Boundary Condition
+  ,  !- Outside Boundary Condition Object
+  SunExposed,  !- Sun Exposure
+  WindExposed,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  0.000000000000,  14.326000000000,  19.200000000000,  !- X1, Y1, Z1
+  0.000000000000,  14.326000000000,  16.152000000000,  !- X2, Y2, Z2
+  0.000000000000,  5.791000000000,  16.152000000000,  !- X3, Y3, Z3
+  0.000000000000,  5.791000000000,  19.200000000000;  !- X4, Y4, Z4
+
+FenestrationSurface:Detailed,
+  A9449B,  !- Name
+  Window,  !- Surface Type
+  EXT_WINDOW1,  !- Construction Name
+  192AA2,  !- Building Surface Name
+  ,  !- Outside Boundary Condition Object
+  AutoCalculate,  !- View Factor to Ground
+  ,  !- Shading Control Name
+  ,  !- Frame and Divider Name
+  1.0000,  !- Multiplier
+  4,  !- Number of Vertices
+  0.400000000000,  5.791000000000,  18.484000000000,  !- X1, Y1, Z1
+  0.400000000000,  5.791000000000,  17.264000000000,  !- X2, Y2, Z2
+  4.172000000000,  5.791000000000,  17.264000000000,  !- X3, Y3, Z3
+  4.172000000000,  5.791000000000,  18.484000000000;  !- X4, Y4, Z4
+
+FenestrationSurface:Detailed,
+  777DEC,  !- Name
+  Window,  !- Surface Type
+  EXT_WINDOW1,  !- Construction Name
+  A463EC,  !- Building Surface Name
+  ,  !- Outside Boundary Condition Object
+  AutoCalculate,  !- View Factor to Ground
+  ,  !- Shading Control Name
+  ,  !- Frame and Divider Name
+  1.0000,  !- Multiplier
+  4,  !- Number of Vertices
+  0.000000000000,  13.579000000000,  18.484000000000,  !- X1, Y1, Z1
+  0.000000000000,  13.579000000000,  17.264000000000,  !- X2, Y2, Z2
+  0.000000000000,  6.538000000000,  17.264000000000,  !- X3, Y3, Z3
+  0.000000000000,  6.538000000000,  18.484000000000;  !- X4, Y4, Z4
+
+! ***ZONES***
+Zone,
+  Banquet_Flr_6,  !- Name
+  0.0000,  !- Direction of Relative North
+  0.0000,  !- X Origin
+  0.0000,  !- Y Origin
+  0.0000,  !- Z Origin
+  1,  !- Type
+  1,  !- Multiplier
+  ,  !- Ceiling Height
+  ,  !- Volume
+  ,  !- Zone Inside Convection Algorithm
+  ,  !- Zone Outside Convection Algorithm
+  Yes;  !- Part of Total Floor Area
+
+BuildingSurface:Detailed,
+  3229B7,  !- Name
+  Wall,  !- Surface Type
+  ADJ_WALL,  !- Construction Name
+  Banquet_Flr_6,  !- Zone Name
+  Zone,  !- Outside Boundary Condition
+  Corridor_Flr_6,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  42.367000000000,  12.497000000000,  19.200000000000,  !- X1, Y1, Z1
+  42.367000000000,  12.497000000000,  16.152000000000,  !- X2, Y2, Z2
+  42.367000000000,  22.860000000000,  16.152000000000,  !- X3, Y3, Z3
+  42.367000000000,  22.860000000000,  19.200000000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  265239,  !- Name
+  Wall,  !- Surface Type
+  EXT_WALL,  !- Construction Name
+  Banquet_Flr_6,  !- Zone Name
+  Outdoors,  !- Outside Boundary Condition
+  ,  !- Outside Boundary Condition Object
+  SunExposed,  !- Sun Exposure
+  WindExposed,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  42.367000000000,  22.860000000000,  19.200000000000,  !- X1, Y1, Z1
+  42.367000000000,  22.860000000000,  16.152000000000,  !- X2, Y2, Z2
+  10.363000000000,  22.860000000000,  16.152000000000,  !- X3, Y3, Z3
+  10.363000000000,  22.860000000000,  19.200000000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  948397,  !- Name
+  Wall,  !- Surface Type
+  ADJ_WALL,  !- Construction Name
+  Banquet_Flr_6,  !- Zone Name
+  Zone,  !- Outside Boundary Condition
+  Corridor_Flr_6,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  10.363000000000,  12.497000000000,  19.200000000000,  !- X1, Y1, Z1
+  10.363000000000,  12.497000000000,  16.152000000000,  !- X2, Y2, Z2
+  42.367000000000,  12.497000000000,  16.152000000000,  !- X3, Y3, Z3
+  42.367000000000,  12.497000000000,  19.200000000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  B5DE24,  !- Name
+  Wall,  !- Surface Type
+  ADJ_WALL,  !- Construction Name
+  Banquet_Flr_6,  !- Zone Name
+  Zone,  !- Outside Boundary Condition
+  Corridor_Flr_6,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  10.363000000000,  22.860000000000,  19.200000000000,  !- X1, Y1, Z1
+  10.363000000000,  22.860000000000,  16.152000000000,  !- X2, Y2, Z2
+  10.363000000000,  12.497000000000,  16.152000000000,  !- X3, Y3, Z3
+  10.363000000000,  12.497000000000,  19.200000000000;  !- X4, Y4, Z4
+
+! ***WALLS***
+BuildingSurface:Detailed,
+  7C8651,  !- Name
+  Roof,  !- Surface Type
+  EXT_ROOF,  !- Construction Name
+  Banquet_Flr_6,  !- Zone Name
+  Outdoors,  !- Outside Boundary Condition
+  ,  !- Outside Boundary Condition Object
+  SunExposed,  !- Sun Exposure
+  WindExposed,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  10.363000000000,  22.860000000000,  19.200000000000,  !- X1, Y1, Z1
+  10.363000000000,  12.497000000000,  19.200000000000,  !- X2, Y2, Z2
+  42.367000000000,  12.497000000000,  19.200000000000,  !- X3, Y3, Z3
+  42.367000000000,  22.860000000000,  19.200000000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  F28A2B,  !- Name
+  Floor,  !- Surface Type
+  ADJ_CEILING,  !- Construction Name
+  Banquet_Flr_6,  !- Zone Name
+  OtherSideCoefficients,  !- Outside Boundary Condition
+  BOUNDARY=IDENTICAL,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  0.0,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  42.367000000000,  22.860000000000,  16.152000000000,  !- X1, Y1, Z1
+  42.367000000000,  12.497000000000,  16.152000000000,  !- X2, Y2, Z2
+  10.363000000000,  12.497000000000,  16.152000000000,  !- X3, Y3, Z3
+  10.363000000000,  22.860000000000,  16.152000000000;  !- X4, Y4, Z4
+
+! ***WINDOWS & DOORS***
+FenestrationSurface:Detailed,
+  8B391B,  !- Name
+  Window,  !- Surface Type
+  EXT_WINDOW1,  !- Construction Name
+  265239,  !- Building Surface Name
+  ,  !- Outside Boundary Condition Object
+  AutoCalculate,  !- View Factor to Ground
+  ,  !- Shading Control Name
+  ,  !- Frame and Divider Name
+  1.0000,  !- Multiplier
+  4,  !- Number of Vertices
+  39.567000000000,  22.860000000000,  18.484000000000,  !- X1, Y1, Z1
+  39.567000000000,  22.860000000000,  17.264000000000,  !- X2, Y2, Z2
+  13.164000000000,  22.860000000000,  17.264000000000,  !- X3, Y3, Z3
+  13.164000000000,  22.860000000000,  18.484000000000;  !- X4, Y4, Z4
+
+Zone,
+  Retail_1_Flr_1,  !- Name
+  0.0000,  !- Direction of Relative North
+  0.0000,  !- X Origin
+  0.0000,  !- Y Origin
+  0.0000,  !- Z Origin
+  1,  !- Type
+  1,  !- Multiplier
+  ,  !- Ceiling Height
+  ,  !- Volume
+  ,  !- Zone Inside Convection Algorithm
+  ,  !- Zone Outside Convection Algorithm
+  Yes;  !- Part of Total Floor Area
+
+BuildingSurface:Detailed,
+  963B3E,  !- Name
+  Roof,  !- Surface Type
+  EXT_ROOF,  !- Construction Name
+  Retail_1_Flr_1,  !- Zone Name
+  Outdoors,  !- Outside Boundary Condition
+  ,  !- Outside Boundary Condition Object
+  SunExposed,  !- Sun Exposure
+  WindExposed,  !- Wind Exposure
+  0.0,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  0.000000000000,  5.791000000000,  3.962400000000,  !- X1, Y1, Z1
+  0.000000000000,  0.000000000000,  3.962400000000,  !- X2, Y2, Z2
+  11.582000000000,  0.000000000000,  3.962400000000,  !- X3, Y3, Z3
+  11.582000000000,  5.791000000000,  3.962400000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  CD9003,  !- Name
+  Floor,  !- Surface Type
+  ADJ_CEILING,  !- Construction Name
+  Retail_1_Flr_1,  !- Zone Name
+  Zone,  !- Outside Boundary Condition
+  Basement,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  11.582000000000,  5.791000000000,  0.000000000000,  !- X1, Y1, Z1
+  11.582000000000,  0.000000000000,  0.000000000000,  !- X2, Y2, Z2
+  0.000000000000,  0.000000000000,  0.000000000000,  !- X3, Y3, Z3
+  0.000000000000,  5.791000000000,  0.000000000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  49FD71,  !- Name
+  Wall,  !- Surface Type
+  ADJ_WALL,  !- Construction Name
+  Retail_1_Flr_1,  !- Zone Name
+  Zone,  !- Outside Boundary Condition
+  Lobby_Flr_1,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  11.582000000000,  0.000000000000,  3.962400000000,  !- X1, Y1, Z1
+  11.582000000000,  0.000000000000,  0.000000000000,  !- X2, Y2, Z2
+  11.582000000000,  5.791000000000,  0.000000000000,  !- X3, Y3, Z3
+  11.582000000000,  5.791000000000,  3.962400000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  4CE8CB,  !- Name
+  Wall,  !- Surface Type
+  ADJ_WALL,  !- Construction Name
+  Retail_1_Flr_1,  !- Zone Name
+  Zone,  !- Outside Boundary Condition
+  Retail_2_Flr_1,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  11.582000000000,  5.791000000000,  3.962400000000,  !- X1, Y1, Z1
+  11.582000000000,  5.791000000000,  0.000000000000,  !- X2, Y2, Z2
+  0.000000000000,  5.791000000000,  0.000000000000,  !- X3, Y3, Z3
+  0.000000000000,  5.791000000000,  3.962400000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  DC2F2C,  !- Name
+  Wall,  !- Surface Type
+  EXT_WALL,  !- Construction Name
+  Retail_1_Flr_1,  !- Zone Name
+  Outdoors,  !- Outside Boundary Condition
+  ,  !- Outside Boundary Condition Object
+  SunExposed,  !- Sun Exposure
+  WindExposed,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  0.000000000000,  0.000000000000,  3.962400000000,  !- X1, Y1, Z1
+  0.000000000000,  0.000000000000,  0.000000000000,  !- X2, Y2, Z2
+  11.582000000000,  0.000000000000,  0.000000000000,  !- X3, Y3, Z3
+  11.582000000000,  0.000000000000,  3.962400000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  52C58F,  !- Name
+  Wall,  !- Surface Type
+  EXT_WALL,  !- Construction Name
+  Retail_1_Flr_1,  !- Zone Name
+  Outdoors,  !- Outside Boundary Condition
+  ,  !- Outside Boundary Condition Object
+  SunExposed,  !- Sun Exposure
+  WindExposed,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  0.000000000000,  5.791000000000,  3.962400000000,  !- X1, Y1, Z1
+  0.000000000000,  5.791000000000,  0.000000000000,  !- X2, Y2, Z2
+  0.000000000000,  0.000000000000,  0.000000000000,  !- X3, Y3, Z3
+  0.000000000000,  0.000000000000,  3.962400000000;  !- X4, Y4, Z4
+
+FenestrationSurface:Detailed,
+  8DE9CD,  !- Name
+  Window,  !- Surface Type
+  EXT_WINDOW1,  !- Construction Name
+  DC2F2C,  !- Building Surface Name
+  ,  !- Outside Boundary Condition Object
+  AutoCalculate,  !- View Factor to Ground
+  ,  !- Shading Control Name
+  ,  !- Frame and Divider Name
+  1.0000,  !- Multiplier
+  4,  !- Number of Vertices
+  0.331000000000,  0.000000000000,  2.286000000000,  !- X1, Y1, Z1
+  0.331000000000,  0.000000000000,  0.152000000000,  !- X2, Y2, Z2
+  11.251000000000,  0.000000000000,  0.152000000000,  !- X3, Y3, Z3
+  11.251000000000,  0.000000000000,  2.286000000000;  !- X4, Y4, Z4
+
+Zone,
+  Room_2_Flr_6,  !- Name
+  0.0000,  !- Direction of Relative North
+  0.0000,  !- X Origin
+  0.0000,  !- Y Origin
+  0.0000,  !- Z Origin
+  1,  !- Type
+  1,  !- Multiplier
+  ,  !- Ceiling Height
+  ,  !- Volume
+  ,  !- Zone Inside Convection Algorithm
+  ,  !- Zone Outside Convection Algorithm
+  Yes;  !- Part of Total Floor Area
+
+BuildingSurface:Detailed,
+  8D6BF6,  !- Name
+  Roof,  !- Surface Type
+  EXT_ROOF,  !- Construction Name
+  Room_2_Flr_6,  !- Zone Name
+  Outdoors,  !- Outside Boundary Condition
+  ,  !- Outside Boundary Condition Object
+  SunExposed,  !- Sun Exposure
+  WindExposed,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  0.000000000000,  22.860000000000,  19.200000000000,  !- X1, Y1, Z1
+  0.000000000000,  14.326000000000,  19.200000000000,  !- X2, Y2, Z2
+  4.572000000000,  14.326000000000,  19.200000000000,  !- X3, Y3, Z3
+  4.572000000000,  22.860000000000,  19.200000000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  FA604C,  !- Name
+  Floor,  !- Surface Type
+  ADJ_CEILING,  !- Construction Name
+  Room_2_Flr_6,  !- Zone Name
+  OtherSideCoefficients,  !- Outside Boundary Condition
+  BOUNDARY=IDENTICAL,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  0.0,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  4.572000000000,  22.860000000000,  16.152000000000,  !- X1, Y1, Z1
+  4.572000000000,  14.326000000000,  16.152000000000,  !- X2, Y2, Z2
+  0.000000000000,  14.326000000000,  16.152000000000,  !- X3, Y3, Z3
+  0.000000000000,  22.860000000000,  16.152000000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  A4C7DD,  !- Name
+  Wall,  !- Surface Type
+  ADJ_WALL,  !- Construction Name
+  Room_2_Flr_6,  !- Zone Name
+  Surface,  !- Outside Boundary Condition
+  Room_2_Flr_6_Wall_East,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  4.572000000000,  14.326000000000,  19.200000000000,  !- X1, Y1, Z1
+  4.572000000000,  14.326000000000,  16.152000000000,  !- X2, Y2, Z2
+  4.572000000000,  22.860000000000,  16.152000000000,  !- X3, Y3, Z3
+  4.572000000000,  22.860000000000,  19.200000000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  9A6F0F,  !- Name
+  Wall,  !- Surface Type
+  EXT_WALL,  !- Construction Name
+  Room_2_Flr_6,  !- Zone Name
+  Outdoors,  !- Outside Boundary Condition
+  ,  !- Outside Boundary Condition Object
+  SunExposed,  !- Sun Exposure
+  WindExposed,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  4.572000000000,  22.860000000000,  19.200000000000,  !- X1, Y1, Z1
+  4.572000000000,  22.860000000000,  16.152000000000,  !- X2, Y2, Z2
+  0.000000000000,  22.860000000000,  16.152000000000,  !- X3, Y3, Z3
+  0.000000000000,  22.860000000000,  19.200000000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  2CE79F,  !- Name
+  Wall,  !- Surface Type
+  ADJ_WALL,  !- Construction Name
+  Room_2_Flr_6,  !- Zone Name
+  Zone,  !- Outside Boundary Condition
+  Room_1_Flr_36,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  0.000000000000,  14.326000000000,  19.200000000000,  !- X1, Y1, Z1
+  0.000000000000,  14.326000000000,  16.152000000000,  !- X2, Y2, Z2
+  4.572000000000,  14.326000000000,  16.152000000000,  !- X3, Y3, Z3
+  4.572000000000,  14.326000000000,  19.200000000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  E2E716,  !- Name
+  Wall,  !- Surface Type
+  EXT_WALL,  !- Construction Name
+  Room_2_Flr_6,  !- Zone Name
+  Outdoors,  !- Outside Boundary Condition
+  ,  !- Outside Boundary Condition Object
+  SunExposed,  !- Sun Exposure
+  WindExposed,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  0.000000000000,  22.860000000000,  19.200000000000,  !- X1, Y1, Z1
+  0.000000000000,  22.860000000000,  16.152000000000,  !- X2, Y2, Z2
+  0.000000000000,  14.326000000000,  16.152000000000,  !- X3, Y3, Z3
+  0.000000000000,  14.326000000000,  19.200000000000;  !- X4, Y4, Z4
+
+FenestrationSurface:Detailed,
+  3AE8F1,  !- Name
+  Window,  !- Surface Type
+  EXT_WINDOW1,  !- Construction Name
+  9A6F0F,  !- Building Surface Name
+  ,  !- Outside Boundary Condition Object
+  AutoCalculate,  !- View Factor to Ground
+  ,  !- Shading Control Name
+  ,  !- Frame and Divider Name
+  1.0000,  !- Multiplier
+  4,  !- Number of Vertices
+  4.172000000000,  22.860000000000,  18.484000000000,  !- X1, Y1, Z1
+  4.172000000000,  22.860000000000,  17.264000000000,  !- X2, Y2, Z2
+  0.400000000000,  22.860000000000,  17.264000000000,  !- X3, Y3, Z3
+  0.400000000000,  22.860000000000,  18.484000000000;  !- X4, Y4, Z4
+
+FenestrationSurface:Detailed,
+  572858,  !- Name
+  Window,  !- Surface Type
+  EXT_WINDOW1,  !- Construction Name
+  E2E716,  !- Building Surface Name
+  ,  !- Outside Boundary Condition Object
+  AutoCalculate,  !- View Factor to Ground
+  ,  !- Shading Control Name
+  ,  !- Frame and Divider Name
+  1.0000,  !- Multiplier
+  4,  !- Number of Vertices
+  0.000000000000,  22.113000000000,  18.484000000000,  !- X1, Y1, Z1
+  0.000000000000,  22.113000000000,  17.264000000000,  !- X2, Y2, Z2
+  0.000000000000,  15.072000000000,  17.264000000000,  !- X3, Y3, Z3
+  0.000000000000,  15.072000000000,  18.484000000000;  !- X4, Y4, Z4
+
+Zone,
+  Room_6_Flr_3,  !- Name
+  0.0000,  !- Direction of Relative North
+  0.0000,  !- X Origin
+  0.0000,  !- Y Origin
+  0.0000,  !- Z Origin
+  1,  !- Type
+  4,  !- Multiplier
+  ,  !- Ceiling Height
+  ,  !- Volume
+  ,  !- Zone Inside Convection Algorithm
+  ,  !- Zone Outside Convection Algorithm
+  Yes;  !- Part of Total Floor Area
+
+BuildingSurface:Detailed,
+  291F53,  !- Name
+  Ceiling,  !- Surface Type
+  ADJ_CEILING,  !- Construction Name
+  Room_6_Flr_3,  !- Zone Name
+  OtherSideCoefficients,  !- Outside Boundary Condition
+  BOUNDARY=IDENTICAL,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  0.0,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  81.991000000000,  22.860000000000,  10.056000000000,  !- X1, Y1, Z1
+  81.991000000000,  14.326000000000,  10.056000000000,  !- X2, Y2, Z2
+  86.563000000000,  14.326000000000,  10.056000000000,  !- X3, Y3, Z3
+  86.563000000000,  22.860000000000,  10.056000000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  953D63,  !- Name
+  Floor,  !- Surface Type
+  ADJ_CEILING,  !- Construction Name
+  Room_6_Flr_3,  !- Zone Name
+  OtherSideCoefficients,  !- Outside Boundary Condition
+  BOUNDARY=IDENTICAL,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  0.0,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  86.563000000000,  22.860000000000,  7.008000000000,  !- X1, Y1, Z1
+  86.563000000000,  14.326000000000,  7.008000000000,  !- X2, Y2, Z2
+  81.991000000000,  14.326000000000,  7.008000000000,  !- X3, Y3, Z3
+  81.991000000000,  22.860000000000,  7.008000000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  97380D,  !- Name
+  Wall,  !- Surface Type
+  EXT_WALL,  !- Construction Name
+  Room_6_Flr_3,  !- Zone Name
+  Outdoors,  !- Outside Boundary Condition
+  ,  !- Outside Boundary Condition Object
+  SunExposed,  !- Sun Exposure
+  WindExposed,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  86.563000000000,  14.326000000000,  10.056000000000,  !- X1, Y1, Z1
+  86.563000000000,  14.326000000000,  7.008000000000,  !- X2, Y2, Z2
+  86.563000000000,  22.860000000000,  7.008000000000,  !- X3, Y3, Z3
+  86.563000000000,  22.860000000000,  10.056000000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  E510F1,  !- Name
+  Wall,  !- Surface Type
+  EXT_WALL,  !- Construction Name
+  Room_6_Flr_3,  !- Zone Name
+  Outdoors,  !- Outside Boundary Condition
+  ,  !- Outside Boundary Condition Object
+  SunExposed,  !- Sun Exposure
+  WindExposed,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  86.563000000000,  22.860000000000,  10.056000000000,  !- X1, Y1, Z1
+  86.563000000000,  22.860000000000,  7.008000000000,  !- X2, Y2, Z2
+  81.991000000000,  22.860000000000,  7.008000000000,  !- X3, Y3, Z3
+  81.991000000000,  22.860000000000,  10.056000000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  6D416E,  !- Name
+  Wall,  !- Surface Type
+  ADJ_WALL,  !- Construction Name
+  Room_6_Flr_3,  !- Zone Name
+  Zone,  !- Outside Boundary Condition
+  Room_5_Flr_3,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  81.991000000000,  14.326000000000,  10.056000000000,  !- X1, Y1, Z1
+  81.991000000000,  14.326000000000,  7.008000000000,  !- X2, Y2, Z2
+  86.563000000000,  14.326000000000,  7.008000000000,  !- X3, Y3, Z3
+  86.563000000000,  14.326000000000,  10.056000000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  D3AF16,  !- Name
+  Wall,  !- Surface Type
+  ADJ_WALL,  !- Construction Name
+  Room_6_Flr_3,  !- Zone Name
+  Zone,  !- Outside Boundary Condition
+  Corridor_Flr_3,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  81.991000000000,  22.860000000000,  10.056000000000,  !- X1, Y1, Z1
+  81.991000000000,  22.860000000000,  7.008000000000,  !- X2, Y2, Z2
+  81.991000000000,  14.326000000000,  7.008000000000,  !- X3, Y3, Z3
+  81.991000000000,  14.326000000000,  10.056000000000;  !- X4, Y4, Z4
+
+FenestrationSurface:Detailed,
+  DA81C4,  !- Name
+  Window,  !- Surface Type
+  EXT_WINDOW1,  !- Construction Name
+  97380D,  !- Building Surface Name
+  ,  !- Outside Boundary Condition Object
+  AutoCalculate,  !- View Factor to Ground
+  ,  !- Shading Control Name
+  ,  !- Frame and Divider Name
+  1.0000,  !- Multiplier
+  4,  !- Number of Vertices
+  86.563000000000,  15.072000000000,  9.331800000000,  !- X1, Y1, Z1
+  86.563000000000,  15.072000000000,  8.112800000000,  !- X2, Y2, Z2
+  86.563000000000,  22.113000000000,  8.112800000000,  !- X3, Y3, Z3
+  86.563000000000,  22.113000000000,  9.331800000000;  !- X4, Y4, Z4
+
+FenestrationSurface:Detailed,
+  968F13,  !- Name
+  Window,  !- Surface Type
+  EXT_WINDOW1,  !- Construction Name
+  E510F1,  !- Building Surface Name
+  ,  !- Outside Boundary Condition Object
+  AutoCalculate,  !- View Factor to Ground
+  ,  !- Shading Control Name
+  ,  !- Frame and Divider Name
+  1.0000,  !- Multiplier
+  4,  !- Number of Vertices
+  86.163000000000,  22.860000000000,  9.331800000000,  !- X1, Y1, Z1
+  86.163000000000,  22.860000000000,  8.112800000000,  !- X2, Y2, Z2
+  82.391000000000,  22.860000000000,  8.112800000000,  !- X3, Y3, Z3
+  82.391000000000,  22.860000000000,  9.331800000000;  !- X4, Y4, Z4
+
+Zone,
+  Retail_2_Flr_1,  !- Name
+  0.0000,  !- Direction of Relative North
+  0.0000,  !- X Origin
+  0.0000,  !- Y Origin
+  0.0000,  !- Z Origin
+  1,  !- Type
+  1,  !- Multiplier
+  ,  !- Ceiling Height
+  ,  !- Volume
+  ,  !- Zone Inside Convection Algorithm
+  ,  !- Zone Outside Convection Algorithm
+  Yes;  !- Part of Total Floor Area
+
+BuildingSurface:Detailed,
+  B82766,  !- Name
+  Ceiling,  !- Surface Type
+  ADJ_CEILING,  !- Construction Name
+  Retail_2_Flr_1,  !- Zone Name
+  OtherSideCoefficients,  !- Outside Boundary Condition
+  BOUNDARY=IDENTICAL,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  0.0,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  0.000000000000,  12.497000000000,  3.962400000000,  !- X1, Y1, Z1
+  0.000000000000,  5.791000000000,  3.962400000000,  !- X2, Y2, Z2
+  11.582000000000,  5.791000000000,  3.962400000000,  !- X3, Y3, Z3
+  11.582000000000,  12.497000000000,  3.962400000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  DF4D93,  !- Name
+  Floor,  !- Surface Type
+  ADJ_CEILING,  !- Construction Name
+  Retail_2_Flr_1,  !- Zone Name
+  Zone,  !- Outside Boundary Condition
+  Basement,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  11.582000000000,  12.497000000000,  0.000000000000,  !- X1, Y1, Z1
+  11.582000000000,  5.791000000000,  0.000000000000,  !- X2, Y2, Z2
+  0.000000000000,  5.791000000000,  0.000000000000,  !- X3, Y3, Z3
+  0.000000000000,  12.497000000000,  0.000000000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  417423,  !- Name
+  Wall,  !- Surface Type
+  ADJ_WALL,  !- Construction Name
+  Retail_2_Flr_1,  !- Zone Name
+  Zone,  !- Outside Boundary Condition
+  Lobby_Flr_1,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  11.582000000000,  5.791000000000,  3.962400000000,  !- X1, Y1, Z1
+  11.582000000000,  5.791000000000,  0.000000000000,  !- X2, Y2, Z2
+  11.582000000000,  12.497000000000,  0.000000000000,  !- X3, Y3, Z3
+  11.582000000000,  12.497000000000,  3.962400000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  F11BB7,  !- Name
+  Wall,  !- Surface Type
+  ADJ_WALL,  !- Construction Name
+  Retail_2_Flr_1,  !- Zone Name
+  Zone,  !- Outside Boundary Condition
+  Lobby_Flr_1,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  11.582000000000,  12.497000000000,  3.962400000000,  !- X1, Y1, Z1
+  11.582000000000,  12.497000000000,  0.000000000000,  !- X2, Y2, Z2
+  0.000000000000,  12.497000000000,  0.000000000000,  !- X3, Y3, Z3
+  0.000000000000,  12.497000000000,  3.962400000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  DE43C5,  !- Name
+  Wall,  !- Surface Type
+  ADJ_WALL,  !- Construction Name
+  Retail_2_Flr_1,  !- Zone Name
+  Zone,  !- Outside Boundary Condition
+  Retail_1_Flr_1,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  0.000000000000,  5.791000000000,  3.962400000000,  !- X1, Y1, Z1
+  0.000000000000,  5.791000000000,  0.000000000000,  !- X2, Y2, Z2
+  11.582000000000,  5.791000000000,  0.000000000000,  !- X3, Y3, Z3
+  11.582000000000,  5.791000000000,  3.962400000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  D066BA,  !- Name
+  Wall,  !- Surface Type
+  EXT_WALL,  !- Construction Name
+  Retail_2_Flr_1,  !- Zone Name
+  Outdoors,  !- Outside Boundary Condition
+  ,  !- Outside Boundary Condition Object
+  SunExposed,  !- Sun Exposure
+  WindExposed,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  0.000000000000,  12.497000000000,  3.962400000000,  !- X1, Y1, Z1
+  0.000000000000,  12.497000000000,  0.000000000000,  !- X2, Y2, Z2
+  0.000000000000,  5.791000000000,  0.000000000000,  !- X3, Y3, Z3
+  0.000000000000,  5.791000000000,  3.962400000000;  !- X4, Y4, Z4
+
+Zone,
+  Room_3_Mult19_Flr_3,  !- Name
+  0.0000,  !- Direction of Relative North
+  0.0000,  !- X Origin
+  0.0000,  !- Y Origin
+  0.0000,  !- Z Origin
+  1,  !- Type
+  76,  !- Multiplier
+  ,  !- Ceiling Height
+  ,  !- Volume
+  ,  !- Zone Inside Convection Algorithm
+  ,  !- Zone Outside Convection Algorithm
+  Yes;  !- Part of Total Floor Area
+
+BuildingSurface:Detailed,
+  6EF8A3,  !- Name
+  Ceiling,  !- Surface Type
+  ADJ_CEILING,  !- Construction Name
+  Room_3_Mult19_Flr_3,  !- Zone Name
+  OtherSideCoefficients,  !- Outside Boundary Condition
+  BOUNDARY=IDENTICAL,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  0.0,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  6.706000000000,  12.497000000000,  10.056000000000,  !- X1, Y1, Z1
+  6.706000000000,  5.791000000000,  10.056000000000,  !- X2, Y2, Z2
+  10.363000000000,  5.791000000000,  10.056000000000,  !- X3, Y3, Z3
+  10.363000000000,  12.497000000000,  10.056000000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  A58951,  !- Name
+  Floor,  !- Surface Type
+  ADJ_CEILING,  !- Construction Name
+  Room_3_Mult19_Flr_3,  !- Zone Name
+  OtherSideCoefficients,  !- Outside Boundary Condition
+  BOUNDARY=IDENTICAL,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  0.0,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  10.363000000000,  12.497000000000,  7.008000000000,  !- X1, Y1, Z1
+  10.363000000000,  5.791000000000,  7.008000000000,  !- X2, Y2, Z2
+  6.706000000000,  5.791000000000,  7.008000000000,  !- X3, Y3, Z3
+  6.706000000000,  12.497000000000,  7.008000000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  A770A2,  !- Name
+  Wall,  !- Surface Type
+  ADJ_WALL,  !- Construction Name
+  Room_3_Mult19_Flr_3,  !- Zone Name
+  OtherSideCoefficients,  !- Outside Boundary Condition
+  BOUNDARY=IDENTICAL,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  0.0,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  10.363000000000,  5.791000000000,  10.056000000000,  !- X1, Y1, Z1
+  10.363000000000,  5.791000000000,  7.008000000000,  !- X2, Y2, Z2
+  10.363000000000,  12.497000000000,  7.008000000000,  !- X3, Y3, Z3
+  10.363000000000,  12.497000000000,  10.056000000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  A68012,  !- Name
+  Wall,  !- Surface Type
+  ADJ_WALL,  !- Construction Name
+  Room_3_Mult19_Flr_3,  !- Zone Name
+  Surface,  !- Outside Boundary Condition
+  Room_3_Mult19_Flr_3_Wall_North,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  10.363000000000,  12.497000000000,  10.056000000000,  !- X1, Y1, Z1
+  10.363000000000,  12.497000000000,  7.008000000000,  !- X2, Y2, Z2
+  6.706000000000,  12.497000000000,  7.008000000000,  !- X3, Y3, Z3
+  6.706000000000,  12.497000000000,  10.056000000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  C3BDFD,  !- Name
+  Wall,  !- Surface Type
+  EXT_WALL,  !- Construction Name
+  Room_3_Mult19_Flr_3,  !- Zone Name
+  Outdoors,  !- Outside Boundary Condition
+  ,  !- Outside Boundary Condition Object
+  SunExposed,  !- Sun Exposure
+  WindExposed,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  6.706000000000,  5.791000000000,  10.056000000000,  !- X1, Y1, Z1
+  6.706000000000,  5.791000000000,  7.008000000000,  !- X2, Y2, Z2
+  10.363000000000,  5.791000000000,  7.008000000000,  !- X3, Y3, Z3
+  10.363000000000,  5.791000000000,  10.056000000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  75CCCF,  !- Name
+  Wall,  !- Surface Type
+  ADJ_WALL,  !- Construction Name
+  Room_3_Mult19_Flr_3,  !- Zone Name
+  Zone,  !- Outside Boundary Condition
+  Corridor_Flr_3,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  6.706000000000,  12.497000000000,  10.056000000000,  !- X1, Y1, Z1
+  6.706000000000,  12.497000000000,  7.008000000000,  !- X2, Y2, Z2
+  6.706000000000,  5.791000000000,  7.008000000000,  !- X3, Y3, Z3
+  6.706000000000,  5.791000000000,  10.056000000000;  !- X4, Y4, Z4
+
+FenestrationSurface:Detailed,
+  41BDEA,  !- Name
+  Window,  !- Surface Type
+  EXT_WINDOW1,  !- Construction Name
+  C3BDFD,  !- Building Surface Name
+  ,  !- Outside Boundary Condition Object
+  AutoCalculate,  !- View Factor to Ground
+  ,  !- Shading Control Name
+  ,  !- Frame and Divider Name
+  1.0000,  !- Multiplier
+  4,  !- Number of Vertices
+  7.026000000000,  5.791000000000,  9.331800000000,  !- X1, Y1, Z1
+  7.026000000000,  5.791000000000,  8.112800000000,  !- X2, Y2, Z2
+  10.043000000000,  5.791000000000,  8.112800000000,  !- X3, Y3, Z3
+  10.043000000000,  5.791000000000,  9.331800000000;  !- X4, Y4, Z4
+
+Zone,
+  Corridor_Flr_6,  !- Name
+  0.0000,  !- Direction of Relative North
+  0.0000,  !- X Origin
+  0.0000,  !- Y Origin
+  0.0000,  !- Z Origin
+  1,  !- Type
+  1,  !- Multiplier
+  ,  !- Ceiling Height
+  ,  !- Volume
+  ,  !- Zone Inside Convection Algorithm
+  ,  !- Zone Outside Convection Algorithm
+  Yes;  !- Part of Total Floor Area
+
+BuildingSurface:Detailed,
+  CC5306,  !- Name
+  Roof,  !- Surface Type
+  EXT_ROOF,  !- Construction Name
+  Corridor_Flr_6,  !- Zone Name
+  Outdoors,  !- Outside Boundary Condition
+  ,  !- Outside Boundary Condition Object
+  SunExposed,  !- Sun Exposure
+  WindExposed,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  8,  !- Number of Vertices
+  4.572000000000,  22.860000000000,  19.200000000000,  !- X1, Y1, Z1
+  4.572000000000,  9.449000000000,  19.200000000000,  !- X2, Y2, Z2
+  47.549000000000,  9.449000000000,  19.200000000000,  !- X3, Y3, Z3
+  47.549000000000,  22.860000000000,  19.200000000000,  !- X4, Y4, Z4
+  42.367000000000,  22.860000000000,  19.200000000000,  !- X5, Y5, Z5
+  42.367000000000,  12.497000000000,  19.200000000000,  !- X6, Y6, Z6
+  10.363000000000,  12.497000000000,  19.200000000000,  !- X7, Y7, Z7
+  10.363000000000,  22.860000000000,  19.200000000000;  !- X8, Y8, Z8
+
+BuildingSurface:Detailed,
+  2AF7E3,  !- Name
+  Roof,  !- Surface Type
+  EXT_ROOF,  !- Construction Name
+  Corridor_Flr_6,  !- Zone Name
+  Outdoors,  !- Outside Boundary Condition
+  ,  !- Outside Boundary Condition Object
+  SunExposed,  !- Sun Exposure
+  WindExposed,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  6,  !- Number of Vertices
+  47.549000000000,  12.497000000000,  19.200000000000,  !- X1, Y1, Z1
+  47.549000000000,  9.449000000000,  19.200000000000,  !- X2, Y2, Z2
+  64.922000000000,  9.449000000000,  19.200000000000,  !- X3, Y3, Z3
+  64.922000000000,  5.791000000000,  19.200000000000,  !- X4, Y4, Z4
+  81.991000000000,  5.791000000000,  19.200000000000,  !- X5, Y5, Z5
+  81.991000000000,  12.497000000000,  19.200000000000;  !- X6, Y6, Z6
+
+BuildingSurface:Detailed,
+  D83F29,  !- Name
+  Floor,  !- Surface Type
+  ADJ_CEILING,  !- Construction Name
+  Corridor_Flr_6,  !- Zone Name
+  OtherSideCoefficients,  !- Outside Boundary Condition
+  BOUNDARY=IDENTICAL,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  0.0,  !- View Factor to Ground
+  12,  !- Number of Vertices
+  81.991000000000,  12.497000000000,  16.152000000000,  !- X1, Y1, Z1
+  81.991000000000,  5.791000000000,  16.152000000000,  !- X2, Y2, Z2
+  64.922000000000,  5.791000000000,  16.152000000000,  !- X3, Y3, Z3
+  64.922000000000,  9.449000000000,  16.152000000000,  !- X4, Y4, Z4
+  4.572000000000,  9.449000000000,  16.152000000000,  !- X5, Y5, Z5
+  4.572000000000,  22.860000000000,  16.152000000000,  !- X6, Y6, Z6
+  10.363000000000,  22.860000000000,  16.152000000000,  !- X7, Y7, Z7
+  10.363000000000,  12.497000000000,  16.152000000000,  !- X8, Y8, Z8
+  42.367000000000,  12.497000000000,  16.152000000000,  !- X9, Y9, Z9
+  42.367000000000,  22.860000000000,  16.152000000000,  !- X10, Y10, Z10
+  47.549000000000,  22.860000000000,  16.152000000000,  !- X11, Y11, Z11
+  47.549000000000,  12.497000000000,  16.152000000000;  !- X12, Y12, Z12
+
+BuildingSurface:Detailed,
+  3EF713,  !- Name
+  Wall,  !- Surface Type
+  ADJ_WALL,  !- Construction Name
+  Corridor_Flr_6,  !- Zone Name
+  Zone,  !- Outside Boundary Condition
+  Banquet_Flr_6,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  10.363000000000,  12.497000000000,  19.200000000000,  !- X1, Y1, Z1
+  10.363000000000,  12.497000000000,  16.152000000000,  !- X2, Y2, Z2
+  10.363000000000,  22.860000000000,  16.152000000000,  !- X3, Y3, Z3
+  10.363000000000,  22.860000000000,  19.200000000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  F2BC0E,  !- Name
+  Wall,  !- Surface Type
+  EXT_WALL,  !- Construction Name
+  Corridor_Flr_6,  !- Zone Name
+  Outdoors,  !- Outside Boundary Condition
+  ,  !- Outside Boundary Condition Object
+  SunExposed,  !- Sun Exposure
+  WindExposed,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  10.363000000000,  22.860000000000,  19.200000000000,  !- X1, Y1, Z1
+  10.363000000000,  22.860000000000,  16.152000000000,  !- X2, Y2, Z2
+  4.572000000000,  22.860000000000,  16.152000000000,  !- X3, Y3, Z3
+  4.572000000000,  22.860000000000,  19.200000000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  A3519E,  !- Name
+  Wall,  !- Surface Type
+  ADJ_WALL,  !- Construction Name
+  Corridor_Flr_6,  !- Zone Name
+  OtherSideCoefficients,  !- Outside Boundary Condition
+  BOUNDARY=IDENTICAL,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  0.0,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  4.572000000000,  9.449000000000,  19.200000000000,  !- X1, Y1, Z1
+  4.572000000000,  9.449000000000,  16.152000000000,  !- X2, Y2, Z2
+  64.922000000000,  9.449000000000,  16.152000000000,  !- X3, Y3, Z3
+  64.922000000000,  9.449000000000,  19.200000000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  241C7A,  !- Name
+  Wall,  !- Surface Type
+  ADJ_WALL,  !- Construction Name
+  Corridor_Flr_6,  !- Zone Name
+  OtherSideCoefficients,  !- Outside Boundary Condition
+  BOUNDARY=IDENTICAL,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  0.0,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  64.922000000000,  9.449000000000,  19.200000000000,  !- X1, Y1, Z1
+  64.922000000000,  9.449000000000,  16.152000000000,  !- X2, Y2, Z2
+  64.922000000000,  5.791000000000,  16.152000000000,  !- X3, Y3, Z3
+  64.922000000000,  5.791000000000,  19.200000000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  91A5D2,  !- Name
+  Wall,  !- Surface Type
+  ADJ_WALL,  !- Construction Name
+  Corridor_Flr_6,  !- Zone Name
+  Zone,  !- Outside Boundary Condition
+  Dining_Flr_6,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  47.549000000000,  12.497000000000,  19.200000000000,  !- X1, Y1, Z1
+  47.549000000000,  12.497000000000,  16.152000000000,  !- X2, Y2, Z2
+  47.549000000000,  22.860000000000,  16.152000000000,  !- X3, Y3, Z3
+  47.549000000000,  22.860000000000,  19.200000000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  4A7D3E,  !- Name
+  Wall,  !- Surface Type
+  EXT_WALL,  !- Construction Name
+  Corridor_Flr_6,  !- Zone Name
+  Outdoors,  !- Outside Boundary Condition
+  ,  !- Outside Boundary Condition Object
+  SunExposed,  !- Sun Exposure
+  WindExposed,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  47.549000000000,  22.860000000000,  19.200000000000,  !- X1, Y1, Z1
+  47.549000000000,  22.860000000000,  16.152000000000,  !- X2, Y2, Z2
+  42.367000000000,  22.860000000000,  16.152000000000,  !- X3, Y3, Z3
+  42.367000000000,  22.860000000000,  19.200000000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  5CE758,  !- Name
+  Wall,  !- Surface Type
+  EXT_WALL,  !- Construction Name
+  Corridor_Flr_6,  !- Zone Name
+  Outdoors,  !- Outside Boundary Condition
+  ,  !- Outside Boundary Condition Object
+  SunExposed,  !- Sun Exposure
+  WindExposed,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  64.922000000000,  5.791000000000,  19.200000000000,  !- X1, Y1, Z1
+  64.922000000000,  5.791000000000,  16.152000000000,  !- X2, Y2, Z2
+  81.991000000000,  5.791000000000,  16.152000000000,  !- X3, Y3, Z3
+  81.991000000000,  5.791000000000,  19.200000000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  4CBF37,  !- Name
+  Wall,  !- Surface Type
+  ADJ_WALL,  !- Construction Name
+  Corridor_Flr_6,  !- Zone Name
+  Surface,  !- Outside Boundary Condition
+  Corridor_Flr_6_Wall_2_West,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  4.572000000000,  22.860000000000,  19.200000000000,  !- X1, Y1, Z1
+  4.572000000000,  22.860000000000,  16.152000000000,  !- X2, Y2, Z2
+  4.572000000000,  9.449000000000,  16.152000000000,  !- X3, Y3, Z3
+  4.572000000000,  9.449000000000,  19.200000000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  5B6A57,  !- Name
+  Wall,  !- Surface Type
+  ADJ_WALL,  !- Construction Name
+  Corridor_Flr_6,  !- Zone Name
+  Zone,  !- Outside Boundary Condition
+  Kitchen_Flr_6,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  81.991000000000,  5.791000000000,  19.200000000000,  !- X1, Y1, Z1
+  81.991000000000,  5.791000000000,  16.152000000000,  !- X2, Y2, Z2
+  81.991000000000,  12.497000000000,  16.152000000000,  !- X3, Y3, Z3
+  81.991000000000,  12.497000000000,  19.200000000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  9117F4,  !- Name
+  Wall,  !- Surface Type
+  ADJ_WALL,  !- Construction Name
+  Corridor_Flr_6,  !- Zone Name
+  Zone,  !- Outside Boundary Condition
+  Banquet_Flr_6,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  42.367000000000,  12.497000000000,  19.200000000000,  !- X1, Y1, Z1
+  42.367000000000,  12.497000000000,  16.152000000000,  !- X2, Y2, Z2
+  10.363000000000,  12.497000000000,  16.152000000000,  !- X3, Y3, Z3
+  10.363000000000,  12.497000000000,  19.200000000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  44FA12,  !- Name
+  Wall,  !- Surface Type
+  ADJ_WALL,  !- Construction Name
+  Corridor_Flr_6,  !- Zone Name
+  Zone,  !- Outside Boundary Condition
+  Banquet_Flr_6,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  42.367000000000,  22.860000000000,  19.200000000000,  !- X1, Y1, Z1
+  42.367000000000,  22.860000000000,  16.152000000000,  !- X2, Y2, Z2
+  42.367000000000,  12.497000000000,  16.152000000000,  !- X3, Y3, Z3
+  42.367000000000,  12.497000000000,  19.200000000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  7B121A,  !- Name
+  Wall,  !- Surface Type
+  ADJ_WALL,  !- Construction Name
+  Corridor_Flr_6,  !- Zone Name
+  Surface,  !- Outside Boundary Condition
+  Corridor_Flr_6_Wall_4_North,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  81.991000000000,  12.497000000000,  19.200000000000,  !- X1, Y1, Z1
+  81.991000000000,  12.497000000000,  16.152000000000,  !- X2, Y2, Z2
+  47.549000000000,  12.497000000000,  16.152000000000,  !- X3, Y3, Z3
+  47.549000000000,  12.497000000000,  19.200000000000;  !- X4, Y4, Z4
+
+FenestrationSurface:Detailed,
+  CAF099,  !- Name
+  Window,  !- Surface Type
+  EXT_WINDOW1,  !- Construction Name
+  F2BC0E,  !- Building Surface Name
+  ,  !- Outside Boundary Condition Object
+  AutoCalculate,  !- View Factor to Ground
+  ,  !- Shading Control Name
+  ,  !- Frame and Divider Name
+  1.0000,  !- Multiplier
+  4,  !- Number of Vertices
+  9.856000000000,  22.860000000000,  18.484000000000,  !- X1, Y1, Z1
+  9.856000000000,  22.860000000000,  17.264000000000,  !- X2, Y2, Z2
+  5.079000000000,  22.860000000000,  17.264000000000,  !- X3, Y3, Z3
+  5.079000000000,  22.860000000000,  18.484000000000;  !- X4, Y4, Z4
+
+FenestrationSurface:Detailed,
+  AA7932,  !- Name
+  Window,  !- Surface Type
+  EXT_WINDOW1,  !- Construction Name
+  4A7D3E,  !- Building Surface Name
+  ,  !- Outside Boundary Condition Object
+  AutoCalculate,  !- View Factor to Ground
+  ,  !- Shading Control Name
+  ,  !- Frame and Divider Name
+  1.0000,  !- Multiplier
+  4,  !- Number of Vertices
+  47.095000000000,  22.860000000000,  18.484000000000,  !- X1, Y1, Z1
+  47.095000000000,  22.860000000000,  17.264000000000,  !- X2, Y2, Z2
+  42.821000000000,  22.860000000000,  17.264000000000,  !- X3, Y3, Z3
+  42.821000000000,  22.860000000000,  18.484000000000;  !- X4, Y4, Z4
+
+FenestrationSurface:Detailed,
+  312CD7,  !- Name
+  Window,  !- Surface Type
+  EXT_WINDOW1,  !- Construction Name
+  5CE758,  !- Building Surface Name
+  ,  !- Outside Boundary Condition Object
+  AutoCalculate,  !- View Factor to Ground
+  ,  !- Shading Control Name
+  ,  !- Frame and Divider Name
+  1.0000,  !- Multiplier
+  4,  !- Number of Vertices
+  66.416000000000,  5.791000000000,  18.484000000000,  !- X1, Y1, Z1
+  66.416000000000,  5.791000000000,  17.264000000000,  !- X2, Y2, Z2
+  80.498000000000,  5.791000000000,  17.264000000000,  !- X3, Y3, Z3
+  80.498000000000,  5.791000000000,  18.484000000000;  !- X4, Y4, Z4
+
+Zone,
+  Room_5_Flr_3,  !- Name
+  0.0000,  !- Direction of Relative North
+  0.0000,  !- X Origin
+  0.0000,  !- Y Origin
+  0.0000,  !- Z Origin
+  1,  !- Type
+  4,  !- Multiplier
+  ,  !- Ceiling Height
+  ,  !- Volume
+  ,  !- Zone Inside Convection Algorithm
+  ,  !- Zone Outside Convection Algorithm
+  Yes;  !- Part of Total Floor Area
+
+BuildingSurface:Detailed,
+  5FF78B,  !- Name
+  Ceiling,  !- Surface Type
+  ADJ_CEILING,  !- Construction Name
+  Room_5_Flr_3,  !- Zone Name
+  OtherSideCoefficients,  !- Outside Boundary Condition
+  BOUNDARY=IDENTICAL,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  0.0,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  81.991000000000,  14.326000000000,  10.056000000000,  !- X1, Y1, Z1
+  81.991000000000,  5.791000000000,  10.056000000000,  !- X2, Y2, Z2
+  86.563000000000,  5.791000000000,  10.056000000000,  !- X3, Y3, Z3
+  86.563000000000,  14.326000000000,  10.056000000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  CFDC50,  !- Name
+  Floor,  !- Surface Type
+  ADJ_CEILING,  !- Construction Name
+  Room_5_Flr_3,  !- Zone Name
+  OtherSideCoefficients,  !- Outside Boundary Condition
+  BOUNDARY=IDENTICAL,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  0.0,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  86.563000000000,  14.326000000000,  7.008000000000,  !- X1, Y1, Z1
+  86.563000000000,  5.791000000000,  7.008000000000,  !- X2, Y2, Z2
+  81.991000000000,  5.791000000000,  7.008000000000,  !- X3, Y3, Z3
+  81.991000000000,  14.326000000000,  7.008000000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  A1C2A1,  !- Name
+  Wall,  !- Surface Type
+  EXT_WALL,  !- Construction Name
+  Room_5_Flr_3,  !- Zone Name
+  Outdoors,  !- Outside Boundary Condition
+  ,  !- Outside Boundary Condition Object
+  SunExposed,  !- Sun Exposure
+  WindExposed,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  86.563000000000,  5.791000000000,  10.056000000000,  !- X1, Y1, Z1
+  86.563000000000,  5.791000000000,  7.008000000000,  !- X2, Y2, Z2
+  86.563000000000,  14.326000000000,  7.008000000000,  !- X3, Y3, Z3
+  86.563000000000,  14.326000000000,  10.056000000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  5FE6DD,  !- Name
+  Wall,  !- Surface Type
+  ADJ_WALL,  !- Construction Name
+  Room_5_Flr_3,  !- Zone Name
+  Zone,  !- Outside Boundary Condition
+  Room_6_Flr_3,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  86.563000000000,  14.326000000000,  10.056000000000,  !- X1, Y1, Z1
+  86.563000000000,  14.326000000000,  7.008000000000,  !- X2, Y2, Z2
+  81.991000000000,  14.326000000000,  7.008000000000,  !- X3, Y3, Z3
+  81.991000000000,  14.326000000000,  10.056000000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  77243B,  !- Name
+  Wall,  !- Surface Type
+  EXT_WALL,  !- Construction Name
+  Room_5_Flr_3,  !- Zone Name
+  Outdoors,  !- Outside Boundary Condition
+  ,  !- Outside Boundary Condition Object
+  SunExposed,  !- Sun Exposure
+  WindExposed,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  81.991000000000,  5.791000000000,  10.056000000000,  !- X1, Y1, Z1
+  81.991000000000,  5.791000000000,  7.008000000000,  !- X2, Y2, Z2
+  86.563000000000,  5.791000000000,  7.008000000000,  !- X3, Y3, Z3
+  86.563000000000,  5.791000000000,  10.056000000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  7CBA7B,  !- Name
+  Wall,  !- Surface Type
+  ADJ_WALL,  !- Construction Name
+  Room_5_Flr_3,  !- Zone Name
+  Zone,  !- Outside Boundary Condition
+  Corridor_Flr_3,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  81.991000000000,  14.326000000000,  10.056000000000,  !- X1, Y1, Z1
+  81.991000000000,  14.326000000000,  7.008000000000,  !- X2, Y2, Z2
+  81.991000000000,  5.791000000000,  7.008000000000,  !- X3, Y3, Z3
+  81.991000000000,  5.791000000000,  10.056000000000;  !- X4, Y4, Z4
+
+FenestrationSurface:Detailed,
+  B5FC5F,  !- Name
+  Window,  !- Surface Type
+  EXT_WINDOW1,  !- Construction Name
+  A1C2A1,  !- Building Surface Name
+  ,  !- Outside Boundary Condition Object
+  AutoCalculate,  !- View Factor to Ground
+  ,  !- Shading Control Name
+  ,  !- Frame and Divider Name
+  1.0000,  !- Multiplier
+  4,  !- Number of Vertices
+  86.563000000000,  6.538000000000,  9.331800000000,  !- X1, Y1, Z1
+  86.563000000000,  6.538000000000,  8.112800000000,  !- X2, Y2, Z2
+  86.563000000000,  13.579000000000,  8.112800000000,  !- X3, Y3, Z3
+  86.563000000000,  13.579000000000,  9.331800000000;  !- X4, Y4, Z4
+
+FenestrationSurface:Detailed,
+  1128D7,  !- Name
+  Window,  !- Surface Type
+  EXT_WINDOW1,  !- Construction Name
+  77243B,  !- Building Surface Name
+  ,  !- Outside Boundary Condition Object
+  AutoCalculate,  !- View Factor to Ground
+  ,  !- Shading Control Name
+  ,  !- Frame and Divider Name
+  1.0000,  !- Multiplier
+  4,  !- Number of Vertices
+  82.391000000000,  5.791000000000,  9.331800000000,  !- X1, Y1, Z1
+  82.391000000000,  5.791000000000,  8.112800000000,  !- X2, Y2, Z2
+  86.163000000000,  5.791000000000,  8.112800000000,  !- X3, Y3, Z3
+  86.163000000000,  5.791000000000,  9.331800000000;  !- X4, Y4, Z4
+
+Zone,
+  Basement,  !- Name
+  0.0000,  !- Direction of Relative North
+  0.0000,  !- X Origin
+  0.0000,  !- Y Origin
+  0.0000,  !- Z Origin
+  1,  !- Type
+  1,  !- Multiplier
+  ,  !- Ceiling Height
+  ,  !- Volume
+  ,  !- Zone Inside Convection Algorithm
+  ,  !- Zone Outside Convection Algorithm
+  Yes;  !- Part of Total Floor Area
+
+BuildingSurface:Detailed,
+  95B97F,  !- Name
+  Ceiling,  !- Surface Type
+  ADJ_CEILING,  !- Construction Name
+  Basement,  !- Zone Name
+  Zone,  !- Outside Boundary Condition
+  Retail_1_Flr_1,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  0.000000000000,  5.791000000000,  0.000000000000,  !- X1, Y1, Z1
+  0.000000000000,  0.000000000000,  0.000000000000,  !- X2, Y2, Z2
+  11.582000000000,  0.000000000000,  0.000000000000,  !- X3, Y3, Z3
+  11.582000000000,  5.791000000000,  0.000000000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  F8910D,  !- Name
+  Ceiling,  !- Surface Type
+  ADJ_CEILING,  !- Construction Name
+  Basement,  !- Zone Name
+  Zone,  !- Outside Boundary Condition
+  Retail_2_Flr_1,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  0.000000000000,  12.497000000000,  0.000000000000,  !- X1, Y1, Z1
+  0.000000000000,  5.791000000000,  0.000000000000,  !- X2, Y2, Z2
+  11.582000000000,  5.791000000000,  0.000000000000,  !- X3, Y3, Z3
+  11.582000000000,  12.497000000000,  0.000000000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  2BCE2C,  !- Name
+  Ceiling,  !- Surface Type
+  ADJ_CEILING,  !- Construction Name
+  Basement,  !- Zone Name
+  Zone,  !- Outside Boundary Condition
+  Mech_Flr_1,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  53.950000000000,  22.860000000000,  0.000000000000,  !- X1, Y1, Z1
+  53.950000000000,  12.497000000000,  0.000000000000,  !- X2, Y2, Z2
+  69.799000000000,  12.497000000000,  0.000000000000,  !- X3, Y3, Z3
+  69.799000000000,  22.860000000000,  0.000000000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  CF4B3C,  !- Name
+  Ceiling,  !- Surface Type
+  ADJ_CEILING,  !- Construction Name
+  Basement,  !- Zone Name
+  Zone,  !- Outside Boundary Condition
+  Storage_Flr_1,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  69.799000000000,  22.860000000000,  0.000000000000,  !- X1, Y1, Z1
+  69.799000000000,  12.497000000000,  0.000000000000,  !- X2, Y2, Z2
+  78.943000000000,  12.497000000000,  0.000000000000,  !- X3, Y3, Z3
+  78.943000000000,  22.860000000000,  0.000000000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  F194F6,  !- Name
+  Ceiling,  !- Surface Type
+  ADJ_CEILING,  !- Construction Name
+  Basement,  !- Zone Name
+  Zone,  !- Outside Boundary Condition
+  Laundry_Flr_1,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  81.991000000000,  22.860000000000,  0.000000000000,  !- X1, Y1, Z1
+  81.991000000000,  5.791000000000,  0.000000000000,  !- X2, Y2, Z2
+  86.563000000000,  5.791000000000,  0.000000000000,  !- X3, Y3, Z3
+  86.563000000000,  22.860000000000,  0.000000000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  4AABCF,  !- Name
+  Ceiling,  !- Surface Type
+  ADJ_CEILING,  !- Construction Name
+  Basement,  !- Zone Name
+  Zone,  !- Outside Boundary Condition
+  Cafe_Flr_1,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  53.950000000000,  5.791000000000,  0.000000000000,  !- X1, Y1, Z1
+  53.950000000000,  0.000000000000,  0.000000000000,  !- X2, Y2, Z2
+  86.563000000000,  0.000000000000,  0.000000000000,  !- X3, Y3, Z3
+  86.563000000000,  5.791000000000,  0.000000000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  2F6AEE,  !- Name
+  Ceiling,  !- Surface Type
+  ADJ_CEILING,  !- Construction Name
+  Basement,  !- Zone Name
+  Zone,  !- Outside Boundary Condition
+  Lobby_Flr_1,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  6,  !- Number of Vertices
+  0.000000000000,  22.860000000000,  0.000000000000,  !- X1, Y1, Z1
+  0.000000000000,  12.497000000000,  0.000000000000,  !- X2, Y2, Z2
+  11.582000000000,  12.497000000000,  0.000000000000,  !- X3, Y3, Z3
+  11.582000000000,  0.000000000000,  0.000000000000,  !- X4, Y4, Z4
+  53.950000000000,  0.000000000000,  0.000000000000,  !- X5, Y5, Z5
+  53.950000000000,  22.860000000000,  0.000000000000;  !- X6, Y6, Z6
+
+BuildingSurface:Detailed,
+  156C0B,  !- Name
+  Ceiling,  !- Surface Type
+  ADJ_CEILING,  !- Construction Name
+  Basement,  !- Zone Name
+  Zone,  !- Outside Boundary Condition
+  Lobby_Flr_1,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  6,  !- Number of Vertices
+  53.950000000000,  12.497000000000,  0.000000000000,  !- X1, Y1, Z1
+  53.950000000000,  5.791000000000,  0.000000000000,  !- X2, Y2, Z2
+  81.991000000000,  5.791000000000,  0.000000000000,  !- X3, Y3, Z3
+  81.991000000000,  22.860000000000,  0.000000000000,  !- X4, Y4, Z4
+  78.943000000000,  22.860000000000,  0.000000000000,  !- X5, Y5, Z5
+  78.943000000000,  12.497000000000,  0.000000000000;  !- X6, Y6, Z6
+
+BuildingSurface:Detailed,
+  6C40F4,  !- Name
+  Floor,  !- Surface Type
+  GROUND_FLOOR,  !- Construction Name
+  Basement,  !- Zone Name
+  Ground,  !- Outside Boundary Condition
+  BOUNDARY=INPUT 1*TGROUND,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  0.0,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  86.563000000000,  22.860000000000,  -2.439000000000,  !- X1, Y1, Z1
+  86.563000000000,  0.000000000000,  -2.439000000000,  !- X2, Y2, Z2
+  0.000000000000,  0.000000000000,  -2.439000000000,  !- X3, Y3, Z3
+  0.000000000000,  22.860000000000,  -2.439000000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  DE1D89,  !- Name
+  Wall,  !- Surface Type
+  EXT_WALL,  !- Construction Name
+  Basement,  !- Zone Name
+  Ground,  !- Outside Boundary Condition
+  BOUNDARY=INPUT 1*TGROUND,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  0.0,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  86.563000000000,  0.000000000000,  0.000000000000,  !- X1, Y1, Z1
+  86.563000000000,  0.000000000000,  -2.439000000000,  !- X2, Y2, Z2
+  86.563000000000,  22.860000000000,  -2.439000000000,  !- X3, Y3, Z3
+  86.563000000000,  22.860000000000,  0.000000000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  6F8EF2,  !- Name
+  Wall,  !- Surface Type
+  EXT_WALL,  !- Construction Name
+  Basement,  !- Zone Name
+  Ground,  !- Outside Boundary Condition
+  BOUNDARY=INPUT 1*TGROUND,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  0.0,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  86.563000000000,  22.860000000000,  0.000000000000,  !- X1, Y1, Z1
+  86.563000000000,  22.860000000000,  -2.439000000000,  !- X2, Y2, Z2
+  0.000000000000,  22.860000000000,  -2.439000000000,  !- X3, Y3, Z3
+  0.000000000000,  22.860000000000,  0.000000000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  E37BFA,  !- Name
+  Wall,  !- Surface Type
+  EXT_WALL,  !- Construction Name
+  Basement,  !- Zone Name
+  Ground,  !- Outside Boundary Condition
+  BOUNDARY=INPUT 1*TGROUND,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  0.0,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  0.000000000000,  0.000000000000,  0.000000000000,  !- X1, Y1, Z1
+  0.000000000000,  0.000000000000,  -2.439000000000,  !- X2, Y2, Z2
+  86.563000000000,  0.000000000000,  -2.439000000000,  !- X3, Y3, Z3
+  86.563000000000,  0.000000000000,  0.000000000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  C2E46D,  !- Name
+  Wall,  !- Surface Type
+  EXT_WALL,  !- Construction Name
+  Basement,  !- Zone Name
+  Ground,  !- Outside Boundary Condition
+  BOUNDARY=INPUT 1*TGROUND,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  0.0,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  0.000000000000,  22.860000000000,  0.000000000000,  !- X1, Y1, Z1
+  0.000000000000,  22.860000000000,  -2.439000000000,  !- X2, Y2, Z2
+  0.000000000000,  0.000000000000,  -2.439000000000,  !- X3, Y3, Z3
+  0.000000000000,  0.000000000000,  0.000000000000;  !- X4, Y4, Z4
+
+Zone,
+  Storage_Flr_1,  !- Name
+  0.0000,  !- Direction of Relative North
+  0.0000,  !- X Origin
+  0.0000,  !- Y Origin
+  0.0000,  !- Z Origin
+  1,  !- Type
+  1,  !- Multiplier
+  ,  !- Ceiling Height
+  ,  !- Volume
+  ,  !- Zone Inside Convection Algorithm
+  ,  !- Zone Outside Convection Algorithm
+  Yes;  !- Part of Total Floor Area
+
+BuildingSurface:Detailed,
+  A25523,  !- Name
+  Ceiling,  !- Surface Type
+  ADJ_CEILING,  !- Construction Name
+  Storage_Flr_1,  !- Zone Name
+  OtherSideCoefficients,  !- Outside Boundary Condition
+  BOUNDARY=IDENTICAL,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  0.0,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  69.799000000000,  22.860000000000,  3.962400000000,  !- X1, Y1, Z1
+  69.799000000000,  12.497000000000,  3.962400000000,  !- X2, Y2, Z2
+  78.943000000000,  12.497000000000,  3.962400000000,  !- X3, Y3, Z3
+  78.943000000000,  22.860000000000,  3.962400000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  6AC51D,  !- Name
+  Floor,  !- Surface Type
+  ADJ_CEILING,  !- Construction Name
+  Storage_Flr_1,  !- Zone Name
+  Zone,  !- Outside Boundary Condition
+  Basement,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  78.943000000000,  22.860000000000,  0.000000000000,  !- X1, Y1, Z1
+  78.943000000000,  12.497000000000,  0.000000000000,  !- X2, Y2, Z2
+  69.799000000000,  12.497000000000,  0.000000000000,  !- X3, Y3, Z3
+  69.799000000000,  22.860000000000,  0.000000000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  57AAB5,  !- Name
+  Wall,  !- Surface Type
+  ADJ_WALL,  !- Construction Name
+  Storage_Flr_1,  !- Zone Name
+  Zone,  !- Outside Boundary Condition
+  Lobby_Flr_1,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  78.943000000000,  12.497000000000,  3.962400000000,  !- X1, Y1, Z1
+  78.943000000000,  12.497000000000,  0.000000000000,  !- X2, Y2, Z2
+  78.943000000000,  22.860000000000,  0.000000000000,  !- X3, Y3, Z3
+  78.943000000000,  22.860000000000,  3.962400000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  C6B18B,  !- Name
+  Wall,  !- Surface Type
+  EXT_WALL,  !- Construction Name
+  Storage_Flr_1,  !- Zone Name
+  Outdoors,  !- Outside Boundary Condition
+  ,  !- Outside Boundary Condition Object
+  SunExposed,  !- Sun Exposure
+  WindExposed,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  78.943000000000,  22.860000000000,  3.962400000000,  !- X1, Y1, Z1
+  78.943000000000,  22.860000000000,  0.000000000000,  !- X2, Y2, Z2
+  69.799000000000,  22.860000000000,  0.000000000000,  !- X3, Y3, Z3
+  69.799000000000,  22.860000000000,  3.962400000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  935D44,  !- Name
+  Wall,  !- Surface Type
+  ADJ_WALL,  !- Construction Name
+  Storage_Flr_1,  !- Zone Name
+  Zone,  !- Outside Boundary Condition
+  Lobby_Flr_1,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  69.799000000000,  12.497000000000,  3.962400000000,  !- X1, Y1, Z1
+  69.799000000000,  12.497000000000,  0.000000000000,  !- X2, Y2, Z2
+  78.943000000000,  12.497000000000,  0.000000000000,  !- X3, Y3, Z3
+  78.943000000000,  12.497000000000,  3.962400000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  2EBC94,  !- Name
+  Wall,  !- Surface Type
+  ADJ_WALL,  !- Construction Name
+  Storage_Flr_1,  !- Zone Name
+  Zone,  !- Outside Boundary Condition
+  Mech_Flr_1,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  69.799000000000,  22.860000000000,  3.962400000000,  !- X1, Y1, Z1
+  69.799000000000,  22.860000000000,  0.000000000000,  !- X2, Y2, Z2
+  69.799000000000,  12.497000000000,  0.000000000000,  !- X3, Y3, Z3
+  69.799000000000,  12.497000000000,  3.962400000000;  !- X4, Y4, Z4
+
+Zone,
+  Lobby_Flr_1,  !- Name
+  0.0000,  !- Direction of Relative North
+  0.0000,  !- X Origin
+  0.0000,  !- Y Origin
+  0.0000,  !- Z Origin
+  1,  !- Type
+  1,  !- Multiplier
+  ,  !- Ceiling Height
+  ,  !- Volume
+  ,  !- Zone Inside Convection Algorithm
+  ,  !- Zone Outside Convection Algorithm
+  Yes;  !- Part of Total Floor Area
+
+BuildingSurface:Detailed,
+  FAF6F1,  !- Name
+  Ceiling,  !- Surface Type
+  ADJ_CEILING,  !- Construction Name
+  Lobby_Flr_1,  !- Zone Name
+  OtherSideCoefficients,  !- Outside Boundary Condition
+  BOUNDARY=IDENTICAL,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  0.0,  !- View Factor to Ground
+  10,  !- Number of Vertices
+  0.000000000000,  22.860000000000,  3.962400000000,  !- X1, Y1, Z1
+  0.000000000000,  12.497000000000,  3.962400000000,  !- X2, Y2, Z2
+  11.582000000000,  12.497000000000,  3.962400000000,  !- X3, Y3, Z3
+  11.582000000000,  5.791000000000,  3.962400000000,  !- X4, Y4, Z4
+  81.991000000000,  5.791000000000,  3.962400000000,  !- X5, Y5, Z5
+  81.991000000000,  22.860000000000,  3.962400000000,  !- X6, Y6, Z6
+  78.943000000000,  22.860000000000,  3.962400000000,  !- X7, Y7, Z7
+  78.943000000000,  12.497000000000,  3.962400000000,  !- X8, Y8, Z8
+  53.950000000000,  12.497000000000,  3.962400000000,  !- X9, Y9, Z9
+  53.950000000000,  22.860000000000,  3.962400000000;  !- X10, Y10, Z10
+
+BuildingSurface:Detailed,
+  6F7801,  !- Name
+  Roof,  !- Surface Type
+  EXT_ROOF,  !- Construction Name
+  Lobby_Flr_1,  !- Zone Name
+  Outdoors,  !- Outside Boundary Condition
+  ,  !- Outside Boundary Condition Object
+  SunExposed,  !- Sun Exposure
+  WindExposed,  !- Wind Exposure
+  0.0,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  11.582000000000,  5.791000000000,  3.962400000000,  !- X1, Y1, Z1
+  11.582000000000,  0.000000000000,  3.962400000000,  !- X2, Y2, Z2
+  53.950000000000,  0.000000000000,  3.962400000000,  !- X3, Y3, Z3
+  53.950000000000,  5.791000000000,  3.962400000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  80DD07,  !- Name
+  Floor,  !- Surface Type
+  ADJ_CEILING,  !- Construction Name
+  Lobby_Flr_1,  !- Zone Name
+  Zone,  !- Outside Boundary Condition
+  Basement,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  6,  !- Number of Vertices
+  53.950000000000,  22.860000000000,  0.000000000000,  !- X1, Y1, Z1
+  53.950000000000,  0.000000000000,  0.000000000000,  !- X2, Y2, Z2
+  11.582000000000,  0.000000000000,  0.000000000000,  !- X3, Y3, Z3
+  11.582000000000,  12.497000000000,  0.000000000000,  !- X4, Y4, Z4
+  0.000000000000,  12.497000000000,  0.000000000000,  !- X5, Y5, Z5
+  0.000000000000,  22.860000000000,  0.000000000000;  !- X6, Y6, Z6
+
+BuildingSurface:Detailed,
+  8591BB,  !- Name
+  Floor,  !- Surface Type
+  ADJ_CEILING,  !- Construction Name
+  Lobby_Flr_1,  !- Zone Name
+  Zone,  !- Outside Boundary Condition
+  Basement,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  6,  !- Number of Vertices
+  81.991000000000,  22.860000000000,  0.000000000000,  !- X1, Y1, Z1
+  81.991000000000,  5.791000000000,  0.000000000000,  !- X2, Y2, Z2
+  53.950000000000,  5.791000000000,  0.000000000000,  !- X3, Y3, Z3
+  53.950000000000,  12.497000000000,  0.000000000000,  !- X4, Y4, Z4
+  78.943000000000,  12.497000000000,  0.000000000000,  !- X5, Y5, Z5
+  78.943000000000,  22.860000000000,  0.000000000000;  !- X6, Y6, Z6
+
+BuildingSurface:Detailed,
+  259C76,  !- Name
+  Wall,  !- Surface Type
+  ADJ_WALL,  !- Construction Name
+  Lobby_Flr_1,  !- Zone Name
+  Zone,  !- Outside Boundary Condition
+  Mech_Flr_1,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  53.950000000000,  12.497000000000,  3.962400000000,  !- X1, Y1, Z1
+  53.950000000000,  12.497000000000,  0.000000000000,  !- X2, Y2, Z2
+  53.950000000000,  22.860000000000,  0.000000000000,  !- X3, Y3, Z3
+  53.950000000000,  22.860000000000,  3.962400000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  76B2AA,  !- Name
+  Wall,  !- Surface Type
+  EXT_WALL,  !- Construction Name
+  Lobby_Flr_1,  !- Zone Name
+  Outdoors,  !- Outside Boundary Condition
+  ,  !- Outside Boundary Condition Object
+  SunExposed,  !- Sun Exposure
+  WindExposed,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  53.950000000000,  22.860000000000,  3.962400000000,  !- X1, Y1, Z1
+  53.950000000000,  22.860000000000,  0.000000000000,  !- X2, Y2, Z2
+  0.000000000000,  22.860000000000,  0.000000000000,  !- X3, Y3, Z3
+  0.000000000000,  22.860000000000,  3.962400000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  937667,  !- Name
+  Wall,  !- Surface Type
+  EXT_WALL,  !- Construction Name
+  Lobby_Flr_1,  !- Zone Name
+  Outdoors,  !- Outside Boundary Condition
+  ,  !- Outside Boundary Condition Object
+  SunExposed,  !- Sun Exposure
+  WindExposed,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  11.582000000000,  0.000000000000,  3.962400000000,  !- X1, Y1, Z1
+  11.582000000000,  0.000000000000,  0.000000000000,  !- X2, Y2, Z2
+  53.950000000000,  0.000000000000,  0.000000000000,  !- X3, Y3, Z3
+  53.950000000000,  0.000000000000,  3.962400000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  7BEB8F,  !- Name
+  Wall,  !- Surface Type
+  EXT_WALL,  !- Construction Name
+  Lobby_Flr_1,  !- Zone Name
+  Outdoors,  !- Outside Boundary Condition
+  ,  !- Outside Boundary Condition Object
+  SunExposed,  !- Sun Exposure
+  WindExposed,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  0.000000000000,  22.860000000000,  3.962400000000,  !- X1, Y1, Z1
+  0.000000000000,  22.860000000000,  0.000000000000,  !- X2, Y2, Z2
+  0.000000000000,  12.497000000000,  0.000000000000,  !- X3, Y3, Z3
+  0.000000000000,  12.497000000000,  3.962400000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  99B35C,  !- Name
+  Wall,  !- Surface Type
+  ADJ_WALL,  !- Construction Name
+  Lobby_Flr_1,  !- Zone Name
+  Zone,  !- Outside Boundary Condition
+  Cafe_Flr_1,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  53.950000000000,  0.000000000000,  3.962400000000,  !- X1, Y1, Z1
+  53.950000000000,  0.000000000000,  0.000000000000,  !- X2, Y2, Z2
+  53.950000000000,  5.791000000000,  0.000000000000,  !- X3, Y3, Z3
+  53.950000000000,  5.791000000000,  3.962400000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  CE4B09,  !- Name
+  Wall,  !- Surface Type
+  EXT_WALL,  !- Construction Name
+  Lobby_Flr_1,  !- Zone Name
+  Outdoors,  !- Outside Boundary Condition
+  ,  !- Outside Boundary Condition Object
+  SunExposed,  !- Sun Exposure
+  WindExposed,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  81.991000000000,  22.860000000000,  3.962400000000,  !- X1, Y1, Z1
+  81.991000000000,  22.860000000000,  0.000000000000,  !- X2, Y2, Z2
+  78.943000000000,  22.860000000000,  0.000000000000,  !- X3, Y3, Z3
+  78.943000000000,  22.860000000000,  3.962400000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  5D7B05,  !- Name
+  Wall,  !- Surface Type
+  ADJ_WALL,  !- Construction Name
+  Lobby_Flr_1,  !- Zone Name
+  Zone,  !- Outside Boundary Condition
+  Retail_2_Flr_1,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  0.000000000000,  12.497000000000,  3.962400000000,  !- X1, Y1, Z1
+  0.000000000000,  12.497000000000,  0.000000000000,  !- X2, Y2, Z2
+  11.582000000000,  12.497000000000,  0.000000000000,  !- X3, Y3, Z3
+  11.582000000000,  12.497000000000,  3.962400000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  E65450,  !- Name
+  Wall,  !- Surface Type
+  ADJ_WALL,  !- Construction Name
+  Lobby_Flr_1,  !- Zone Name
+  Zone,  !- Outside Boundary Condition
+  Retail_1_Flr_1,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  11.582000000000,  5.791000000000,  3.962400000000,  !- X1, Y1, Z1
+  11.582000000000,  5.791000000000,  0.000000000000,  !- X2, Y2, Z2
+  11.582000000000,  0.000000000000,  0.000000000000,  !- X3, Y3, Z3
+  11.582000000000,  0.000000000000,  3.962400000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  30CFF6,  !- Name
+  Wall,  !- Surface Type
+  ADJ_WALL,  !- Construction Name
+  Lobby_Flr_1,  !- Zone Name
+  Zone,  !- Outside Boundary Condition
+  Laundry_Flr_1,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  81.991000000000,  5.791000000000,  3.962400000000,  !- X1, Y1, Z1
+  81.991000000000,  5.791000000000,  0.000000000000,  !- X2, Y2, Z2
+  81.991000000000,  22.860000000000,  0.000000000000,  !- X3, Y3, Z3
+  81.991000000000,  22.860000000000,  3.962400000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  C4F5D0,  !- Name
+  Wall,  !- Surface Type
+  ADJ_WALL,  !- Construction Name
+  Lobby_Flr_1,  !- Zone Name
+  Zone,  !- Outside Boundary Condition
+  Mech_Flr_1,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  69.799000000000,  12.497000000000,  3.962400000000,  !- X1, Y1, Z1
+  69.799000000000,  12.497000000000,  0.000000000000,  !- X2, Y2, Z2
+  53.950000000000,  12.497000000000,  0.000000000000,  !- X3, Y3, Z3
+  53.950000000000,  12.497000000000,  3.962400000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  2548FA,  !- Name
+  Wall,  !- Surface Type
+  ADJ_WALL,  !- Construction Name
+  Lobby_Flr_1,  !- Zone Name
+  Zone,  !- Outside Boundary Condition
+  Cafe_Flr_1,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  53.950000000000,  5.791000000000,  3.962400000000,  !- X1, Y1, Z1
+  53.950000000000,  5.791000000000,  0.000000000000,  !- X2, Y2, Z2
+  81.991000000000,  5.791000000000,  0.000000000000,  !- X3, Y3, Z3
+  81.991000000000,  5.791000000000,  3.962400000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  B88A65,  !- Name
+  Wall,  !- Surface Type
+  ADJ_WALL,  !- Construction Name
+  Lobby_Flr_1,  !- Zone Name
+  Zone,  !- Outside Boundary Condition
+  Retail_2_Flr_1,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  11.582000000000,  12.497000000000,  3.962400000000,  !- X1, Y1, Z1
+  11.582000000000,  12.497000000000,  0.000000000000,  !- X2, Y2, Z2
+  11.582000000000,  5.791000000000,  0.000000000000,  !- X3, Y3, Z3
+  11.582000000000,  5.791000000000,  3.962400000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  A55B82,  !- Name
+  Wall,  !- Surface Type
+  ADJ_WALL,  !- Construction Name
+  Lobby_Flr_1,  !- Zone Name
+  Zone,  !- Outside Boundary Condition
+  Storage_Flr_1,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  78.943000000000,  12.497000000000,  3.962400000000,  !- X1, Y1, Z1
+  78.943000000000,  12.497000000000,  0.000000000000,  !- X2, Y2, Z2
+  69.799000000000,  12.497000000000,  0.000000000000,  !- X3, Y3, Z3
+  69.799000000000,  12.497000000000,  3.962400000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  95E42D,  !- Name
+  Wall,  !- Surface Type
+  ADJ_WALL,  !- Construction Name
+  Lobby_Flr_1,  !- Zone Name
+  Zone,  !- Outside Boundary Condition
+  Storage_Flr_1,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  78.943000000000,  22.860000000000,  3.962400000000,  !- X1, Y1, Z1
+  78.943000000000,  22.860000000000,  0.000000000000,  !- X2, Y2, Z2
+  78.943000000000,  12.497000000000,  0.000000000000,  !- X3, Y3, Z3
+  78.943000000000,  12.497000000000,  3.962400000000;  !- X4, Y4, Z4
+
+FenestrationSurface:Detailed,
+  A86776,  !- Name
+  Window,  !- Surface Type
+  EXT_WINDOW1,  !- Construction Name
+  937667,  !- Building Surface Name
+  ,  !- Outside Boundary Condition Object
+  AutoCalculate,  !- View Factor to Ground
+  ,  !- Shading Control Name
+  ,  !- Frame and Divider Name
+  1.0000,  !- Multiplier
+  4,  !- Number of Vertices
+  12.793000000000,  0.000000000000,  2.286000000000,  !- X1, Y1, Z1
+  12.793000000000,  0.000000000000,  0.152000000000,  !- X2, Y2, Z2
+  52.739000000000,  0.000000000000,  0.152000000000,  !- X3, Y3, Z3
+  52.739000000000,  0.000000000000,  2.286000000000;  !- X4, Y4, Z4
+
+Zone,
+  Room_2_Flr_3,  !- Name
+  0.0000,  !- Direction of Relative North
+  0.0000,  !- X Origin
+  0.0000,  !- Y Origin
+  0.0000,  !- Z Origin
+  1,  !- Type
+  4,  !- Multiplier
+  ,  !- Ceiling Height
+  ,  !- Volume
+  ,  !- Zone Inside Convection Algorithm
+  ,  !- Zone Outside Convection Algorithm
+  Yes;  !- Part of Total Floor Area
+
+BuildingSurface:Detailed,
+  3C69D0,  !- Name
+  Ceiling,  !- Surface Type
+  ADJ_CEILING,  !- Construction Name
+  Room_2_Flr_3,  !- Zone Name
+  OtherSideCoefficients,  !- Outside Boundary Condition
+  BOUNDARY=IDENTICAL,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  0.0,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  0.000000000000,  22.860000000000,  10.056000000000,  !- X1, Y1, Z1
+  0.000000000000,  14.326000000000,  10.056000000000,  !- X2, Y2, Z2
+  4.572000000000,  14.326000000000,  10.056000000000,  !- X3, Y3, Z3
+  4.572000000000,  22.860000000000,  10.056000000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  6427C6,  !- Name
+  Wall,  !- Surface Type
+  ADJ_WALL,  !- Construction Name
+  Room_2_Flr_3,  !- Zone Name
+  Zone,  !- Outside Boundary Condition
+  Corridor_Flr_3,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  4.572000000000,  14.326000000000,  10.056000000000,  !- X1, Y1, Z1
+  4.572000000000,  14.326000000000,  7.008000000000,  !- X2, Y2, Z2
+  4.572000000000,  22.860000000000,  7.008000000000,  !- X3, Y3, Z3
+  4.572000000000,  22.860000000000,  10.056000000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  AC9A13,  !- Name
+  Wall,  !- Surface Type
+  EXT_WALL,  !- Construction Name
+  Room_2_Flr_3,  !- Zone Name
+  Outdoors,  !- Outside Boundary Condition
+  ,  !- Outside Boundary Condition Object
+  SunExposed,  !- Sun Exposure
+  WindExposed,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  4.572000000000,  22.860000000000,  10.056000000000,  !- X1, Y1, Z1
+  4.572000000000,  22.860000000000,  7.008000000000,  !- X2, Y2, Z2
+  0.000000000000,  22.860000000000,  7.008000000000,  !- X3, Y3, Z3
+  0.000000000000,  22.860000000000,  10.056000000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  3CC903,  !- Name
+  Wall,  !- Surface Type
+  ADJ_WALL,  !- Construction Name
+  Room_2_Flr_3,  !- Zone Name
+  Zone,  !- Outside Boundary Condition
+  Room_1_Flr_3,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  0.000000000000,  14.326000000000,  10.056000000000,  !- X1, Y1, Z1
+  0.000000000000,  14.326000000000,  7.008000000000,  !- X2, Y2, Z2
+  4.572000000000,  14.326000000000,  7.008000000000,  !- X3, Y3, Z3
+  4.572000000000,  14.326000000000,  10.056000000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  92DC5A,  !- Name
+  Wall,  !- Surface Type
+  EXT_WALL,  !- Construction Name
+  Room_2_Flr_3,  !- Zone Name
+  Outdoors,  !- Outside Boundary Condition
+  ,  !- Outside Boundary Condition Object
+  SunExposed,  !- Sun Exposure
+  WindExposed,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  0.000000000000,  22.860000000000,  10.056000000000,  !- X1, Y1, Z1
+  0.000000000000,  22.860000000000,  7.008000000000,  !- X2, Y2, Z2
+  0.000000000000,  14.326000000000,  7.008000000000,  !- X3, Y3, Z3
+  0.000000000000,  14.326000000000,  10.056000000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  4986B8,  !- Name
+  Floor,  !- Surface Type
+  ADJ_CEILING,  !- Construction Name
+  Room_2_Flr_3,  !- Zone Name
+  OtherSideCoefficients,  !- Outside Boundary Condition
+  BOUNDARY=IDENTICAL,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  0.0,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  4.572000000000,  22.860000000000,  7.008000000000,  !- X1, Y1, Z1
+  4.572000000000,  14.326000000000,  7.008000000000,  !- X2, Y2, Z2
+  0.000000000000,  14.326000000000,  7.008000000000,  !- X3, Y3, Z3
+  0.000000000000,  22.860000000000,  7.008000000000;  !- X4, Y4, Z4
+
+FenestrationSurface:Detailed,
+  80C091,  !- Name
+  Window,  !- Surface Type
+  EXT_WINDOW1,  !- Construction Name
+  AC9A13,  !- Building Surface Name
+  ,  !- Outside Boundary Condition Object
+  AutoCalculate,  !- View Factor to Ground
+  ,  !- Shading Control Name
+  ,  !- Frame and Divider Name
+  1.0000,  !- Multiplier
+  4,  !- Number of Vertices
+  4.172000000000,  22.860000000000,  9.331800000000,  !- X1, Y1, Z1
+  4.172000000000,  22.860000000000,  8.112800000000,  !- X2, Y2, Z2
+  0.400000000000,  22.860000000000,  8.112800000000,  !- X3, Y3, Z3
+  0.400000000000,  22.860000000000,  9.331800000000;  !- X4, Y4, Z4
+
+FenestrationSurface:Detailed,
+  2DFC36,  !- Name
+  Window,  !- Surface Type
+  EXT_WINDOW1,  !- Construction Name
+  92DC5A,  !- Building Surface Name
+  ,  !- Outside Boundary Condition Object
+  AutoCalculate,  !- View Factor to Ground
+  ,  !- Shading Control Name
+  ,  !- Frame and Divider Name
+  1.0000,  !- Multiplier
+  4,  !- Number of Vertices
+  0.000000000000,  22.113000000000,  9.331800000000,  !- X1, Y1, Z1
+  0.000000000000,  22.113000000000,  8.112800000000,  !- X2, Y2, Z2
+  0.000000000000,  15.072000000000,  8.112800000000,  !- X3, Y3, Z3
+  0.000000000000,  15.072000000000,  9.331800000000;  !- X4, Y4, Z4
+
+Zone,
+  Cafe_Flr_1,  !- Name
+  0.0000,  !- Direction of Relative North
+  0.0000,  !- X Origin
+  0.0000,  !- Y Origin
+  0.0000,  !- Z Origin
+  1,  !- Type
+  1,  !- Multiplier
+  ,  !- Ceiling Height
+  ,  !- Volume
+  ,  !- Zone Inside Convection Algorithm
+  ,  !- Zone Outside Convection Algorithm
+  Yes;  !- Part of Total Floor Area
+
+BuildingSurface:Detailed,
+  87C184,  !- Name
+  Roof,  !- Surface Type
+  EXT_ROOF,  !- Construction Name
+  Cafe_Flr_1,  !- Zone Name
+  Outdoors,  !- Outside Boundary Condition
+  ,  !- Outside Boundary Condition Object
+  SunExposed,  !- Sun Exposure
+  WindExposed,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  53.950000000000,  5.791000000000,  3.962400000000,  !- X1, Y1, Z1
+  53.950000000000,  0.000000000000,  3.962400000000,  !- X2, Y2, Z2
+  86.563000000000,  0.000000000000,  3.962400000000,  !- X3, Y3, Z3
+  86.563000000000,  5.791000000000,  3.962400000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  2A8951,  !- Name
+  Floor,  !- Surface Type
+  ADJ_CEILING,  !- Construction Name
+  Cafe_Flr_1,  !- Zone Name
+  Zone,  !- Outside Boundary Condition
+  Basement,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  86.563000000000,  5.791000000000,  0.000000000000,  !- X1, Y1, Z1
+  86.563000000000,  0.000000000000,  0.000000000000,  !- X2, Y2, Z2
+  53.950000000000,  0.000000000000,  0.000000000000,  !- X3, Y3, Z3
+  53.950000000000,  5.791000000000,  0.000000000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  6D78BB,  !- Name
+  Wall,  !- Surface Type
+  ADJ_WALL,  !- Construction Name
+  Cafe_Flr_1,  !- Zone Name
+  Zone,  !- Outside Boundary Condition
+  Lobby_Flr_1,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  81.991000000000,  5.791000000000,  3.962400000000,  !- X1, Y1, Z1
+  81.991000000000,  5.791000000000,  0.000000000000,  !- X2, Y2, Z2
+  53.950000000000,  5.791000000000,  0.000000000000,  !- X3, Y3, Z3
+  53.950000000000,  5.791000000000,  3.962400000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  2FF929,  !- Name
+  Wall,  !- Surface Type
+  ADJ_WALL,  !- Construction Name
+  Cafe_Flr_1,  !- Zone Name
+  Zone,  !- Outside Boundary Condition
+  Laundry_Flr_1,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  86.563000000000,  5.791000000000,  3.962400000000,  !- X1, Y1, Z1
+  86.563000000000,  5.791000000000,  0.000000000000,  !- X2, Y2, Z2
+  81.991000000000,  5.791000000000,  0.000000000000,  !- X3, Y3, Z3
+  81.991000000000,  5.791000000000,  3.962400000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  1D9D5E,  !- Name
+  Wall,  !- Surface Type
+  EXT_WALL,  !- Construction Name
+  Cafe_Flr_1,  !- Zone Name
+  Outdoors,  !- Outside Boundary Condition
+  ,  !- Outside Boundary Condition Object
+  SunExposed,  !- Sun Exposure
+  WindExposed,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  86.563000000000,  0.000000000000,  3.962400000000,  !- X1, Y1, Z1
+  86.563000000000,  0.000000000000,  0.000000000000,  !- X2, Y2, Z2
+  86.563000000000,  5.791000000000,  0.000000000000,  !- X3, Y3, Z3
+  86.563000000000,  5.791000000000,  3.962400000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  9E8117,  !- Name
+  Wall,  !- Surface Type
+  EXT_WALL,  !- Construction Name
+  Cafe_Flr_1,  !- Zone Name
+  Outdoors,  !- Outside Boundary Condition
+  ,  !- Outside Boundary Condition Object
+  SunExposed,  !- Sun Exposure
+  WindExposed,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  53.950000000000,  0.000000000000,  3.962400000000,  !- X1, Y1, Z1
+  53.950000000000,  0.000000000000,  0.000000000000,  !- X2, Y2, Z2
+  86.563000000000,  0.000000000000,  0.000000000000,  !- X3, Y3, Z3
+  86.563000000000,  0.000000000000,  3.962400000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  9451B9,  !- Name
+  Wall,  !- Surface Type
+  ADJ_WALL,  !- Construction Name
+  Cafe_Flr_1,  !- Zone Name
+  Zone,  !- Outside Boundary Condition
+  Lobby_Flr_1,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  53.950000000000,  5.791000000000,  3.962400000000,  !- X1, Y1, Z1
+  53.950000000000,  5.791000000000,  0.000000000000,  !- X2, Y2, Z2
+  53.950000000000,  0.000000000000,  0.000000000000,  !- X3, Y3, Z3
+  53.950000000000,  0.000000000000,  3.962400000000;  !- X4, Y4, Z4
+
+FenestrationSurface:Detailed,
+  3026FD,  !- Name
+  Window,  !- Surface Type
+  EXT_WINDOW1,  !- Construction Name
+  9E8117,  !- Building Surface Name
+  ,  !- Outside Boundary Condition Object
+  AutoCalculate,  !- View Factor to Ground
+  ,  !- Shading Control Name
+  ,  !- Frame and Divider Name
+  1.0000,  !- Multiplier
+  4,  !- Number of Vertices
+  54.881000000000,  0.000000000000,  2.286000000000,  !- X1, Y1, Z1
+  54.881000000000,  0.000000000000,  0.152000000000,  !- X2, Y2, Z2
+  85.631000000000,  0.000000000000,  0.152000000000,  !- X3, Y3, Z3
+  85.631000000000,  0.000000000000,  2.286000000000;  !- X4, Y4, Z4
+
+Zone,
+  Room_1_Flr_3,  !- Name
+  0.0000,  !- Direction of Relative North
+  0.0000,  !- X Origin
+  0.0000,  !- Y Origin
+  0.0000,  !- Z Origin
+  1,  !- Type
+  4,  !- Multiplier
+  ,  !- Ceiling Height
+  ,  !- Volume
+  ,  !- Zone Inside Convection Algorithm
+  ,  !- Zone Outside Convection Algorithm
+  Yes;  !- Part of Total Floor Area
+
+BuildingSurface:Detailed,
+  5F2210,  !- Name
+  Ceiling,  !- Surface Type
+  ADJ_CEILING,  !- Construction Name
+  Room_1_Flr_3,  !- Zone Name
+  OtherSideCoefficients,  !- Outside Boundary Condition
+  BOUNDARY=IDENTICAL,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  0.0,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  0.000000000000,  14.326000000000,  10.056000000000,  !- X1, Y1, Z1
+  0.000000000000,  5.791000000000,  10.056000000000,  !- X2, Y2, Z2
+  4.572000000000,  5.791000000000,  10.056000000000,  !- X3, Y3, Z3
+  4.572000000000,  14.326000000000,  10.056000000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  A78C41,  !- Name
+  Floor,  !- Surface Type
+  ADJ_CEILING,  !- Construction Name
+  Room_1_Flr_3,  !- Zone Name
+  OtherSideCoefficients,  !- Outside Boundary Condition
+  BOUNDARY=IDENTICAL,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  0.0,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  4.572000000000,  14.326000000000,  7.008000000000,  !- X1, Y1, Z1
+  4.572000000000,  5.791000000000,  7.008000000000,  !- X2, Y2, Z2
+  0.000000000000,  5.791000000000,  7.008000000000,  !- X3, Y3, Z3
+  0.000000000000,  14.326000000000,  7.008000000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  11A281,  !- Name
+  Wall,  !- Surface Type
+  ADJ_WALL,  !- Construction Name
+  Room_1_Flr_3,  !- Zone Name
+  Zone,  !- Outside Boundary Condition
+  Corridor_Flr_3,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  4.572000000000,  5.791000000000,  10.056000000000,  !- X1, Y1, Z1
+  4.572000000000,  5.791000000000,  7.008000000000,  !- X2, Y2, Z2
+  4.572000000000,  14.326000000000,  7.008000000000,  !- X3, Y3, Z3
+  4.572000000000,  14.326000000000,  10.056000000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  3A0E2F,  !- Name
+  Wall,  !- Surface Type
+  ADJ_WALL,  !- Construction Name
+  Room_1_Flr_3,  !- Zone Name
+  Zone,  !- Outside Boundary Condition
+  Room_2_Flr_3,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  4.572000000000,  14.326000000000,  10.056000000000,  !- X1, Y1, Z1
+  4.572000000000,  14.326000000000,  7.008000000000,  !- X2, Y2, Z2
+  0.000000000000,  14.326000000000,  7.008000000000,  !- X3, Y3, Z3
+  0.000000000000,  14.326000000000,  10.056000000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  65A96A,  !- Name
+  Wall,  !- Surface Type
+  EXT_WALL,  !- Construction Name
+  Room_1_Flr_3,  !- Zone Name
+  Outdoors,  !- Outside Boundary Condition
+  ,  !- Outside Boundary Condition Object
+  SunExposed,  !- Sun Exposure
+  WindExposed,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  0.000000000000,  14.326000000000,  10.056000000000,  !- X1, Y1, Z1
+  0.000000000000,  14.326000000000,  7.008000000000,  !- X2, Y2, Z2
+  0.000000000000,  5.791000000000,  7.008000000000,  !- X3, Y3, Z3
+  0.000000000000,  5.791000000000,  10.056000000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  9EC2E3,  !- Name
+  Wall,  !- Surface Type
+  EXT_WALL,  !- Construction Name
+  Room_1_Flr_3,  !- Zone Name
+  Outdoors,  !- Outside Boundary Condition
+  ,  !- Outside Boundary Condition Object
+  SunExposed,  !- Sun Exposure
+  WindExposed,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  0.000000000000,  5.791000000000,  10.056000000000,  !- X1, Y1, Z1
+  0.000000000000,  5.791000000000,  7.008000000000,  !- X2, Y2, Z2
+  4.572000000000,  5.791000000000,  7.008000000000,  !- X3, Y3, Z3
+  4.572000000000,  5.791000000000,  10.056000000000;  !- X4, Y4, Z4
+
+FenestrationSurface:Detailed,
+  D8E70A,  !- Name
+  Window,  !- Surface Type
+  EXT_WINDOW1,  !- Construction Name
+  9EC2E3,  !- Building Surface Name
+  ,  !- Outside Boundary Condition Object
+  AutoCalculate,  !- View Factor to Ground
+  ,  !- Shading Control Name
+  ,  !- Frame and Divider Name
+  1.0000,  !- Multiplier
+  4,  !- Number of Vertices
+  0.400000000000,  5.791000000000,  9.331800000000,  !- X1, Y1, Z1
+  0.400000000000,  5.791000000000,  8.112800000000,  !- X2, Y2, Z2
+  4.172000000000,  5.791000000000,  8.112800000000,  !- X3, Y3, Z3
+  4.172000000000,  5.791000000000,  9.331800000000;  !- X4, Y4, Z4
+
+FenestrationSurface:Detailed,
+  50766C,  !- Name
+  Window,  !- Surface Type
+  EXT_WINDOW1,  !- Construction Name
+  65A96A,  !- Building Surface Name
+  ,  !- Outside Boundary Condition Object
+  AutoCalculate,  !- View Factor to Ground
+  ,  !- Shading Control Name
+  ,  !- Frame and Divider Name
+  1.0000,  !- Multiplier
+  4,  !- Number of Vertices
+  0.000000000000,  13.579000000000,  9.331800000000,  !- X1, Y1, Z1
+  0.000000000000,  13.579000000000,  8.112800000000,  !- X2, Y2, Z2
+  0.000000000000,  6.538000000000,  8.112800000000,  !- X3, Y3, Z3
+  0.000000000000,  6.538000000000,  9.331800000000;  !- X4, Y4, Z4
+
+Zone,
+  Corridor_Flr_3,  !- Name
+  0.0000,  !- Direction of Relative North
+  0.0000,  !- X Origin
+  0.0000,  !- Y Origin
+  0.0000,  !- Z Origin
+  1,  !- Type
+  4,  !- Multiplier
+  ,  !- Ceiling Height
+  ,  !- Volume
+  ,  !- Zone Inside Convection Algorithm
+  ,  !- Zone Outside Convection Algorithm
+  Yes;  !- Part of Total Floor Area
+
+BuildingSurface:Detailed,
+  211679,  !- Name
+  Ceiling,  !- Surface Type
+  ADJ_CEILING,  !- Construction Name
+  Corridor_Flr_3,  !- Zone Name
+  OtherSideCoefficients,  !- Outside Boundary Condition
+  BOUNDARY=IDENTICAL,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  0.0,  !- View Factor to Ground
+  6,  !- Number of Vertices
+  4.572000000000,  22.860000000000,  10.056000000000,  !- X1, Y1, Z1
+  4.572000000000,  5.791000000000,  10.056000000000,  !- X2, Y2, Z2
+  6.706000000000,  5.791000000000,  10.056000000000,  !- X3, Y3, Z3
+  6.706000000000,  12.497000000000,  10.056000000000,  !- X4, Y4, Z4
+  10.363000000000,  12.497000000000,  10.056000000000,  !- X5, Y5, Z5
+  10.363000000000,  22.860000000000,  10.056000000000;  !- X6, Y6, Z6
+
+BuildingSurface:Detailed,
+  21D73B,  !- Name
+  Ceiling,  !- Surface Type
+  ADJ_CEILING,  !- Construction Name
+  Corridor_Flr_3,  !- Zone Name
+  OtherSideCoefficients,  !- Outside Boundary Condition
+  BOUNDARY=IDENTICAL,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  0.0,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  10.363000000000,  16.154000000000,  10.056000000000,  !- X1, Y1, Z1
+  10.363000000000,  12.497000000000,  10.056000000000,  !- X2, Y2, Z2
+  76.200000000000,  12.497000000000,  10.056000000000,  !- X3, Y3, Z3
+  76.200000000000,  16.154000000000,  10.056000000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  6C0E37,  !- Name
+  Ceiling,  !- Surface Type
+  ADJ_CEILING,  !- Construction Name
+  Corridor_Flr_3,  !- Zone Name
+  OtherSideCoefficients,  !- Outside Boundary Condition
+  BOUNDARY=IDENTICAL,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  0.0,  !- View Factor to Ground
+  6,  !- Number of Vertices
+  79.858000000000,  22.860000000000,  10.056000000000,  !- X1, Y1, Z1
+  79.858000000000,  16.154000000000,  10.056000000000,  !- X2, Y2, Z2
+  76.200000000000,  16.154000000000,  10.056000000000,  !- X3, Y3, Z3
+  76.200000000000,  5.791000000000,  10.056000000000,  !- X4, Y4, Z4
+  81.991000000000,  5.791000000000,  10.056000000000,  !- X5, Y5, Z5
+  81.991000000000,  22.860000000000,  10.056000000000;  !- X6, Y6, Z6
+
+BuildingSurface:Detailed,
+  22EE49,  !- Name
+  Floor,  !- Surface Type
+  ADJ_CEILING,  !- Construction Name
+  Corridor_Flr_3,  !- Zone Name
+  OtherSideCoefficients,  !- Outside Boundary Condition
+  BOUNDARY=IDENTICAL,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  0.0,  !- View Factor to Ground
+  6,  !- Number of Vertices
+  10.363000000000,  22.860000000000,  7.008000000000,  !- X1, Y1, Z1
+  10.363000000000,  12.497000000000,  7.008000000000,  !- X2, Y2, Z2
+  6.706000000000,  12.497000000000,  7.008000000000,  !- X3, Y3, Z3
+  6.706000000000,  5.791000000000,  7.008000000000,  !- X4, Y4, Z4
+  4.572000000000,  5.791000000000,  7.008000000000,  !- X5, Y5, Z5
+  4.572000000000,  22.860000000000,  7.008000000000;  !- X6, Y6, Z6
+
+BuildingSurface:Detailed,
+  B07808,  !- Name
+  Floor,  !- Surface Type
+  ADJ_CEILING,  !- Construction Name
+  Corridor_Flr_3,  !- Zone Name
+  OtherSideCoefficients,  !- Outside Boundary Condition
+  BOUNDARY=IDENTICAL,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  0.0,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  76.200000000000,  16.154000000000,  7.008000000000,  !- X1, Y1, Z1
+  76.200000000000,  12.497000000000,  7.008000000000,  !- X2, Y2, Z2
+  10.363000000000,  12.497000000000,  7.008000000000,  !- X3, Y3, Z3
+  10.363000000000,  16.154000000000,  7.008000000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  846EAB,  !- Name
+  Floor,  !- Surface Type
+  ADJ_CEILING,  !- Construction Name
+  Corridor_Flr_3,  !- Zone Name
+  OtherSideCoefficients,  !- Outside Boundary Condition
+  BOUNDARY=IDENTICAL,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  0.0,  !- View Factor to Ground
+  6,  !- Number of Vertices
+  81.991000000000,  22.860000000000,  7.008000000000,  !- X1, Y1, Z1
+  81.991000000000,  5.791000000000,  7.008000000000,  !- X2, Y2, Z2
+  76.200000000000,  5.791000000000,  7.008000000000,  !- X3, Y3, Z3
+  76.200000000000,  16.154000000000,  7.008000000000,  !- X4, Y4, Z4
+  79.858000000000,  16.154000000000,  7.008000000000,  !- X5, Y5, Z5
+  79.858000000000,  22.860000000000,  7.008000000000;  !- X6, Y6, Z6
+
+BuildingSurface:Detailed,
+  2E055A,  !- Name
+  Wall,  !- Surface Type
+  ADJ_WALL,  !- Construction Name
+  Corridor_Flr_3,  !- Zone Name
+  Zone,  !- Outside Boundary Condition
+  Room_4_Mult19_Flr_3,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  10.363000000000,  16.154000000000,  10.056000000000,  !- X1, Y1, Z1
+  10.363000000000,  16.154000000000,  7.008000000000,  !- X2, Y2, Z2
+  10.363000000000,  22.860000000000,  7.008000000000,  !- X3, Y3, Z3
+  10.363000000000,  22.860000000000,  10.056000000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  9F9FEB,  !- Name
+  Wall,  !- Surface Type
+  EXT_WALL,  !- Construction Name
+  Corridor_Flr_3,  !- Zone Name
+  Outdoors,  !- Outside Boundary Condition
+  ,  !- Outside Boundary Condition Object
+  SunExposed,  !- Sun Exposure
+  WindExposed,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  10.363000000000,  22.860000000000,  10.056000000000,  !- X1, Y1, Z1
+  10.363000000000,  22.860000000000,  7.008000000000,  !- X2, Y2, Z2
+  4.572000000000,  22.860000000000,  7.008000000000,  !- X3, Y3, Z3
+  4.572000000000,  22.860000000000,  10.056000000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  D3C4AE,  !- Name
+  Wall,  !- Surface Type
+  EXT_WALL,  !- Construction Name
+  Corridor_Flr_3,  !- Zone Name
+  Outdoors,  !- Outside Boundary Condition
+  ,  !- Outside Boundary Condition Object
+  SunExposed,  !- Sun Exposure
+  WindExposed,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  4.572000000000,  5.791000000000,  10.056000000000,  !- X1, Y1, Z1
+  4.572000000000,  5.791000000000,  7.008000000000,  !- X2, Y2, Z2
+  6.706000000000,  5.791000000000,  7.008000000000,  !- X3, Y3, Z3
+  6.706000000000,  5.791000000000,  10.056000000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  9CC88D,  !- Name
+  Wall,  !- Surface Type
+  ADJ_WALL,  !- Construction Name
+  Corridor_Flr_3,  !- Zone Name
+  OtherSideCoefficients,  !- Outside Boundary Condition
+  BOUNDARY=IDENTICAL,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  0.0,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  79.858000000000,  22.860000000000,  10.056000000000,  !- X1, Y1, Z1
+  79.858000000000,  22.860000000000,  7.008000000000,  !- X2, Y2, Z2
+  79.858000000000,  16.154000000000,  7.008000000000,  !- X3, Y3, Z3
+  79.858000000000,  16.154000000000,  10.056000000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  C5ECAA,  !- Name
+  Wall,  !- Surface Type
+  ADJ_WALL,  !- Construction Name
+  Corridor_Flr_3,  !- Zone Name
+  Zone,  !- Outside Boundary Condition
+  Room_3_Mult19_Flr_3,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  6.706000000000,  5.791000000000,  10.056000000000,  !- X1, Y1, Z1
+  6.706000000000,  5.791000000000,  7.008000000000,  !- X2, Y2, Z2
+  6.706000000000,  12.497000000000,  7.008000000000,  !- X3, Y3, Z3
+  6.706000000000,  12.497000000000,  10.056000000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  1A6793,  !- Name
+  Wall,  !- Surface Type
+  EXT_WALL,  !- Construction Name
+  Corridor_Flr_3,  !- Zone Name
+  Outdoors,  !- Outside Boundary Condition
+  ,  !- Outside Boundary Condition Object
+  SunExposed,  !- Sun Exposure
+  WindExposed,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  81.991000000000,  22.860000000000,  10.056000000000,  !- X1, Y1, Z1
+  81.991000000000,  22.860000000000,  7.008000000000,  !- X2, Y2, Z2
+  79.858000000000,  22.860000000000,  7.008000000000,  !- X3, Y3, Z3
+  79.858000000000,  22.860000000000,  10.056000000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  1B9A86,  !- Name
+  Wall,  !- Surface Type
+  EXT_WALL,  !- Construction Name
+  Corridor_Flr_3,  !- Zone Name
+  Outdoors,  !- Outside Boundary Condition
+  ,  !- Outside Boundary Condition Object
+  SunExposed,  !- Sun Exposure
+  WindExposed,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  76.200000000000,  5.791000000000,  10.056000000000,  !- X1, Y1, Z1
+  76.200000000000,  5.791000000000,  7.008000000000,  !- X2, Y2, Z2
+  81.991000000000,  5.791000000000,  7.008000000000,  !- X3, Y3, Z3
+  81.991000000000,  5.791000000000,  10.056000000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  B28803,  !- Name
+  Wall,  !- Surface Type
+  ADJ_WALL,  !- Construction Name
+  Corridor_Flr_3,  !- Zone Name
+  OtherSideCoefficients,  !- Outside Boundary Condition
+  BOUNDARY=IDENTICAL,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  0.0,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  76.200000000000,  12.497000000000,  10.056000000000,  !- X1, Y1, Z1
+  76.200000000000,  12.497000000000,  7.008000000000,  !- X2, Y2, Z2
+  76.200000000000,  5.791000000000,  7.008000000000,  !- X3, Y3, Z3
+  76.200000000000,  5.791000000000,  10.056000000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  1C3EA2,  !- Name
+  Wall,  !- Surface Type
+  ADJ_WALL,  !- Construction Name
+  Corridor_Flr_3,  !- Zone Name
+  Zone,  !- Outside Boundary Condition
+  Room_5_Flr_3,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  81.991000000000,  5.791000000000,  10.056000000000,  !- X1, Y1, Z1
+  81.991000000000,  5.791000000000,  7.008000000000,  !- X2, Y2, Z2
+  81.991000000000,  14.326000000000,  7.008000000000,  !- X3, Y3, Z3
+  81.991000000000,  14.326000000000,  10.056000000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  F28FD4,  !- Name
+  Wall,  !- Surface Type
+  ADJ_WALL,  !- Construction Name
+  Corridor_Flr_3,  !- Zone Name
+  OtherSideCoefficients,  !- Outside Boundary Condition
+  BOUNDARY=IDENTICAL,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  0.0,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  79.858000000000,  16.154000000000,  10.056000000000,  !- X1, Y1, Z1
+  79.858000000000,  16.154000000000,  7.008000000000,  !- X2, Y2, Z2
+  10.363000000000,  16.154000000000,  7.008000000000,  !- X3, Y3, Z3
+  10.363000000000,  16.154000000000,  10.056000000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  76D044,  !- Name
+  Wall,  !- Surface Type
+  ADJ_WALL,  !- Construction Name
+  Corridor_Flr_3,  !- Zone Name
+  OtherSideCoefficients,  !- Outside Boundary Condition
+  BOUNDARY=IDENTICAL,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  0.0,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  6.706000000000,  12.497000000000,  10.056000000000,  !- X1, Y1, Z1
+  6.706000000000,  12.497000000000,  7.008000000000,  !- X2, Y2, Z2
+  76.200000000000,  12.497000000000,  7.008000000000,  !- X3, Y3, Z3
+  76.200000000000,  12.497000000000,  10.056000000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  78FA1F,  !- Name
+  Wall,  !- Surface Type
+  ADJ_WALL,  !- Construction Name
+  Corridor_Flr_3,  !- Zone Name
+  Zone,  !- Outside Boundary Condition
+  Room_1_Flr_3,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  4.572000000000,  14.326000000000,  10.056000000000,  !- X1, Y1, Z1
+  4.572000000000,  14.326000000000,  7.008000000000,  !- X2, Y2, Z2
+  4.572000000000,  5.791000000000,  7.008000000000,  !- X3, Y3, Z3
+  4.572000000000,  5.791000000000,  10.056000000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  4FF5DF,  !- Name
+  Wall,  !- Surface Type
+  ADJ_WALL,  !- Construction Name
+  Corridor_Flr_3,  !- Zone Name
+  Zone,  !- Outside Boundary Condition
+  Room_6_Flr_3,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  81.991000000000,  14.326000000000,  10.056000000000,  !- X1, Y1, Z1
+  81.991000000000,  14.326000000000,  7.008000000000,  !- X2, Y2, Z2
+  81.991000000000,  22.860000000000,  7.008000000000,  !- X3, Y3, Z3
+  81.991000000000,  22.860000000000,  10.056000000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  718E1F,  !- Name
+  Wall,  !- Surface Type
+  ADJ_WALL,  !- Construction Name
+  Corridor_Flr_3,  !- Zone Name
+  Zone,  !- Outside Boundary Condition
+  Room_2_Flr_3,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  4.572000000000,  22.860000000000,  10.056000000000,  !- X1, Y1, Z1
+  4.572000000000,  22.860000000000,  7.008000000000,  !- X2, Y2, Z2
+  4.572000000000,  14.326000000000,  7.008000000000,  !- X3, Y3, Z3
+  4.572000000000,  14.326000000000,  10.056000000000;  !- X4, Y4, Z4
+
+FenestrationSurface:Detailed,
+  ED5C18,  !- Name
+  Window,  !- Surface Type
+  EXT_WINDOW1,  !- Construction Name
+  9F9FEB,  !- Building Surface Name
+  ,  !- Outside Boundary Condition Object
+  AutoCalculate,  !- View Factor to Ground
+  ,  !- Shading Control Name
+  ,  !- Frame and Divider Name
+  1.0000,  !- Multiplier
+  4,  !- Number of Vertices
+  9.856000000000,  22.860000000000,  9.331800000000,  !- X1, Y1, Z1
+  9.856000000000,  22.860000000000,  8.112800000000,  !- X2, Y2, Z2
+  5.079000000000,  22.860000000000,  8.112800000000,  !- X3, Y3, Z3
+  5.079000000000,  22.860000000000,  9.331800000000;  !- X4, Y4, Z4
+
+FenestrationSurface:Detailed,
+  A9CA26,  !- Name
+  Window,  !- Surface Type
+  EXT_WINDOW1,  !- Construction Name
+  D3C4AE,  !- Building Surface Name
+  ,  !- Outside Boundary Condition Object
+  AutoCalculate,  !- View Factor to Ground
+  ,  !- Shading Control Name
+  ,  !- Frame and Divider Name
+  1.0000,  !- Multiplier
+  4,  !- Number of Vertices
+  4.759000000000,  5.791000000000,  9.331800000000,  !- X1, Y1, Z1
+  4.759000000000,  5.791000000000,  8.112800000000,  !- X2, Y2, Z2
+  6.519000000000,  5.791000000000,  8.112800000000,  !- X3, Y3, Z3
+  6.519000000000,  5.791000000000,  9.331800000000;  !- X4, Y4, Z4
+
+FenestrationSurface:Detailed,
+  7E72CB,  !- Name
+  Window,  !- Surface Type
+  EXT_WINDOW1,  !- Construction Name
+  1A6793,  !- Building Surface Name
+  ,  !- Outside Boundary Condition Object
+  AutoCalculate,  !- View Factor to Ground
+  ,  !- Shading Control Name
+  ,  !- Frame and Divider Name
+  1.0000,  !- Multiplier
+  4,  !- Number of Vertices
+  81.805000000000,  22.860000000000,  9.331800000000,  !- X1, Y1, Z1
+  81.805000000000,  22.860000000000,  8.112800000000,  !- X2, Y2, Z2
+  80.044000000000,  22.860000000000,  8.112800000000,  !- X3, Y3, Z3
+  80.044000000000,  22.860000000000,  9.331800000000;  !- X4, Y4, Z4
+
+FenestrationSurface:Detailed,
+  AFA513,  !- Name
+  Window,  !- Surface Type
+  EXT_WINDOW1,  !- Construction Name
+  1B9A86,  !- Building Surface Name
+  ,  !- Outside Boundary Condition Object
+  AutoCalculate,  !- View Factor to Ground
+  ,  !- Shading Control Name
+  ,  !- Frame and Divider Name
+  1.0000,  !- Multiplier
+  4,  !- Number of Vertices
+  76.707000000000,  5.791000000000,  9.331800000000,  !- X1, Y1, Z1
+  76.707000000000,  5.791000000000,  8.112800000000,  !- X2, Y2, Z2
+  81.484000000000,  5.791000000000,  8.112800000000,  !- X3, Y3, Z3
+  81.484000000000,  5.791000000000,  9.331800000000;  !- X4, Y4, Z4
+
+! *** SHADING ***
+  Shading:Building:Detailed,
+    Canopy,  !- Name
+    ,  !- Transmittance Schedule Name
+    4,  !- Number of Vertices
+    28.194000000000,  !- Vertex 1 X-coordinate {m}
+    0.000000000000,  !- Vertex 1 Y-coordinate {m}
+    3.962400000000,  !- Vertex 1 Z-coordinate {m}
+    28.194000000000,  !- Vertex 2 X-coordinate {m}
+    -9.144000000000,  !- Vertex 2 Y-coordinate {m}
+    3.962400000000,  !- Vertex 2 Z-coordinate {m}
+    37.338000000000,  !- Vertex 3 X-coordinate {m}
+    -9.144000000000,  !- Vertex 3 Y-coordinate {m}
+    3.962400000000,  !- Vertex 3 Z-coordinate {m}
+    37.338000000000,  !- Vertex 4 X-coordinate {m}
+    0.000000000000,  !- Vertex 4 Y-coordinate {m}
+    3.962400000000;  !- Vertex 4 Z-coordinate {m}
+
+Zone,
+  Laundry_Flr_1,  !- Name
+  0.0000,  !- Direction of Relative North
+  0.0000,  !- X Origin
+  0.0000,  !- Y Origin
+  0.0000,  !- Z Origin
+  1,  !- Type
+  1,  !- Multiplier
+  ,  !- Ceiling Height
+  ,  !- Volume
+  ,  !- Zone Inside Convection Algorithm
+  ,  !- Zone Outside Convection Algorithm
+  Yes;  !- Part of Total Floor Area
+
+BuildingSurface:Detailed,
+  1C01C6,  !- Name
+  Ceiling,  !- Surface Type
+  ADJ_CEILING,  !- Construction Name
+  Laundry_Flr_1,  !- Zone Name
+  OtherSideCoefficients,  !- Outside Boundary Condition
+  BOUNDARY=IDENTICAL,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  0.0,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  81.991000000000,  22.860000000000,  3.962400000000,  !- X1, Y1, Z1
+  81.991000000000,  5.791000000000,  3.962400000000,  !- X2, Y2, Z2
+  86.563000000000,  5.791000000000,  3.962400000000,  !- X3, Y3, Z3
+  86.563000000000,  22.860000000000,  3.962400000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  2970D1,  !- Name
+  Floor,  !- Surface Type
+  ADJ_CEILING,  !- Construction Name
+  Laundry_Flr_1,  !- Zone Name
+  Zone,  !- Outside Boundary Condition
+  Basement,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  86.563000000000,  22.860000000000,  0.000000000000,  !- X1, Y1, Z1
+  86.563000000000,  5.791000000000,  0.000000000000,  !- X2, Y2, Z2
+  81.991000000000,  5.791000000000,  0.000000000000,  !- X3, Y3, Z3
+  81.991000000000,  22.860000000000,  0.000000000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  F39331,  !- Name
+  Wall,  !- Surface Type
+  EXT_WALL,  !- Construction Name
+  Laundry_Flr_1,  !- Zone Name
+  Outdoors,  !- Outside Boundary Condition
+  ,  !- Outside Boundary Condition Object
+  SunExposed,  !- Sun Exposure
+  WindExposed,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  86.563000000000,  5.791000000000,  3.962400000000,  !- X1, Y1, Z1
+  86.563000000000,  5.791000000000,  0.000000000000,  !- X2, Y2, Z2
+  86.563000000000,  22.860000000000,  0.000000000000,  !- X3, Y3, Z3
+  86.563000000000,  22.860000000000,  3.962400000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  6216DE,  !- Name
+  Wall,  !- Surface Type
+  EXT_WALL,  !- Construction Name
+  Laundry_Flr_1,  !- Zone Name
+  Outdoors,  !- Outside Boundary Condition
+  ,  !- Outside Boundary Condition Object
+  SunExposed,  !- Sun Exposure
+  WindExposed,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  86.563000000000,  22.860000000000,  3.962400000000,  !- X1, Y1, Z1
+  86.563000000000,  22.860000000000,  0.000000000000,  !- X2, Y2, Z2
+  81.991000000000,  22.860000000000,  0.000000000000,  !- X3, Y3, Z3
+  81.991000000000,  22.860000000000,  3.962400000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  D02787,  !- Name
+  Wall,  !- Surface Type
+  ADJ_WALL,  !- Construction Name
+  Laundry_Flr_1,  !- Zone Name
+  Zone,  !- Outside Boundary Condition
+  Cafe_Flr_1,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  81.991000000000,  5.791000000000,  3.962400000000,  !- X1, Y1, Z1
+  81.991000000000,  5.791000000000,  0.000000000000,  !- X2, Y2, Z2
+  86.563000000000,  5.791000000000,  0.000000000000,  !- X3, Y3, Z3
+  86.563000000000,  5.791000000000,  3.962400000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  BE9DC7,  !- Name
+  Wall,  !- Surface Type
+  ADJ_WALL,  !- Construction Name
+  Laundry_Flr_1,  !- Zone Name
+  Zone,  !- Outside Boundary Condition
+  Lobby_Flr_1,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  81.991000000000,  22.860000000000,  3.962400000000,  !- X1, Y1, Z1
+  81.991000000000,  22.860000000000,  0.000000000000,  !- X2, Y2, Z2
+  81.991000000000,  5.791000000000,  0.000000000000,  !- X3, Y3, Z3
+  81.991000000000,  5.791000000000,  3.962400000000;  !- X4, Y4, Z4
+
+Zone,
+  Dining_Flr_6,  !- Name
+  0.0000,  !- Direction of Relative North
+  0.0000,  !- X Origin
+  0.0000,  !- Y Origin
+  0.0000,  !- Z Origin
+  1,  !- Type
+  1,  !- Multiplier
+  ,  !- Ceiling Height
+  ,  !- Volume
+  ,  !- Zone Inside Convection Algorithm
+  ,  !- Zone Outside Convection Algorithm
+  Yes;  !- Part of Total Floor Area
+
+BuildingSurface:Detailed,
+  482946,  !- Name
+  Roof,  !- Surface Type
+  EXT_ROOF,  !- Construction Name
+  Dining_Flr_6,  !- Zone Name
+  Outdoors,  !- Outside Boundary Condition
+  ,  !- Outside Boundary Condition Object
+  SunExposed,  !- Sun Exposure
+  WindExposed,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  47.549000000000,  22.860000000000,  19.200000000000,  !- X1, Y1, Z1
+  47.549000000000,  12.497000000000,  19.200000000000,  !- X2, Y2, Z2
+  79.553000000000,  12.497000000000,  19.200000000000,  !- X3, Y3, Z3
+  79.553000000000,  22.860000000000,  19.200000000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  C5865A,  !- Name
+  Floor,  !- Surface Type
+  ADJ_CEILING,  !- Construction Name
+  Dining_Flr_6,  !- Zone Name
+  OtherSideCoefficients,  !- Outside Boundary Condition
+  BOUNDARY=IDENTICAL,  !- Outside Boundary Condition Object
+  SunExposed,  !- Sun Exposure
+  WindExposed,  !- Wind Exposure
+  0.0,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  79.553000000000,  22.860000000000,  16.152000000000,  !- X1, Y1, Z1
+  79.553000000000,  12.497000000000,  16.152000000000,  !- X2, Y2, Z2
+  47.549000000000,  12.497000000000,  16.152000000000,  !- X3, Y3, Z3
+  47.549000000000,  22.860000000000,  16.152000000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  D7C7BE,  !- Name
+  Wall,  !- Surface Type
+  ADJ_WALL,  !- Construction Name
+  Dining_Flr_6,  !- Zone Name
+  Zone,  !- Outside Boundary Condition
+  Kitchen_Flr_6,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  79.553000000000,  12.497000000000,  19.200000000000,  !- X1, Y1, Z1
+  79.553000000000,  12.497000000000,  16.152000000000,  !- X2, Y2, Z2
+  79.553000000000,  22.860000000000,  16.152000000000,  !- X3, Y3, Z3
+  79.553000000000,  22.860000000000,  19.200000000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  1C6F09,  !- Name
+  Wall,  !- Surface Type
+  EXT_WALL,  !- Construction Name
+  Dining_Flr_6,  !- Zone Name
+  Outdoors,  !- Outside Boundary Condition
+  ,  !- Outside Boundary Condition Object
+  SunExposed,  !- Sun Exposure
+  WindExposed,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  79.553000000000,  22.860000000000,  19.200000000000,  !- X1, Y1, Z1
+  79.553000000000,  22.860000000000,  16.152000000000,  !- X2, Y2, Z2
+  47.549000000000,  22.860000000000,  16.152000000000,  !- X3, Y3, Z3
+  47.549000000000,  22.860000000000,  19.200000000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  2A27BA,  !- Name
+  Wall,  !- Surface Type
+  ADJ_WALL,  !- Construction Name
+  Dining_Flr_6,  !- Zone Name
+  Surface,  !- Outside Boundary Condition
+  Dining_Flr_6_Wall_South,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  47.549000000000,  12.497000000000,  19.200000000000,  !- X1, Y1, Z1
+  47.549000000000,  12.497000000000,  16.152000000000,  !- X2, Y2, Z2
+  79.553000000000,  12.497000000000,  16.152000000000,  !- X3, Y3, Z3
+  79.553000000000,  12.497000000000,  19.200000000000;  !- X4, Y4, Z4
+
+BuildingSurface:Detailed,
+  535254,  !- Name
+  Wall,  !- Surface Type
+  ADJ_WALL,  !- Construction Name
+  Dining_Flr_6,  !- Zone Name
+  Zone,  !- Outside Boundary Condition
+  Corridor_Flr_6,  !- Outside Boundary Condition Object
+  NoSun,  !- Sun Exposure
+  NoWind,  !- Wind Exposure
+  AutoCalculate,  !- View Factor to Ground
+  4,  !- Number of Vertices
+  47.549000000000,  22.860000000000,  19.200000000000,  !- X1, Y1, Z1
+  47.549000000000,  22.860000000000,  16.152000000000,  !- X2, Y2, Z2
+  47.549000000000,  12.497000000000,  16.152000000000,  !- X3, Y3, Z3
+  47.549000000000,  12.497000000000,  19.200000000000;  !- X4, Y4, Z4
+
+FenestrationSurface:Detailed,
+  6D2ECC,  !- Name
+  Window,  !- Surface Type
+  EXT_WINDOW1,  !- Construction Name
+  1C6F09,  !- Building Surface Name
+  ,  !- Outside Boundary Condition Object
+  AutoCalculate,  !- View Factor to Ground
+  ,  !- Shading Control Name
+  ,  !- Frame and Divider Name
+  1.0000,  !- Multiplier
+  4,  !- Number of Vertices
+  76.752000000000,  22.860000000000,  18.484000000000,  !- X1, Y1, Z1
+  76.752000000000,  22.860000000000,  17.264000000000,  !- X2, Y2, Z2
+  50.349000000000,  22.860000000000,  17.264000000000,  !- X3, Y3, Z3
+  50.349000000000,  22.860000000000,  18.484000000000;  !- X4, Y4, Z4

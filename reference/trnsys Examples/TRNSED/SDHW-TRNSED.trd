@@ -1,0 +1,843 @@
+VERSION 18
+*TRNSED
+*|<BACKGROUND> WHITE
+*|<COLOR1> RGB(204,0,0)
+*|<SIZE1> 20
+*|<ALIGN1> CENTER
+*|<STYLE1> ITALIC BOLD
+ 
+*|[HEADER|
+*|*Solar Domestic Hot Water System
+*|<STYLE1> BOLD
+*|<COLOR1> NAVY
+*|<SIZE1> 12
+*|* A simple TRNSED demo
+*|<img src="SDHW-Schematics.bmp" href="SDHW-Help.html" hint="click for help">
+*|*
+*|]
+ 
+*|<STYLE1> NORMAL
+*|<COLOR1> NAVY
+*|<SIZE1> 10
+*
+*|[HEADER2|
+*|*Note: in this simple example, clicking anywhere in the picture will launch the help file.
+*|*See the "SDHW-TRNSED-Advanced" example for an implementation of hot spots in pictures.
+*|]
+*
+*|<COLOR1> RGB(204,0,0)
+*|<ALIGN1> LEFT
+*|<STYLE1> BOLD
+*|<SIZE1> 12
+*
+* START, STOP and STEP
+*|<TabWindow name="Simulation parameters">
+*|[SIMPAR|Simulation Parameters
+EQUATIONS 5
+I_MONTH= 3624
+*|<Month of the simulation                    |Month1.dat|1|2|2
+I_DAY= 1.0000000000000E+00
+*|Day of Month for Simulation Start           |||0|1|1|31|3
+I_LENGTH= 56
+*|<Length of Simulation                       |Length.dat|2|1|4
+START=I_MONTH+24*(I_DAY-1)
+STOP=START+I_LENGTH*24
+EQUATIONS 1
+STEP=0.125
+ASSIGN "CH-Zuerich-Kloten-66700.tm2" 43
+*|]
+*
+*|[SIMPAR-Back|
+*|<img src="Back.bmp" align="center" href="#Main" hint="Go back to main tab">
+*|]
+*
+*|</TabWindow>
+*
+*					SIMULATION Start time	End time	Time step
+SIMULATION 	 START	 STOP	 STEP
+*					Integration	 Convergence
+TOLERANCES 0.001 0.001
+*					Max iterations	 Max warnings	 Trace limit
+LIMITS 30 30 30
+*					TRNSYS numerical integration solver method
+DFQ 1
+*					TRNSYS output file width, number of characters
+WIDTH 80
+*					NOLIST statement
+LIST 
+*					MAP statement
+MAP 
+*					Solver statement	Minimum relaxation factor	Maximum relaxation factor
+SOLVER 0 1 1
+*					DEBUG statement
+NAN_CHECK 0
+OVERWRITE_CHECK 0
+TIME_REPORT 0
+*					EQUATION SOLVER statement
+EQSOLVER 1
+*
+*------------------------------------------------------------------------------
+* EQUATIONS "nPlots"
+* 
+EQUATIONS 1
+nPlots = (STOP-START)/168.
+*------------------------------------------------------------------------------
+* Model "Load profile" (Type 14)
+* 
+UNIT 9 TYPE 14	 Load profile
+PARAMETERS 28
+* 1 Initial value of time
+0
+* 2 Initial value of function
+0
+* 3 Time at point-1
+7
+* 4 Value at point -1
+0
+* 5 Time at point-2
+7
+* 6 Value at point -2
+0.000056
+* 7 Time at point-3
+9
+* 8 Value at point -3
+0.000056
+* 9 Time at point-4
+9
+* 10 Value at point -4
+0
+* 11 Time at point-5
+11
+* 12 Value at point -5
+0
+* 13 Time at point-6
+11
+* 14 Value at point -6
+0.000028
+* 15 Time at point-7
+13
+* 16 Value at point -7
+0.000028
+* 17 Time at point-8
+13
+* 18 Value at point -8
+0
+* 19 Time at point-9
+18
+* 20 Value at point -9
+0
+* 21 Time at point-10
+18
+* 22 Value at point -10
+0.000028
+* 23 Time at point-11
+22
+* 24 Value at point -11
+0.000028
+* 25 Time at point-12
+22
+* 26 Value at point -12
+0
+* 27 Time at point-13
+24
+* 28 Value at point -13
+0
+*------------------------------------------------------------------------------
+* EQUATIONS "Daily load"
+* 
+EQUATIONS 2
+mdDHW = [9,1] * DailyDraw         ! Multiply by daily consumption to get kg/h
+TCold = 15
+*------------------------------------------------------------------------------
+* Model "Zurich" (Type 15)
+*
+CONSTANTS 5
+TILTEDSU=3
+GROUNDRE=0.2
+GROUNDRE1=0.7
+NUMBEROF=1
+TRACKING=1
+*
+*|<TabWindow name="Solar Collector">
+*|[SOLARCOLL|Solar Collector 
+CONSTANTS 3
+SLOPEOFS= 4.5000000000000E+01
+*|Slope of surface                        |degrees|degrees|0|1|-360|360.000|1000
+AZIMUTHO= 0.0000000000000E+00
+*|Azimuth of surface                      |degrees|degrees|0|1|-360|360.000|1000
+COLLECTO= 4.0000000000000E+00
+*|Collector area                          |m^2|m^2|0|1|0.0|1000000.00000|1000
+*|]
+*|[SOLARCOLL-Back|
+*|<img src="Back.bmp" align="center" href="#Main" hint="Go back to main tab">
+*|]
+*|</TabWindow>
+*
+*|<TabWindow name="Storage Tank">
+*|[TANK|Storage Tank 
+CONSTANTS 2
+TANKVOLU= 5.0000000000000E-01
+*|Tank volume                             |m^3|m^3|0|1|0|1000000.00000|1000
+HEATINGS= 6.0000000000000E+01
+*|Heating setpoint                        |C|C|0|1|-1000000.00000|1000000.00000|1000
+*|]
+*|[TANK-Back|
+*|<img src="Back.bmp" align="center" href="#Main" hint="Go back to main tab">
+*|]
+*|</TabWindow>
+*
+*|<TabWindow name="DHW load">
+*|[DHW|DHW Load
+*
+CONSTANTS 2
+DailyDraw = 2.0000000000000E+02
+*|Daily hot water draw  |l/d|m^3/d|0|0.001|0|1000.00|9999
+*
+SETPOINT= 4.5000000000000E+01
+*|Setpoint Temperature                    |C|C|0|1|-1000000.00000|1000000.00000|1000
+*
+*|]
+*|[DHW-Back|
+*|<img src="Back.bmp" align="center" href="#Main" hint="Go back to main tab">
+*|]
+*|</TabWindow>
+*
+*
+*
+*
+UNIT 2 TYPE 15	 Zurich
+PARAMETERS 9
+* 1 File Type
+6
+* 2 Logical unit
+43
+* 3 Tilted Surface Radiation Mode
+TILTEDSU
+* 4 Ground reflectance - no snow
+GROUNDRE
+* 5 Ground reflectance - snow cover
+GROUNDRE1
+* 6 Number of surfaces
+NUMBEROF
+* 7 Tracking mode
+TRACKING
+* 8 Slope of surface
+SLOPEOFS
+* 9 Azimuth of surface
+AZIMUTHO
+*------------------------------------------------------------------------------
+* Model "tempering valve control" (Type 115)
+* 
+UNIT 28 TYPE 115	 tempering valve control
+PARAMETERS 1
+* 1 # Oscillations Permitted
+5
+INPUTS 3
+* [unconnected] Setpoint Temperature
+0,0
+* tank:Temperature at outlet 2 ->Source Temperature
+20,3 
+* Daily load:TCold ->Tempering Fluid Temperature (Return Temperature)
+TCold
+*** INITIAL INPUT VALUES
+SETPOINT 10.0 20.0 
+*------------------------------------------------------------------------------
+* Model "div" (Type 11)
+* 
+UNIT 23 TYPE 11	 div
+PARAMETERS 1
+* 1 Flow diverter mode
+2
+INPUTS 3
+* Daily load:TCold ->Inlet temperature
+TCold
+* Daily load:mdDHW ->Inlet flow rate
+mdDHW
+* tempering valve control:Fraction to Bypass Heat Source ->Control signal
+28,2 
+*** INITIAL INPUT VALUES
+20.0 100.0 0.5 
+*------------------------------------------------------------------------------
+* Model "controller" (Type 165)
+* 
+UNIT 24 TYPE 165	 controller
+PARAMETERS 2
+* 1 No. of oscillations
+5
+* 2 High limit cut-out
+100.0
+INPUTS 5
+* Collectors:Outlet temperature ->Upper input temperature Th
+3,1 
+* tank:Temperature at outlet 1 ->Lower input temperature Tl
+20,1 
+* tank:Temperature at outlet 2 ->Monitoring temperature Tin
+20,3 
+* [unconnected] Upper dead band dT
+0,0
+* [unconnected] Lower dead band dT
+0,0
+*** INITIAL INPUT VALUES
+20.0 10.0 20.0 10.0 2.0 
+*------------------------------------------------------------------------------
+* Model "Collectors" (Type 1)
+* 
+UNIT 3 TYPE 1	 Collectors
+PARAMETERS 11
+* 1 Number in series
+1
+* 2 Collector area
+COLLECTO
+* 3 Fluid specific heat
+4.19
+* 4 Efficiency mode
+1
+* 5 Tested flow rate
+40
+* 6 Intercept efficiency
+0.8
+* 7 Efficiency slope
+13
+* 8 Efficiency curvature
+0.05
+* 9 Optical mode 2
+2
+* 10 1st-order IAM
+0.2
+* 11 2nd-order IAM
+0
+INPUTS 9
+* Pump:Outlet fluid temperature ->Inlet temperature
+4,1 
+* Pump:Outlet flow rate ->Inlet flowrate
+4,2 
+* Zurich:Dry bulb temperature ->Ambient temperature
+2,1 
+* Zurich:Total tilted surface radiation for surface ->Incident radiation
+2,24 
+* Zurich:Total horizontal radiation ->Total horizontal radiation
+2,18 
+* Zurich:Total diffuse radiation on the horizontal ->Horizontal diffuse radiation
+2,22 
+* Zurich:Ground reflectance ->Ground reflectance
+2,59 
+* Zurich:Angle of incidence for surface ->Incidence angle
+2,29 
+* Zurich:Slope of surface ->Collector slope
+2,30 
+*** INITIAL INPUT VALUES
+20 0 10 0 0 0 0.200000 45 0 
+*------------------------------------------------------------------------------
+* Model "tank" (Type 158)
+* 
+CONSTANTS 9
+TOPLOSST=20.
+EDGELOSS=20.
+BOTTOMLO=20.
+INITIALT=20.
+INITIALT1=20.
+INITIALT2=20.
+INITIALT3=20.
+INITIALT4=20.
+INITIALT5=20.
+*
+UNIT 20 TYPE 158	 tank
+PARAMETERS 17
+* 1 Tank volume
+TANKVOLU
+* 2 Tank height
+1.8
+* 3 Number of tank nodes
+6
+* 4 Top loss coefficient
+2.5
+* 5 Edge loss coefficient
+2.5
+* 6 Bottom loss coefficient
+2.5
+* 7 Fluid specific heat
+4.19
+* 8 Fluid density
+1000
+* 9 Fluid thermal conductivity
+2.224
+* 10 Height fraction of inlet 1
+0.67
+* 11 Height fraction of outlet 1
+0.
+* 12 Height fraction of inlet 2
+0.
+* 13 Height fraction of outlet 2
+1.
+* 14 Number of thermostats
+1
+* 15 Height fraction of thermostat
+0.75
+* 16 Number of auxiliary heat inputs
+1
+* 17 Height fraction of auxiliary input
+0.75
+INPUTS 8
+* Collectors:Outlet temperature ->Inlet temperature for port 1
+3,1 
+* Collectors:Outlet flowrate ->Inlet flow rate for port 1
+3,2 
+* div:Temperature at outlet 1 ->Inlet temperature for port 2
+23,1 
+* div:Flow rate at outlet 1 ->Inlet flow rate for port 2
+23,2 
+* [unconnected] Top loss temperature
+0,0
+* [unconnected] Edge loss temperature
+0,0
+* [unconnected] Bottom loss temperature
+0,0
+* qAux tank:qAux_tank ->Auxiliary heat input
+qAux_tank
+*** INITIAL INPUT VALUES
+20. 0. 20. 0. TOPLOSST EDGELOSS BOTTOMLO 0. 
+DERIVATIVES 6
+* 1 Initial tank temperature for node-1
+INITIALT
+* 2 Initial tank temperature for node-2
+INITIALT1
+* 3 Initial tank temperature for node-3
+INITIALT2
+* 4 Initial tank temperature for node-4
+INITIALT3
+* 5 Initial tank temperature for node-5
+INITIALT4
+* 6 Initial tank temperature for node-6
+INITIALT5
+*------------------------------------------------------------------------------
+* Model "Pump" (Type 114)
+* 
+UNIT 4 TYPE 114	 Pump
+PARAMETERS 4
+* 1 Rated flow rate
+160
+* 2 Fluid specific heat
+4.19
+* 3 Rated power
+240
+* 4 Motor heat loss fraction
+0.0
+INPUTS 5
+* tank:Temperature at outlet 1 ->Inlet fluid temperature
+20,1 
+* tank:Flow rate at outlet 1 ->Inlet fluid flow rate
+20,2 
+* controller:Output control function ->Control signal
+24,1 
+* [unconnected] Overall pump efficiency
+0,0
+* [unconnected] Motor efficiency
+0,0
+*** INITIAL INPUT VALUES
+20 0 1 0.6 0.9 
+*------------------------------------------------------------------------------
+* Model "tank stat" (Type 106)
+* 
+UNIT 21 TYPE 106	 tank stat
+PARAMETERS 2
+* 1 No. of oscillations permitted
+5
+* 2 Temperature dead band
+2.0
+INPUTS 2
+* tank:Temperature at thermostat ->Monitoring temperature
+20,14 
+* [unconnected] Heating setpoint
+0,0
+*** INITIAL INPUT VALUES
+20.0 HEATINGS 
+*------------------------------------------------------------------------------
+* EQUATIONS "qAux tank"
+* 
+EQUATIONS 1
+qAux_tank = 9000*[21,1]
+*------------------------------------------------------------------------------
+* Model "mix" (Type 11)
+* 
+UNIT 19 TYPE 11	 mix
+PARAMETERS 1
+* 1 Tee piece mode
+1
+INPUTS 4
+* tank:Temperature at outlet 2 ->Temperature at inlet 1
+20,3 
+* tank:Flow rate at outlet 2 ->Flow rate at inlet 1
+20,4 
+* div:Temperature at outlet 2 ->Temperature at inlet 2
+23,3 
+* div:Flow rate at outlet 2 ->Flow rate at inlet 2
+23,4 
+*** INITIAL INPUT VALUES
+20.0 100.0 20.0 100.0 
+*------------------------------------------------------------------------------
+* Model "Plotter 1" (Type 65)
+* 
+UNIT 5 TYPE 65	 Plotter 1
+PARAMETERS 12
+* 1 Nb. of left-axis variables
+2
+* 2 Nb. of right-axis variables
+1
+* 3 Left axis minimum
+0
+* 4 Left axis maximum
+150
+* 5 Right axis minimum
+0
+* 6 Right axis maximum
+5000
+* 7 Number of plots per simulation
+nPlots
+* 8 X-axis gridpoints
+7
+* 9 Shut off Online w/o removing
+0
+* 10 Logical Unit for output file
+35
+* 11 Output file units
+0
+* 12 Output file delimiter
+0
+INPUTS 3
+* Pump:Outlet fluid temperature ->Left axis variable-1
+4,1 
+* Collectors:Outlet temperature ->Left axis variable-2
+3,1 
+* Collectors:Outlet flowrate ->Right axis variable
+3,2 
+*** INITIAL INPUT VALUES
+T_collIn T_collOut mColl 
+LABELS  3
+"Temperature [C]"
+"Mass Flow Rate [kg/h]"
+"source side"
+*** External files
+ASSIGN "***.plt1" 35
+*------------------------------------------------------------------------------
+* Model "Plotter 2" (Type 65)
+* 
+UNIT 8 TYPE 65	 Plotter 2
+PARAMETERS 12
+* 1 Nb. of left-axis variables
+7
+* 2 Nb. of right-axis variables
+3
+* 3 Left axis minimum
+0
+* 4 Left axis maximum
+110
+* 5 Right axis minimum
+0
+* 6 Right axis maximum
+0.2
+* 7 Number of plots per simulation
+nPlots
+* 8 X-axis gridpoints
+7
+* 9 Shut off Online w/o removing
+0
+* 10 Logical Unit for output file
+37
+* 11 Output file units
+0
+* 12 Output file delimiter
+0
+INPUTS 10
+* tank:Tank nodal temperature-1 ->Left axis variable-1
+20,15 
+* tank:Tank nodal temperature-2 ->Left axis variable-2
+20,16 
+* tank:Tank nodal temperature-3 ->Left axis variable-3
+20,17 
+* tank:Tank nodal temperature-4 ->Left axis variable-4
+20,18 
+* tank:Tank nodal temperature-5 ->Left axis variable-5
+20,19 
+* tank:Tank nodal temperature-6 ->Left axis variable-6
+20,20 
+* mix:Outlet temperature ->Left axis variable-7
+19,1 
+* mix:Outlet flow rate ->Right axis variable-1
+19,2 
+* div:Flow rate at outlet 1 ->Right axis variable-2
+23,2 
+* div:Flow rate at outlet 2 ->Right axis variable-3
+23,4 
+*** INITIAL INPUT VALUES
+TTop T2 T3 T4 T5 TBottom TDHW mDHW mTank mBypass 
+LABELS  3
+"Temperature [C]"
+"Flow Rate [kg/h]"
+"load side"
+*** External files
+ASSIGN "***.plt2" 37
+*------------------------------------------------------------------------------
+* Model "Daily Integration" (Type 24)
+* 
+UNIT 13 TYPE 24	 Daily Integration
+PARAMETERS 2
+* 1 Integration period
+24
+* 2 Relative or absolute start time
+0
+INPUTS 4
+* Zurich:Total tilted surface radiation for surface ->Input to be integrated-1
+2,24 
+* tank:Energy delivered via port 1 ->Input to be integrated-2
+20,6 
+* tank:Energy delivered via port 2 ->Input to be integrated-3
+20,7 
+* qAux tank:qAux_tank ->Input to be integrated-4
+qAux_tank
+*** INITIAL INPUT VALUES
+0.0 0.0 0.0 0.0 
+*------------------------------------------------------------------------------
+* Model "Simulation Integration" (Type 24)
+* 
+UNIT 14 TYPE 24	 Simulation Integration
+PARAMETERS 2
+* 1 Integration period
+STOP
+* 2 Relative or absolute start time
+0
+INPUTS 4
+* Zurich:Total tilted surface radiation for surface ->Input to be integrated-1
+2,24 
+* tank:Energy delivered via port 1 ->Input to be integrated-2
+20,6 
+* tank:Energy delivered via port 2 ->Input to be integrated-3
+20,7 
+* qAux tank:qAux_tank ->Input to be integrated-4
+qAux_tank
+*** INITIAL INPUT VALUES
+0.0 0.0 0.0 0.0 
+*------------------------------------------------------------------------------
+* EQUATIONS "Efficiencies"
+* 
+EQUATIONS 4
+EtaColl_d = [13,2] / (4*[13,1]+1e-6)
+FSol_d = 1 - ( [13,4] / ([13,3] + 1e-6) )
+EtaColl = [14,2] / (4*[14,1]+1e-6)
+FSol = 1 - ( [14,4] / ([14,3]+ 1e-6) )
+*------------------------------------------------------------------------------
+* Model "Daily Results" (Type 25)
+* 
+UNIT 15 TYPE 25	 Daily Results
+PARAMETERS 10
+* 1 Printing interval
+24
+* 2 Start time
+START
+* 3 Stop time
+STOP
+* 4 Logical unit
+38
+* 5 Units printing mode
+0
+* 6 Relative or absolute start time
+0
+* 7 Overwrite or Append
+-1
+* 8 Print header
+-1
+* 9 Delimiter
+0
+* 10 Print labels
+1
+INPUTS 6
+* Daily Integration:Result of integration-1 ->Input to be printed-1
+13,1 
+* Daily Integration:Result of integration-2 ->Input to be printed-2
+13,2 
+* Daily Integration:Result of integration-3 ->Input to be printed-3
+13,3 
+* Daily Integration:Result of integration-4 ->Input to be printed-4
+13,4 
+* Efficiencies:EtaColl_d ->Input to be printed-5
+EtaColl_d
+* Efficiencies:FSol_d ->Input to be printed-6
+FSol_d
+*** INITIAL INPUT VALUES
+IColl QuColl QDHW QAux EtaColl_d FSol_d 
+*** External files
+ASSIGN "***.daily" 38
+*------------------------------------------------------------------------------
+* Model "Totals" (Type 25)
+* 
+UNIT 18 TYPE 25	 Totals
+PARAMETERS 10
+* 1 Printing interval
+STOP
+* 2 Start time
+STOP
+* 3 Stop time
+STOP
+* 4 Logical unit
+39
+* 5 Units printing mode
+0
+* 6 Relative or absolute start time
+0
+* 7 Overwrite or Append
+-1
+* 8 Print header
+-1
+* 9 Delimiter
+0
+* 10 Print labels
+1
+INPUTS 6
+* Simulation Integration:Result of integration-1 ->Input to be printed-1
+14,1 
+* Simulation Integration:Result of integration-2 ->Input to be printed-2
+14,2 
+* Simulation Integration:Result of integration-3 ->Input to be printed-3
+14,3 
+* Simulation Integration:Result of integration-4 ->Input to be printed-4
+14,4 
+* Efficiencies:EtaColl ->Input to be printed-5
+EtaColl
+* Efficiencies:FSol ->Input to be printed-6
+FSol
+*** INITIAL INPUT VALUES
+IColl QuColl QDHW QAux EtaColl FSol 
+*** External files
+ASSIGN "***.totals" 39
+*------------------------------------------------------------------------------
+* Model "energy balance" (Type 46)
+* 
+UNIT 26 TYPE 46	 energy balance
+PARAMETERS 5
+* 1 Logical unit
+44
+* 2 Logical unit for monthly summaries
+-1
+* 3 Relative or absolute start time
+0
+* 4 Printing & integrating interval
+-1
+* 5 Number of inputs to avoid integration
+0
+INPUTS 6
+* Equa:qLoad ->Input to be integrated & printed-1
+qLoad
+* Collectors:Useful energy gain ->Input to be integrated & printed-2
+3,3 
+* qAux tank:qAux_tank ->Input to be integrated & printed-3
+qAux_tank
+* Equa:qLoss ->Input to be integrated & printed-4
+qLoss
+* tank:Tank energy storage rate ->Input to be integrated & printed-5
+20,12 
+* Pump:Fluid heat transfer ->Input to be integrated & printed-6
+4,4 
+*** INITIAL INPUT VALUES
+qLoad qUseful qAux qTankLoss qStore qPump 
+LABELS 0
+*** External files
+ASSIGN "***.enerbal" 44
+*------------------------------------------------------------------------------
+* EQUATIONS "Equa"
+* 
+EQUATIONS 2
+qLoad = mdDHW*4.19*([19,1]-TCold)
+qLoss = [20,8]+[20,9]+[20,10]
+*------------------------------------------------------------------------------
+END
+*
+*!LINK_STYLE
+*!LINK 23:8
+*!CONNECTION_SET 40:20:0:20:10,9:4227200:2:0:1:516,558:770,558:770,393:788,393
+*!LINK 23:20
+*!CONNECTION_SET 40:0:40:40:4,3:8388608:0:3:0:514,538:575,538:575,365:514,365
+*!LINK 23:19
+*!CONNECTION_SET 40:40:0:40:4,3:8388608:0:3:1:516,578:616,578:616,365:644,365
+*!LINK 28:23
+*!CONNECTION_SET 20:40:20:0:3:0:2:0:0:496,461:496,538
+*!LINK 10:23
+*!CONNECTION_SET 40:20:0:20:1,2:8388608:0:3:1:215,558:450,558:476,558
+*!LINK 10:28
+*!CONNECTION_SET 40:20:0:20:3:0:2:0:1:215,558:417,558:417,441:476,441
+*!LINK 20:28
+*!CONNECTION_SET 20:40:20:0:2:0:2:0:0:496,365:496,421
+*!LINK 22:20
+*!CONNECTION_SET 0:40:40:0:8:255:3:0:1:610,216:538,216:538,325:516,325
+*!LINK 3:24
+*!CONNECTION_SET 20:40:20:0:1:0:2:0:0:392,177:392,201:296,201:296,288
+*!LINK 20:24
+*!CONNECTION_SET 0:20:40:20:3,2:0:2:0:1:476,345:338,345:338,308:316,308
+*!LINK 24:4
+*!CONNECTION_SET 0:20:20:40:3:0:2:0:0:267,314:212,314:212,203
+*!LINK 21:22
+*!CONNECTION_SET 40:20:0:20:1:0:2:0:1:637,196:707,196:731,196
+*!LINK 20:21
+*!CONNECTION_SET 20:0:20:40:1:0:2:0:0:617,325:617,216
+*!LINK 20:19
+*!CONNECTION_SET 40:0:0:0:2,1:8388608:0:3:1:637,325:737,325:765,325
+*!LINK 20:4
+*!CONNECTION_SET 0:40:0:20:2,1:8388736:0:3:1:597,365:301,365:301,177:322,177
+*!LINK 3:20
+*!CONNECTION_SET 40:20:0:20:2,1:8388736:0:3:1:533,157:570,157:570,345:597,345
+*!LINK 4:3
+*!CONNECTION_SET 40:20:0:40:2,1:8388736:0:3:1:289,174:397,174:420,174
+*!LINK 9:10
+*!CONNECTION_SET 37:20:0:20:1:8388608:0:3:1:123,527:200,527:223,527
+*!LINK 2:3
+*!CONNECTION_SET 40:20:0:0:6,7,8,9,5,4,3:32768:2:0:1:128,58:397,58:397,134:420,134
+*!LINK 20:8
+*!CONNECTION_SET 40:20:0:20:5,4,3,2,6,1:8421440:2:0:1:516,345:538,345:538,393:788,393
+*!LINK 19:8
+*!CONNECTION_SET 40:20:0:20:8,7:8421440:2:0:1:684,345:770,345:770,393:788,393
+*!LINK 3:5
+*!CONNECTION_SET 40:0:0:20:3,2:8421440:2:0:1:460,134:562,134:562,38:580,38
+*!LINK 4:5
+*!CONNECTION_SET 20:0:0:20:1:8421440:2:0:1:269,154:269,38:580,38
+*!LINK 17:18
+*!CONNECTION_SET 40:40:0:20:6,5:4227200:2:0:1:150,673:198,673:198,718:214,718
+*!LINK 17:15
+*!CONNECTION_SET 40:0:0:20:6,5:4227200:2:0:1:150,633:197,633:197,610:229,610
+*!LINK 2:13
+*!CONNECTION_SET 40:20:0:17:1:4227200:2:0:1:7,58:27,58:27,110:688,110
+*!LINK 13:17
+*!CONNECTION_SET 34:17:0:0:4,3,2,1:4227200:2:0:1:-26,590:58,590:58,633:85,633
+*!LINK 22:13
+*!CONNECTION_SET 40:20:0:17:4:4227200:2:0:1:650,196:717,196:717,113:761,113
+*!LINK 20:13
+*!CONNECTION_SET 0:40:0:17:2,3:4227200:2:0:1:476,365:449,365:449,113:761,113
+*!LINK 13:15
+*!CONNECTION_SET 34:17:0:0:4,3,2,1:4227200:2:0:1:-1,555:197,555:229,555
+*!LINK 2:14
+*!CONNECTION_SET 40:20:0:17:1:4227200:2:0:1:7,58:27,58:27,258:691,258
+*!LINK 14:17
+*!CONNECTION_SET 34:17:0:40:8,7,6,5:4227200:2:0:1:-23,738:58,738:58,673:85,673
+*!LINK 22:14
+*!CONNECTION_SET 40:20:0:17:4:4227200:2:0:1:650,196:706,196:706,261:764,261
+*!LINK 20:14
+*!CONNECTION_SET 0:40:0:17:2,3:4227200:2:0:1:476,365:449,365:449,261:764,261
+*!LINK 14:18
+*!CONNECTION_SET 34:17:0:40:4,3,2,1:4227200:2:0:1:2,703:198,703:214,703
+*!LINK 10:27
+*!CONNECTION_SET 40:20:0:20:2,1:4227200:2:0:1:215,558:239,558:239,695:742,695
+*!LINK 19:27
+*!CONNECTION_SET 40:20:0:20:3:4227200:2:0:1:688,346:728,346:728,696:746,696
+*!LINK 27:26
+*!CONNECTION_SET 40:20:0:20:4,1:4227200:2:0:1:782,695:942,695:942,473:979,473
+*!LINK 20:27
+*!CONNECTION_SET 40:20:0:20:6,5,4:4227200:2:0:1:516,345:617,345:617,695:742,695
+*!LINK 3:26
+*!CONNECTION_SET 40:20:0:20:2:4227200:2:0:1:412,157:879,157:879,473:979,473
+*!LINK 22:26
+*!CONNECTION_SET 40:20:0:20:3:4227200:2:0:1:650,196:879,196:879,473:979,473
+*!LINK 20:26
+*!CONNECTION_SET 40:20:0:20:5:4227200:2:0:1:516,345:617,345:617,473:979,473
+*!LINK 4:26
+*!CONNECTION_SET 40:20:0:20:6:4227200:2:0:1:241,177:258,177:258,278:707,278:707,473:979,473
+*!LINK_STYLE_END
+*!TEXT_COMPONENT 19:32:19:32:773:112:Arial:10:13:0:400:0:0:0:0:1:1:0:4:0
+*This is a TRNSED version of the Solar Domestic Hot Water (SDHW) Example. This project is the starting point to create a TRNSED application. The main changes are "Write TRNSED Commands" set to "true" in control cards, modified deck name (must have a .trd extension)  and the fact that most of the parameters, initial values, etc. are locked. This is why they appear to be greyed out if you open the proformas. Locked variables will not be editable by TRNSED users.
+*!TEXT_COMPONENT_END

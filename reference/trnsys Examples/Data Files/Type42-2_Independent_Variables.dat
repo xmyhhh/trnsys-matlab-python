@@ -1,0 +1,14 @@
+0	20	40		! Ambient Temperature (C)
+10	25	40	55	!Inlet Water Temperature (C)
+17	704.9		!Outlet temperature (C) and heat transfer (kJ/hr) at 0 C ambient and 10 C inlet	
+31	604.2		!Outlet temperature (C) and heat transfer (kJ/hr) at 0 C ambient and 25 C inlet	
+44	1913.3		!Outlet temperature (C) and heat transfer (kJ/hr) at 0 C ambient and 40 C inlet	
+58	3323.1		!Outlet temperature (C) and heat transfer (kJ/hr) at 0 C ambient and 55 C inlet	
+22	1208.4		!Outlet temperature (C) and heat transfer (kJ/hr) at 20 C ambient and 10 C inlet	
+35	1007		!Outlet temperature (C) and heat transfer (kJ/hr) at 20 C ambient and 25 C inlet	
+48	2316.1		!Outlet temperature (C) and heat transfer (kJ/hr) at 20 C ambient and 40 C inlet	
+61	3625.2		!Outlet temperature (C) and heat transfer (kJ/hr) at 20 C ambient and 55 C inlet	
+24	1409.8		!Outlet temperature (C) and heat transfer (kJ/hr) at 40 C ambient and 10 C inlet	
+38	1309.1		!Outlet temperature (C) and heat transfer (kJ/hr) at 40 C ambient and 25 C inlet	
+51	2618.2		!Outlet temperature (C) and heat transfer (kJ/hr) at 40 C ambient and 40 C inlet	
+63	3826.6		!Outlet temperature (C) and heat transfer (kJ/hr) at 40 C ambient and 55 C inlet

@@ -1,0 +1,27 @@
+283.14	330.33		!Values of Airflow in liters per second (l/s) 
+0.19	0.28	0.38	!Values of Liquid Flow Rate in liters per second (l/s)
+10	21.11	32.22	43.33 !Values of Entering Liquid Temperature (degrees C) 
+25632	18468	3780	!Total Cooling(kJ/h) Sensible Cooling(kJ/h) and Power(kJ/h) at 283.14/0.19/10
+24372	18252	4428	!Total Cooling(kJ/h) Sensible Cooling(kJ/h) and Power(kJ/h) at 283.14/0.19/21.11
+22248	17100	5328	!Total Cooling(kJ/h) Sensible Cooling(kJ/h) and Power(kJ/h) at 283.14/0.19/32.22
+20052	15732	5868	!Total Cooling(kJ/h) Sensible Cooling(kJ/h) and Power(kJ/h) at 283.14/0.19/43.33
+25848	18684	3564	!Total Cooling(kJ/h) Sensible Cooling(kJ/h) and Power(kJ/h) at 283.14/0.28/10
+24696	18468	4176	!Total Cooling(kJ/h) Sensible Cooling(kJ/h) and Power(kJ/h) at 283.14/0.28/21.11
+22464	17316	5040	!Total Cooling(kJ/h) Sensible Cooling(kJ/h) and Power(kJ/h) at 283.14/0.28/32.22
+20268	15948	6228	!Total Cooling(kJ/h) Sensible Cooling(kJ/h) and Power(kJ/h) at 283.14/0.28/43.33
+26172	18684	3456	!Total Cooling(kJ/h) Sensible Cooling(kJ/h) and Power(kJ/h) at 283.14/0.38/10 
+24912	18468	4068	!Total Cooling(kJ/h) Sensible Cooling(kJ/h) and Power(kJ/h) at 283.14/0.38/21.11
+22788	17316	4896	!Total Cooling(kJ/h) Sensible Cooling(kJ/h) and Power(kJ/h) at 283.14/0.38/32.22
+20484	15948	6048	!Total Cooling(kJ/h) Sensible Cooling(kJ/h) and Power(kJ/h) at 283.14/0.38/43.33
+26172	20052	3924	!Total Cooling(kJ/h) Sensible Cooling(kJ/h) and Power(kJ/h) at 330.33/0.19/10 
+24912	19836	4536	!Total Cooling(kJ/h) Sensible Cooling(kJ/h) and Power(kJ/h) at 330.33/0.19/21.11
+22788	18576	5508	!Total Cooling(kJ/h) Sensible Cooling(kJ/h) and Power(kJ/h) at 330.33/0.19/32.22
+20484	17100	6012	!Total Cooling(kJ/h) Sensible Cooling(kJ/h) and Power(kJ/h) at 330.33/0.19/43.33
+26388	20268	3708	!Total Cooling(kJ/h) Sensible Cooling(kJ/h) and Power(kJ/h) at 330.33/0.28/10
+25236	20052	4356	!Total Cooling(kJ/h) Sensible Cooling(kJ/h) and Power(kJ/h) at 330.33/0.28/21.11
+23004	18792	5184	!Total Cooling(kJ/h) Sensible Cooling(kJ/h) and Power(kJ/h) at 330.33/0.28/32.22
+20664	17316	6372	!Total Cooling(kJ/h) Sensible Cooling(kJ/h) and Power(kJ/h) at 330.33/0.28/43.33
+26712	20268	3600	!Total Cooling(kJ/h) Sensible Cooling(kJ/h) and Power(kJ/h) at 330.33/0.38/10
+25416	20052	4212	!Total Cooling(kJ/h) Sensible Cooling(kJ/h) and Power(kJ/h) at 330.33/0.38/21.11
+23220	18792	5040	!Total Cooling(kJ/h) Sensible Cooling(kJ/h) and Power(kJ/h) at 330.33/0.38/32.22
+20880	17316	6192	!Total Cooling(kJ/h) Sensible Cooling(kJ/h) and Power(kJ/h) at 330.33/0.38/43.33

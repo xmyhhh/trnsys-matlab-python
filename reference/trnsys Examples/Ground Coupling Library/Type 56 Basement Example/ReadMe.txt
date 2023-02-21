@@ -1,0 +1,1 @@
+Please see the file "\Tess Models\SampleCatalogData\Type1244\Example_Type1244.dat" for more information about creating the data file.

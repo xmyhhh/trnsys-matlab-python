@@ -1,0 +1,36 @@
+   0.0       3.0    ! 2 Wind speed values, [m/s]
+2880.0    3600.0    ! 2 Solar radiation values, [kJ/h-m²]
+0.000  0.005  0.010  0.015  0.016  0.020  0.025  0.030    ! 8 dT/IT [K-h-m²/kJ]
+0.959    ! Efficiency for Wind Speed 1, Radiation 1, dT/IT 1
+0.799    ! Efficiency for Wind Speed 1, Radiation 1, dT/IT 2
+0.638    ! Efficiency for Wind Speed 1, Radiation 1, dT/IT 3
+0.478    ! Efficiency for Wind Speed 1, Radiation 1, dT/IT 4
+0.446    ! Efficiency for Wind Speed 1, Radiation 1, dT/IT 5
+0.317    ! Efficiency for Wind Speed 1, Radiation 1, dT/IT 6
+0.157    ! Efficiency for Wind Speed 1, Radiation 1, dT/IT 7
+0.000    ! Efficiency for Wind Speed 1, Radiation 1, dT/IT 8
+0.959    ! Efficiency for Wind Speed 1, Radiation 2, dT/IT 1
+0.799    ! Efficiency for Wind Speed 1, Radiation 2, dT/IT 2
+0.638    ! Efficiency for Wind Speed 1, Radiation 2, dT/IT 3
+0.478    ! Efficiency for Wind Speed 1, Radiation 2, dT/IT 4
+0.446    ! Efficiency for Wind Speed 1, Radiation 2, dT/IT 5
+0.317    ! Efficiency for Wind Speed 1, Radiation 2, dT/IT 6
+0.157    ! Efficiency for Wind Speed 1, Radiation 2, dT/IT 7
+0.000    ! Efficiency for Wind Speed 1, Radiation 2, dT/IT 8
+0.937    ! Efficiency for Wind Speed 2, Radiation 1, dT/IT 1
+0.655    ! Efficiency for Wind Speed 2, Radiation 1, dT/IT 2
+0.374    ! Efficiency for Wind Speed 2, Radiation 1, dT/IT 3
+0.092    ! Efficiency for Wind Speed 2, Radiation 1, dT/IT 4
+0.000    ! Efficiency for Wind Speed 2, Radiation 1, dT/IT 5
+0.000    ! Efficiency for Wind Speed 2, Radiation 1, dT/IT 6
+0.000    ! Efficiency for Wind Speed 2, Radiation 1, dT/IT 7
+0.000    ! Efficiency for Wind Speed 2, Radiation 1, dT/IT 8
+0.937    ! Efficiency for Wind Speed 2, Radiation 2, dT/IT 1
+0.655    ! Efficiency for Wind Speed 2, Radiation 2, dT/IT 2
+0.374    ! Efficiency for Wind Speed 2, Radiation 2, dT/IT 3
+0.092    ! Efficiency for Wind Speed 2, Radiation 2, dT/IT 4
+0.000    ! Efficiency for Wind Speed 2, Radiation 2, dT/IT 5
+0.000    ! Efficiency for Wind Speed 2, Radiation 2, dT/IT 6
+0.000    ! Efficiency for Wind Speed 2, Radiation 2, dT/IT 7
+0.000    ! Efficiency for Wind Speed 2, Radiation 2, dT/IT 8
+! Note: The same values are provided for different radiation values in this case (generally speaking they would be different)

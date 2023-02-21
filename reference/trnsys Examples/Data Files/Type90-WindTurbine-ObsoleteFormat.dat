@@ -1,0 +1,35 @@
+File_Nam VestasV39-500kW.pwr     * File name --- NOTE: This is the OLD Type 90 data file format (Version 15 Type 90 format)
+Test_Ref WINDSTATS               * Source of data
+Rotor_Ht   39.00                 * Rotor center height, meters
+Rotor_Di   39.00                 * Rotor diameter, meters
+Sensr_Ht   39.00                 * Sensor Height for data, meters
+Sher_Exp    0.14                 * Power-law exponant for speed-up calculation
+Turb_Int    0.10                 * Turbulence intensity valid for this curve
+Air_Dens    1.23                 * Power curve air density, kg/m3
+Len_Unit     m                   * Length unit - MUST be m !! DO NOT EDIT
+Spd_Unit   m/s                   * Wind speed units - MUST be m/s !! DO NOT EDIT
+Pwr_Unit    kW                   * Power output units - MUST be kW !! DO NOT EDIT
+Ctl_mode     P                   * Control mode: S=stall; P=pitch; V=variable speed !! RESPECT THE NB OF SPACES !! 5 SPACES BEFORE THE 'S', 'P' or 'V' character !!
+Pwr_Ratd  500.00                 * Rated power of the turbine, kW
+Spd_Ratd   18.00                 * Wind speed at rated power, m/s
+Num_Pair   20                    * The number of power vs. windspeed pairs in the power curve
+  0.00   0.00                    * first point (wind speed, power) - Start at 0.0
+  3.00   0.10                    * 2nd point (wind speed, power)
+  4.00   6.90                    * 3rd point (wind speed, power)
+  5.00  29.40
+  6.00  62.90
+  7.00 106.70
+  8.00 160.90
+  9.00 224.20
+ 10.00 293.10
+ 11.00 362.10
+ 12.00 423.40                    * ... 
+ 13.00 466.80                    * Additional data points (wind speed, power)
+ 14.00 489.20                    * ... 
+ 15.00 497.40
+ 16.00 499.50                    * !! USE 100 Data points MAXIMUM !!
+ 17.00 499.50
+ 18.00 500.00
+ 25.00 500.00
+ 26.00   0.00                    * Give one point beyond maximum wind speed
+999.00   0.00                    * last data point (use large wind speed) !! a Wind speed higher than this value will crash TRNSYS !!

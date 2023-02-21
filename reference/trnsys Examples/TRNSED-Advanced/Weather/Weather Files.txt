@@ -1,0 +1,7 @@
+6
+1,Albuquerque (New Mexico)   , Weather\US-NM-Albuquerque-23050.tm2
+2,Boulder (Colorado)         , Weather\US-CO-Boulder-94018.tm2
+3,Madison (Wisconsin)        , Weather\US-WI-Madison-14837.tm2
+4,Saint-Paul Islands (Alaska), Weather\US-AK-St-Paul-Is-25713.tm2
+5,San Francisco (California) , Weather\US-CA-San-Francisco-23234.tm2
+6,Seattle (Washington)       , Weather\US-WA-Seattle-24233.tm2

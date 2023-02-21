@@ -1,0 +1,30 @@
+18	26	34		! Zone Temperatures (C )							
+1000	2000	3000		! Air Flow Rate (kg/h)							
+20	30	40		! Ambient Temperature (C )							
+15	3021.1		! Outlet Temperaure (C) and Heat Transfer Rate (kJ/h) at 18	C	1000	kg/h	and 	20	C Ambient
+16	2014.4		! Outlet Temperaure (C) and Heat Transfer Rate (kJ/h) at 18	C	1000	kg/h	and 	30	C Ambient
+17	1007.7		! Outlet Temperaure (C) and Heat Transfer Rate (kJ/h) at 18	C	1000	kg/h	and 	40	C Ambient
+14	8056.6		! Outlet Temperaure (C) and Heat Transfer Rate (kJ/h) at 18	C	2000	kg/h	and 	20	C Ambient
+15	6042.2		! Outlet Temperaure (C) and Heat Transfer Rate (kJ/h) at 18	C	2000	kg/h	and 	30	C Ambient
+16	4028.8		! Outlet Temperaure (C) and Heat Transfer Rate (kJ/h) at 18	C	2000	kg/h	and 	40	C Ambient
+13	15105.5		! Outlet Temperaure (C) and Heat Transfer Rate (kJ/h) at 18	C	3000	kg/h	and 	20	C Ambient
+14	12084.4		! Outlet Temperaure (C) and Heat Transfer Rate (kJ/h) at 18	C	3000	kg/h	and 	30	C Ambient
+15	9063.3		! Outlet Temperaure (C) and Heat Transfer Rate (kJ/h) at 18	C	3000	kg/h	and 	40	C Ambient
+20	6042.2		! Outlet Temperaure (C) and Heat Transfer Rate (kJ/h) at 26	C	1000	kg/h	and 	20	C Ambient
+22	4028.8		! Outlet Temperaure (C) and Heat Transfer Rate (kJ/h) at 26	C	1000	kg/h	and 	30	C Ambient
+24	2014.4		! Outlet Temperaure (C) and Heat Transfer Rate (kJ/h) at 26	C	1000	kg/h	and 	40	C Ambient
+19	14098.8		! Outlet Temperaure (C) and Heat Transfer Rate (kJ/h) at 26	C	2000	kg/h	and 	20	C Ambient
+21	10070		! Outlet Temperaure (C) and Heat Transfer Rate (kJ/h) at 26	C	2000	kg/h	and 	30	C Ambient
+23	6042.2		! Outlet Temperaure (C) and Heat Transfer Rate (kJ/h) at 26	C	2000	kg/h	and 	40	C Ambient
+17	27189.9		! Outlet Temperaure (C) and Heat Transfer Rate (kJ/h) at 26	C	3000	kg/h	and 	20	C Ambient
+18	24168.8		! Outlet Temperaure (C) and Heat Transfer Rate (kJ/h) at 26	C	3000	kg/h	and 	30	C Ambient
+21	15105.5		! Outlet Temperaure (C) and Heat Transfer Rate (kJ/h) at 26	C	3000	kg/h	and 	40	C Ambient
+27	7049.9		! Outlet Temperaure (C) and Heat Transfer Rate (kJ/h) at 34	C	1000	kg/h	and 	20	C Ambient
+28	6042.2		! Outlet Temperaure (C) and Heat Transfer Rate (kJ/h) at 34	C	1000	kg/h	and 	30	C Ambient
+29	5035.5		! Outlet Temperaure (C) and Heat Transfer Rate (kJ/h) at 34	C	1000	kg/h	and 	40	C Ambient
+25	18126.6		! Outlet Temperaure (C) and Heat Transfer Rate (kJ/h) at 34	C	2000	kg/h	and 	20	C Ambient
+26	16112.2		! Outlet Temperaure (C) and Heat Transfer Rate (kJ/h) at 34	C	2000	kg/h	and 	30	C Ambient
+27	14098.8		! Outlet Temperaure (C) and Heat Transfer Rate (kJ/h) at 34	C	2000	kg/h	and 	40	C Ambient
+22	36252.2		! Outlet Temperaure (C) and Heat Transfer Rate (kJ/h) at 34	C	3000	kg/h	and 	20	C Ambient
+23	33231.1		! Outlet Temperaure (C) and Heat Transfer Rate (kJ/h) at 34	C	3000	kg/h	and 	30	C Ambient
+24	30210		! Outlet Temperaure (C) and Heat Transfer Rate (kJ/h) at 34 	C	3000	kg/h	and 	40	C Ambient

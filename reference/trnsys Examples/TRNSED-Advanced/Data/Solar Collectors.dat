@@ -1,0 +1,34 @@
+6
+1 , Flat Plate  (Low Performance)  , 0.77 , 4.000 , 0.0250 , 0.2 , 0.0
+2 , Flat Plate  (Avg Performance)  , 0.80 , 3.500 , 0.0125 , 0.2 , 0.0
+3 , Flat Plate  (High Performance) , 0.82 , 3.500 , 0.0080 , 0.2 , 0.0
+4 , Vacuum Tube (Low Performance)  , 0.65 , 1.725 , 0.0080 , 0.1 , 0.0
+5 , Vacuum Tube (Avg Performance)  , 0.75 , 1.700 , 0.0080 , 0.1 , 0.0
+6 , Vacuum Tube (High Performance) , 0.83 , 1.180 , 0.0090 , 0.1 , 0.0
+
+Comments (These lines are ignored by TRNSED)
+
+This file contains solar collector data. 6 collectors are proposed
+
+Columns:
+
+1 : Collector Number
+2 : Collector name displayed in TRNSED
+3 : A0 parameter in the collector efficiency equation [ - ]
+4 : A1 parameter in the collector efficiency equation [W/m2/K]
+5 : A2 parameter in the collector efficiency equation [W/m2/K2]
+6 : B0 in the IAM equation [ - ]
+7 : B1 in the IAM equation [ - ]
+
+
+The collector efficiency (Eta) is given as:
+
+Eta = A0 - A1*(Tavg-Tamb)/G - A2*(Tavg-Tamb)^2/G
+
+where Tavg is the average collector temperature and Tamb is the ambient temperature
+
+The Incident Angle Modifier (IAM) is given as 
+
+(Tau*Alpha)/(Tau*Alpha)n = 1 - B0*(1/cos(Theta)-1) - B1*(1/cos(Theta)-1)^2
+
+Where Tau is the transmittance, Alpha the absorptance, "n" meaning at normal incident angle. Theta is the incidence angle

@@ -1,0 +1,771 @@
+*********************************************************************************************************************************************************************************************************
+*  TRNBuild   2.0.166
+*********************************************************************************************************************************************************************************************************
+*   BUILDING DESCRIPTIONS FILE TRNSYS
+*   FOR BUILDING:   C:\Trnsys17\MyProjects\SamsungSeocho\ExampleHighrise_PCM.b17
+*   GET BY WORKING WITH TRNBuild 1.0 for Windows
+*********************************************************************************************************************************************************************************************************
+*
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*  C o m m e n t s
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*  P r o j e c t
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*+++ PROJECT
+*+++ TITLE=EXAMPLE HIGHRISE FLOOR
+*+++ DESCRIPTION=TYPICAL FLOOR
+*+++ CREATED=D. BRADLEY
+*+++ ADDRESS=
+*+++ CITY=
+*+++ SWITCH=UNDEFINED
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*  P r o p e r t i e s
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+PROPERTIES
+ DENSITY=1.204 : CAPACITY=1.012 : PRESSURE=101325.000 : HVAPOR=2454.0 : SIGMA=2.041e-007 : RTEMP=293.15
+*--- alpha calculation -------------------
+ KFLOORUP=7.2 : EFLOORUP=0.31 : KFLOORDOWN=3.888 : EFLOORDOWN=0.31
+ KCEILUP=7.2 : ECEILUP=0.31 : KCEILDOWN=3.888 : ECEILDOWN=0.31
+ KVERTICAL=5.76 : EVERTICAL=0.3
+*
+*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+TYPES
+*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+*
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*  L a y e r s
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+LAYER PLASTERBOA
+ CONDUCTIVITY=  0.576 : CAPACITY=   0.84 : DENSITY=    950
+LAYER FBRGLS_ASHRAE
+ CONDUCTIVITY=  0.144 : CAPACITY=   0.84 : DENSITY=     12
+LAYER WD_SIDN_ASHRA
+ CONDUCTIVITY=  0.504 : CAPACITY=    0.9 : DENSITY=    530
+LAYER TMBR_FLR_ASHR
+ CONDUCTIVITY=  0.504 : CAPACITY=    1.2 : DENSITY=    650
+LAYER INS_FLR_ASH
+ RESISTANCE=    6.965
+LAYER RFDCK_ASHRAE
+ CONDUCTIVITY=  0.504 : CAPACITY=    0.9 : DENSITY=    530
+LAYER CONC_SLAB
+ CONDUCTIVITY=  4.068 : CAPACITY=      1 : DENSITY=   1400
+LAYER INS_FLR_ASH_900
+ RESISTANCE=    6.993
+LAYER GYPBOARD
+ CONDUCTIVITY=  0.576 : CAPACITY=   1.09 : DENSITY=    800
+LAYER STLSTUD
+ CONDUCTIVITY=  0.389 : CAPACITY=   1.22 : DENSITY=  61.77
+LAYER RIGIDINS
+ CONDUCTIVITY=  0.108 : CAPACITY=   1.21 : DENSITY=     43
+LAYER SPANGLASS
+ CONDUCTIVITY=    3.6 : CAPACITY=   0.88 : DENSITY=   2528
+LAYER CARPET
+ RESISTANCE=     0.06
+LAYER ACCOUSTICTILE
+ RESISTANCE=    0.088
+LAYER THINMASSLESS
+ RESISTANCE=    0.088
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*  I n p u t s
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+INPUTS TB_CONDITIONED TB_PLENUM MVNT_WEST MVNT_ELEVBLOCK MVNT_NORTH MVNT_EAST MVNT_CONF MVNT_SOUTH MVNT_SOUTHSUN PEO_WEST LGT_WEST EQP_WEST PEO_ELEVBLOCK LGT_ELEVBLOCK EQP_ELEVBLOCK PEO_NORTH ;
+ LGT_NORTH EQP_NORTH PEO_EAST LGT_EAST EQP_EAST PEO_CONF LGT_CONF EQP_CONF PEO_SOUTH LGT_SOUTH EQP_SOUTH PEO_SOUTHSUN LGT_SOUTHSUN EQP_SOUTHSUN LGT_PLENUM EQP_PLENUM TPCM_PLENSTHSUN TPCM_PLENWEST ;
+ TPCM_PLENEAST
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*  S c h e d u l e s
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+SCHEDULE WEEKDAY_HT
+ HOURS =0.000 7.000 18.000 24.0
+ VALUES=18.3 21.1 18.3 18.3 
+SCHEDULE WEEKEND_HT
+ HOURS =0.000 7.000 18.000 24.0
+ VALUES=18.3 18.3 18.3 18.3 
+SCHEDULE WEEKDAY_CL
+ HOURS =0.000 7.000 18.000 24.0
+ VALUES=30. 26. 30. 30. 
+SCHEDULE WEEKEND_CL
+ HOURS =0.000 7.000 18.000 24.0
+ VALUES=30. 30. 30. 30. 
+SCHEDULE WEEK_HT
+ DAYS=1 2 3 4 5 6 7
+ HOURLY=WEEKDAY_HT WEEKDAY_HT WEEKDAY_HT WEEKDAY_HT WEEKDAY_HT WEEKEND_HT WEEKEND_HT
+SCHEDULE WEEK_CL
+ DAYS=1 2 3 4 5 6 7
+ HOURLY=WEEKDAY_CL WEEKDAY_CL WEEKDAY_CL WEEKDAY_CL WEEKDAY_CL WEEKEND_CL WEEKEND_CL
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*  W a l l s
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+WALL BND_WALL
+ LAYERS   = PLASTERBOA FBRGLS_ASHRAE PLASTERBOA 
+ THICKNESS= 0.012      0.066         0.012      
+ ABS-FRONT= 0.6   : ABS-BACK= 0.6  
+ EPS-FRONT= 0.9   : EPS-BACK= 0.9  
+ HFRONT   = 11 : HBACK= 11
+WALL EXT_WALL
+ LAYERS   = GYPBOARD STLSTUD RIGIDINS SPANGLASS 
+ THICKNESS= 0.016    0.089   0.025    0.016     
+ ABS-FRONT= 0.6   : ABS-BACK= 0.6  
+ EPS-FRONT= 0.9   : EPS-BACK= 0.9  
+ HFRONT   = 11 : HBACK= 64
+WALL EXT_ROOF
+ LAYERS   = PLASTERBOA FBRGLS_ASHRAE RFDCK_ASHRAE 
+ THICKNESS= 0.01       0.112         0.019        
+ ABS-FRONT= 0.6   : ABS-BACK= 0.6  
+ EPS-FRONT= 0.9   : EPS-BACK= 0.9  
+ HFRONT   = 11 : HBACK= 64
+WALL EXT_FLOOR
+ LAYERS   = TMBR_FLR_ASHR INS_FLR_ASH 
+ THICKNESS= 0.03          0           
+ ABS-FRONT= 0.6   : ABS-BACK= 0.6  
+ EPS-FRONT= 0.9   : EPS-BACK= 0.9  
+ HFRONT   = 11 : HBACK= 11
+WALL BND_CEILING
+ LAYERS   = CONC_SLAB 
+ THICKNESS= 0.08      
+ ABS-FRONT= 0.6   : ABS-BACK= 0.6  
+ EPS-FRONT= 0.9   : EPS-BACK= 0.9  
+ HFRONT   = 11 : HBACK= 11
+WALL BND_FLOOR
+ LAYERS   = CARPET CONC_SLAB 
+ THICKNESS= 0      0.152     
+ ABS-FRONT= 0.6   : ABS-BACK= 0.6  
+ EPS-FRONT= 0.9   : EPS-BACK= 0.9  
+ HFRONT   = 11 : HBACK= 11
+WALL GROUND_FLOOR
+ LAYERS   = CONC_SLAB INS_FLR_ASH_900 
+ THICKNESS= 0.08      0               
+ ABS-FRONT= 0.6   : ABS-BACK= 0.6  
+ EPS-FRONT= 0.9   : EPS-BACK= 0.9  
+ HFRONT   = 11 : HBACK= 0.001
+WALL ADJ_WALL
+ LAYERS   = PLASTERBOA STLSTUD PLASTERBOA 
+ THICKNESS= 0.012      0.089   0.012      
+ ABS-FRONT= 0.6   : ABS-BACK= 0.6  
+ EPS-FRONT= 0.9   : EPS-BACK= 0.9  
+ HFRONT   = 11 : HBACK= 11
+WALL ADJ_CEILING
+ LAYERS   = ACCOUSTICTILE 
+ THICKNESS= 0             
+ ABS-FRONT= 0.6   : ABS-BACK= 0.6  
+ EPS-FRONT= 0.9   : EPS-BACK= 0.9  
+ HFRONT   = 11 : HBACK= 11
+WALL CONF_ADJ
+ LAYERS   = SPANGLASS 
+ THICKNESS= 0.016     
+ ABS-FRONT= 0.6   : ABS-BACK= 0.6  
+ EPS-FRONT= 0.9   : EPS-BACK= 0.9  
+ HFRONT   = 11 : HBACK= 11
+WALL BND_CEILING(1)
+ LAYERS   = ACCOUSTICTILE 
+ THICKNESS= 0             
+ ABS-FRONT= 0.6   : ABS-BACK= 0    
+ EPS-FRONT= 0.9   : EPS-BACK= 0    
+ HFRONT   = 11 : HBACK= 0.0001
+WALL BND_CEILING(2)
+ LAYERS   = THINMASSLESS 
+ THICKNESS= 0            
+ ABS-FRONT= 0.6   : ABS-BACK= 0    
+ EPS-FRONT= 0.9   : EPS-BACK= 0    
+ HFRONT   = 11 : HBACK= 0.0001
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*  W i n d o w s
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+WINDOW EXT_WINDOW1
+ WINID=6001 : HINSIDE=11 : HOUTSIDE=64 : SLOPE=90 : SPACID=0 : WWID=0.77 : WHEIG=1.08 : FFRAME=0.3 : UFRAME=10.9091 : ABSFRAME=0.6 : RISHADE=0 : RESHADE=0 : REFLISHADE=0.5 : REFLOSHADE=0.5 : ;
+ CCISHADE=0.5 : EPSFRAME=0.9 : EPSISHADE=0.9
+WINDOW EXT_WINDOW2
+ WINID=6001 : HINSIDE=11 : HOUTSIDE=64 : SLOPE=90 : SPACID=0 : WWID=0.77 : WHEIG=1.08 : FFRAME=0.3 : UFRAME=10.9091 : ABSFRAME=0.6 : RISHADE=0 : RESHADE=0 : REFLISHADE=0.5 : REFLOSHADE=0.5 : ;
+ CCISHADE=0.5 : EPSFRAME=0.9 : EPSISHADE=0.9
+WINDOW ADJ_WINDOW
+ WINID=6001 : HINSIDE=11 : HOUTSIDE=64 : SLOPE=90 : SPACID=0 : WWID=0.77 : WHEIG=1.08 : FFRAME=0.3 : UFRAME=10.9091 : ABSFRAME=0.6 : RISHADE=0 : RESHADE=0 : REFLISHADE=0.5 : REFLOSHADE=0.5 : ;
+ CCISHADE=0.5 : EPSFRAME=0.9 : EPSISHADE=0.9
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*  D e f a u l t  G a i n s
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+GAIN PERS_ISO01
+ CONVECTIVE=144 : RADIATIVE=72 : HUMIDITY=0.059
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*  O t h e r  G a i n s
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+GAIN LIGHT
+ CONVECTIVE=0.2 : RADIATIVE=0.8 : HUMIDITY=0
+GAIN EQUIP
+ CONVECTIVE=0.5 : RADIATIVE=0.5 : HUMIDITY=0
+GAIN LAT
+ CONVECTIVE=0 : RADIATIVE=0 : HUMIDITY=1
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*  C o m f o r t
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*  I n f i l t r a t i o n
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+INFILTRATION INF_WEST
+ AIRCHANGE=0.858
+INFILTRATION INF_ELEVBLOCK
+ AIRCHANGE=0
+INFILTRATION INF_NORTH
+ AIRCHANGE=0.296
+INFILTRATION INF_EAST
+ AIRCHANGE=0.829
+INFILTRATION INF_CONF
+ AIRCHANGE=0.74
+INFILTRATION INF_SOUTH
+ AIRCHANGE=0
+INFILTRATION INF_SOUTHSUN
+ AIRCHANGE=0.983
+INFILTRATION INF_PLENUM
+ AIRCHANGE=0.392
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*  V e n t i l a t i o n
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+VENTILATION VENT_WEST
+ TEMPERATURE=OUTSIDE
+ AIRFLOW=INPUT 1*MVNT_WEST
+ HUMIDITY=OUTSIDE
+VENTILATION VENT_ELEVBLOCK
+ TEMPERATURE=OUTSIDE
+ AIRFLOW=INPUT 1*MVNT_ELEVBLOCK
+ HUMIDITY=OUTSIDE
+VENTILATION VENT_NORTH
+ TEMPERATURE=OUTSIDE
+ AIRFLOW=INPUT 1*MVNT_NORTH
+ HUMIDITY=OUTSIDE
+VENTILATION VENT_EAST
+ TEMPERATURE=OUTSIDE
+ AIRFLOW=INPUT 1*MVNT_EAST
+ HUMIDITY=OUTSIDE
+VENTILATION VENT_CONF
+ TEMPERATURE=OUTSIDE
+ AIRFLOW=INPUT 1*MVNT_CONF
+ HUMIDITY=OUTSIDE
+VENTILATION VENT_SOUTH
+ TEMPERATURE=OUTSIDE
+ AIRFLOW=INPUT 1*MVNT_SOUTH
+ HUMIDITY=OUTSIDE
+VENTILATION VENT_SOUTHSUN
+ TEMPERATURE=OUTSIDE
+ AIRFLOW=INPUT 1*MVNT_SOUTHSUN
+ HUMIDITY=OUTSIDE
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*  C o o l i n g
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+COOLING CL_WEST
+ ON=SCHEDULE 1*WEEK_CL
+ POWER=193913
+ HUMIDITY=100
+COOLING CL_ELEVBLOCK
+ ON=SCHEDULE 1*WEEK_CL
+ POWER=87725
+ HUMIDITY=100
+COOLING CL_NORTH
+ ON=SCHEDULE 1*WEEK_CL
+ POWER=126880
+ HUMIDITY=100
+COOLING CL_EAST
+ ON=SCHEDULE 1*WEEK_CL
+ POWER=163198
+ HUMIDITY=100
+COOLING CL_CONF
+ ON=SCHEDULE 1*WEEK_CL
+ POWER=49962
+ HUMIDITY=100
+COOLING CL_SOUTH
+ ON=SCHEDULE 1*WEEK_CL
+ POWER=52870
+ HUMIDITY=100
+COOLING CL_SOUTHSUN
+ ON=SCHEDULE 1*WEEK_CL
+ POWER=87353
+ HUMIDITY=100
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*  H e a t i n g
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+HEATING HT_WEST
+ ON=SCHEDULE 1*WEEK_HT
+ POWER=137117
+ HUMIDITY=0
+ RRAD=0
+HEATING HT_ELEVBLOCK
+ ON=SCHEDULE 1*WEEK_HT
+ POWER=22406
+ HUMIDITY=0
+ RRAD=0
+HEATING HT_NORTH
+ ON=SCHEDULE 1*WEEK_HT
+ POWER=101366
+ HUMIDITY=0
+ RRAD=0
+HEATING HT_EAST
+ ON=SCHEDULE 1*WEEK_HT
+ POWER=139303
+ HUMIDITY=0
+ RRAD=0
+HEATING HT_CONF
+ ON=SCHEDULE 1*WEEK_HT
+ POWER=38254
+ HUMIDITY=0
+ RRAD=0
+HEATING HT_SOUTH
+ ON=SCHEDULE 1*WEEK_HT
+ POWER=23709
+ HUMIDITY=0
+ RRAD=0
+HEATING HT_SOUTHSUN
+ ON=SCHEDULE 1*WEEK_HT
+ POWER=56941
+ HUMIDITY=0
+ RRAD=0
+*
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*  Z o n e s
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ZONES WEST ELEVBLOCK NORTH EAST CONF SOUTH SOUTHSUN PLENUM
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*  O r i e n t a t i o n s
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ORIENTATIONS H_0_0 S_0_90 W_90_90 N_180_90 E_270_90
+*
+*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+BUILDING
+*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+*
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*  Z o n e  WEST  /  A i r n o d e  WEST
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ZONE WEST
+RADIATIONMODE
+ BEAM=STANDARD : DIFFUSE=STANDARD : LONGWAVE=STANDARD : GEOMODE=MANUAL
+AIRNODE WEST
+WALL  =BND_FLOOR  : SURF=  1 : AREA=   405.718 : BOUNDARY=INPUT 1*TB_PLENUM
+WALL  =EXT_WALL   : SURF=  2 : AREA=     1.087 : EXTERNAL : ORI=E_270_90 : FSKY=0.5
+WINDOW=EXT_WINDOW1 : SURF= 82 : AREA=    20.663 : EXTERNAL : ORI=E_270_90 : FSKY=0.5
+WALL  =BND_CEILING(1) : SURF=  3 : AREA=   405.718 : BOUNDARY=INPUT 1*TPCM_PLENWEST
+WALL  =ADJ_WALL   : SURF=  4 : AREA=    14.346 : ADJACENT=ELEVBLOCK : ADJ_SURF=15 : FRONT
+WALL  =ADJ_WALL   : SURF=  5 : AREA=    44.822 : ADJACENT=NORTH : ADJ_SURF=23 : FRONT
+WALL  =EXT_WALL   : SURF=  6 : AREA=     7.629 : EXTERNAL : ORI=W_90_90 : FSKY=0.5
+WINDOW=EXT_WINDOW1 : SURF= 80 : AREA=   144.946 : EXTERNAL : ORI=W_90_90 : FSKY=0.5
+WALL  =ADJ_WALL   : SURF=  7 : AREA=    16.104 : ADJACENT=SOUTHSUN : ADJ_SURF=54 : FRONT
+WALL  =EXT_WALL   : SURF=  8 : AREA=     0.805 : EXTERNAL : ORI=S_0_90 : FSKY=0.5
+WINDOW=EXT_WINDOW1 : SURF= 79 : AREA=    15.299 : EXTERNAL : ORI=S_0_90 : FSKY=0.5
+WALL  =EXT_WALL   : SURF=  9 : AREA=     1.522 : EXTERNAL : ORI=N_180_90 : FSKY=0.5
+WINDOW=EXT_WINDOW1 : SURF= 81 : AREA=    28.928 : EXTERNAL : ORI=N_180_90 : FSKY=0.5
+WALL  =ADJ_WALL   : SURF= 10 : AREA=     41.18 : ADJACENT=ELEVBLOCK : ADJ_SURF=16 : FRONT
+WALL  =ADJ_WALL   : SURF= 11 : AREA=    28.719 : ADJACENT=SOUTH : ADJ_SURF=46 : FRONT
+ REGIME
+ GAIN        = PERS_ISO01 : SCALE= INPUT 1*PEO_WEST : GEOPOS= 0
+ GAIN        = LIGHT      : SCALE= INPUT 1*LGT_WEST : GEOPOS= 0
+ GAIN        = EQUIP      : SCALE= INPUT 1*EQP_WEST : GEOPOS= 0
+ INFILTRATION= INF_WEST
+ VENTILATION = VENT_WEST
+ COOLING     = CL_WEST
+ HEATING     = HT_WEST
+ CAPACITANCE = 7059.49 : VOLUME= 1176.58 : TINITIAL= 20      : PHINITIAL= 50      : WCAPR= 10
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*  Z o n e  ELEVBLOCK  /  A i r n o d e  ELEVBLOCK
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ZONE ELEVBLOCK
+RADIATIONMODE
+ BEAM=STANDARD : DIFFUSE=STANDARD : LONGWAVE=STANDARD : GEOMODE=3D_DATA
+AIRNODE ELEVBLOCK
+WALL  =BND_FLOOR  : SURF= 12 : AREA=   643.217 : BOUNDARY=INPUT 1*TB_PLENUM
+WALL  =ADJ_WALL   : SURF= 13 : AREA=     41.18 : ADJACENT=EAST : ADJ_SURF=33 : FRONT
+WALL  =ADJ_WALL   : SURF= 14 : AREA=   117.015 : ADJACENT=NORTH : ADJ_SURF=24 : FRONT
+WALL  =ADJ_WALL   : SURF= 15 : AREA=    14.346 : ADJACENT=WEST : ADJ_SURF=4 : BACK
+WALL  =ADJ_WALL   : SURF= 16 : AREA=     41.18 : ADJACENT=WEST : ADJ_SURF=10 : BACK
+WALL  =ADJ_CEILING : SURF= 17 : AREA=   643.217 : ADJACENT=PLENUM : ADJ_SURF=63 : FRONT
+WALL  =ADJ_WALL   : SURF= 18 : AREA=   118.746 : ADJACENT=SOUTH : ADJ_SURF=43 : FRONT
+WALL  =ADJ_WALL   : SURF= 26 : AREA=    12.615 : ADJACENT=EAST : ADJ_SURF=34 : FRONT
+ REGIME
+ GAIN        = PERS_ISO01 : SCALE= INPUT 1*PEO_ELEVBLOCK : GEOPOS= 0
+ GAIN        = LIGHT      : SCALE= INPUT 1*LGT_ELEVBLOCK : GEOPOS= 0
+ GAIN        = EQUIP      : SCALE= INPUT 1*EQP_ELEVBLOCK : GEOPOS= 0
+ INFILTRATION= INF_ELEVBLOCK
+ VENTILATION = VENT_ELEVBLOCK
+ COOLING     = CL_ELEVBLOCK
+ HEATING     = HT_ELEVBLOCK
+ CAPACITANCE = 11192   : VOLUME= 1865.33 : TINITIAL= 20      : PHINITIAL= 50      : WCAPR= 10
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*  Z o n e  NORTH  /  A i r n o d e  NORTH
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ZONE NORTH
+RADIATIONMODE
+ BEAM=STANDARD : DIFFUSE=STANDARD : LONGWAVE=STANDARD : GEOMODE=3D_DATA
+AIRNODE NORTH
+WALL  =BND_FLOOR  : SURF= 19 : AREA=    623.65 : BOUNDARY=INPUT 1*TB_PLENUM
+WALL  =ADJ_CEILING : SURF= 20 : AREA=    623.65 : ADJACENT=PLENUM : ADJ_SURF=59 : FRONT
+WALL  =ADJ_WALL   : SURF= 21 : AREA=    44.822 : ADJACENT=EAST : ADJ_SURF=29 : FRONT
+WALL  =EXT_WALL   : SURF= 22 : AREA=     5.851 : EXTERNAL : ORI=N_180_90 : FSKY=0.5
+WINDOW=EXT_WINDOW1 : SURF= 78 : AREA=   111.164 : EXTERNAL : ORI=N_180_90 : FSKY=0.5
+WALL  =ADJ_WALL   : SURF= 23 : AREA=    44.822 : ADJACENT=WEST : ADJ_SURF=5 : BACK
+WALL  =ADJ_WALL   : SURF= 24 : AREA=   117.015 : ADJACENT=ELEVBLOCK : ADJ_SURF=14 : BACK
+ REGIME
+ GAIN        = PERS_ISO01 : SCALE= INPUT 1*PEO_NORTH : GEOPOS= 0
+ GAIN        = LIGHT      : SCALE= INPUT 1*LGT_NORTH : GEOPOS= 0
+ GAIN        = EQUIP      : SCALE= INPUT 1*EQP_NORTH : GEOPOS= 0
+ INFILTRATION= INF_NORTH
+ VENTILATION = VENT_NORTH
+ COOLING     = CL_NORTH
+ HEATING     = HT_NORTH
+ CAPACITANCE = 10851.5 : VOLUME= 1808.58 : TINITIAL= 20      : PHINITIAL= 50      : WCAPR= 10
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*  Z o n e  EAST  /  A i r n o d e  EAST
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ZONE EAST
+RADIATIONMODE
+ BEAM=STANDARD : DIFFUSE=STANDARD : LONGWAVE=STANDARD : GEOMODE=MANUAL
+AIRNODE EAST
+WALL  =BND_FLOOR  : SURF= 25 : AREA=   423.422 : BOUNDARY=INPUT 1*TB_PLENUM
+WALL  =EXT_WALL   : SURF= 27 : AREA=     7.629 : EXTERNAL : ORI=E_270_90 : FSKY=0.5
+WINDOW=EXT_WINDOW1 : SURF= 76 : AREA=   144.946 : EXTERNAL : ORI=E_270_90 : FSKY=0.5
+WALL  =EXT_WALL   : SURF= 28 : AREA=     0.892 : EXTERNAL : ORI=N_180_90 : FSKY=0.5
+WINDOW=EXT_WINDOW1 : SURF= 77 : AREA=    16.943 : EXTERNAL : ORI=N_180_90 : FSKY=0.5
+WALL  =ADJ_WALL   : SURF= 29 : AREA=    44.822 : ADJACENT=NORTH : ADJ_SURF=21 : BACK
+WALL  =EXT_WALL   : SURF= 30 : AREA=     1.522 : EXTERNAL : ORI=S_0_90 : FSKY=0.5
+WINDOW=EXT_WINDOW1 : SURF= 75 : AREA=    28.928 : EXTERNAL : ORI=S_0_90 : FSKY=0.5
+WALL  =BND_CEILING(1) : SURF= 31 : AREA=   423.422 : BOUNDARY=INPUT 1*TPCM_PLENEAST
+WALL  =ADJ_WALL   : SURF= 32 : AREA=     8.978 : ADJACENT=SOUTH : ADJ_SURF=48 : FRONT
+WALL  =ADJ_WALL   : SURF= 33 : AREA=     41.18 : ADJACENT=ELEVBLOCK : ADJ_SURF=13 : BACK
+WALL  =ADJ_WALL   : SURF= 34 : AREA=    12.615 : ADJACENT=ELEVBLOCK : ADJ_SURF=26 : BACK
+WALL  =EXT_WALL   : SURF= 35 : AREA=     1.087 : EXTERNAL : ORI=W_90_90 : FSKY=0.5
+WINDOW=EXT_WINDOW1 : SURF= 74 : AREA=    20.663 : EXTERNAL : ORI=W_90_90 : FSKY=0.5
+WALL  =ADJ_WALL   : SURF= 36 : AREA=    35.844 : ADJACENT=CONF : ADJ_SURF=37 : FRONT
+ REGIME
+ GAIN        = PERS_ISO01 : SCALE= INPUT 1*PEO_EAST : GEOPOS= 0
+ GAIN        = LIGHT      : SCALE= INPUT 1*LGT_EAST : GEOPOS= 0
+ GAIN        = EQUIP      : SCALE= INPUT 1*EQP_EAST : GEOPOS= 0
+ INFILTRATION= INF_EAST
+ VENTILATION = VENT_EAST
+ COOLING     = CL_EAST
+ HEATING     = HT_EAST
+ CAPACITANCE = 7367.55 : VOLUME= 1227.93 : TINITIAL= 20      : PHINITIAL= 50      : WCAPR= 10
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*  Z o n e  CONF  /  A i r n o d e  CONF
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ZONE CONF
+RADIATIONMODE
+ BEAM=STANDARD : DIFFUSE=STANDARD : LONGWAVE=STANDARD : GEOMODE=3D_DATA
+AIRNODE CONF
+WALL  =ADJ_WALL   : SURF= 37 : AREA=    35.844 : ADJACENT=EAST : ADJ_SURF=36 : BACK
+WALL  =ADJ_CEILING : SURF= 38 : AREA=    152.77 : ADJACENT=PLENUM : ADJ_SURF=61 : FRONT
+WALL  =EXT_WALL   : SURF= 39 : AREA=    35.844 : EXTERNAL : ORI=W_90_90 : FSKY=0.5
+WALL  =ADJ_WALL   : SURF= 40 : AREA=    35.844 : ADJACENT=SOUTH : ADJ_SURF=44 : FRONT
+WALL  =BND_FLOOR  : SURF= 55 : AREA=    152.77 : BOUNDARY=INPUT 1*TB_PLENUM
+WALL  =EXT_WALL   : SURF= 56 : AREA=     1.792 : EXTERNAL : ORI=S_0_90 : FSKY=0.5
+WINDOW=EXT_WINDOW1 : SURF= 73 : AREA=    34.052 : EXTERNAL : ORI=S_0_90 : FSKY=0.5
+ REGIME
+ GAIN        = PERS_ISO01 : SCALE= INPUT 1*PEO_CONF : GEOPOS= 0
+ GAIN        = LIGHT      : SCALE= INPUT 1*LGT_CONF : GEOPOS= 0
+ GAIN        = EQUIP      : SCALE= INPUT 1*EQP_CONF : GEOPOS= 0
+ INFILTRATION= INF_CONF
+ VENTILATION = VENT_CONF
+ COOLING     = CL_CONF
+ HEATING     = HT_CONF
+ CAPACITANCE = 2658.19 : VOLUME= 443.032 : TINITIAL= 20      : PHINITIAL= 50      : WCAPR= 10
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*  Z o n e  SOUTH  /  A i r n o d e  SOUTH
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ZONE SOUTH
+RADIATIONMODE
+ BEAM=STANDARD : DIFFUSE=STANDARD : LONGWAVE=STANDARD : GEOMODE=3D_DATA
+AIRNODE SOUTH
+WALL  =BND_FLOOR  : SURF= 41 : AREA=   321.364 : BOUNDARY=INPUT 1*TB_PLENUM
+WALL  =EXT_WALL   : SURF= 42 : AREA=     19.74 : EXTERNAL : ORI=E_270_90 : FSKY=0.5
+WALL  =ADJ_WALL   : SURF= 43 : AREA=   118.746 : ADJACENT=ELEVBLOCK : ADJ_SURF=18 : BACK
+WALL  =ADJ_WALL   : SURF= 44 : AREA=    35.844 : ADJACENT=CONF : ADJ_SURF=40 : BACK
+WALL  =ADJ_WALL   : SURF= 45 : AREA=    82.902 : ADJACENT=SOUTHSUN : ADJ_SURF=52 : FRONT
+WALL  =ADJ_WALL   : SURF= 46 : AREA=    28.719 : ADJACENT=WEST : ADJ_SURF=11 : BACK
+WALL  =ADJ_CEILING : SURF= 47 : AREA=   321.364 : ADJACENT=PLENUM : ADJ_SURF=57 : FRONT
+WALL  =ADJ_WALL   : SURF= 48 : AREA=     8.978 : ADJACENT=EAST : ADJ_SURF=32 : BACK
+ REGIME
+ GAIN        = PERS_ISO01 : SCALE= INPUT 1*PEO_SOUTH : GEOPOS= 0
+ GAIN        = LIGHT      : SCALE= INPUT 1*LGT_SOUTH : GEOPOS= 0
+ GAIN        = EQUIP      : SCALE= INPUT 1*EQP_SOUTH : GEOPOS= 0
+ INFILTRATION= INF_SOUTH
+ VENTILATION = VENT_SOUTH
+ COOLING     = CL_SOUTH
+ HEATING     = HT_SOUTH
+ CAPACITANCE = 5591.73 : VOLUME= 931.955 : TINITIAL= 20      : PHINITIAL= 50      : WCAPR= 10
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*  Z o n e  SOUTHSUN  /  A i r n o d e  SOUTHSUN
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ZONE SOUTHSUN
+RADIATIONMODE
+ BEAM=STANDARD : DIFFUSE=STANDARD : LONGWAVE=STANDARD : GEOMODE=MANUAL
+AIRNODE SOUTHSUN
+WALL  =BND_FLOOR  : SURF= 49 : AREA=   158.744 : BOUNDARY=INPUT 1*TB_PLENUM
+WALL  =EXT_WALL   : SURF= 50 : AREA=     4.145 : EXTERNAL : ORI=S_0_90 : FSKY=0.5
+WINDOW=EXT_WINDOW1 : SURF= 83 : AREA=    78.757 : EXTERNAL : ORI=S_0_90 : FSKY=0.5
+WALL  =EXT_WALL   : SURF= 51 : AREA=    16.104 : EXTERNAL : ORI=E_270_90 : FSKY=0.5
+WALL  =ADJ_WALL   : SURF= 52 : AREA=    82.902 : ADJACENT=SOUTH : ADJ_SURF=45 : BACK
+WALL  =BND_CEILING(1) : SURF= 53 : AREA=   158.744 : BOUNDARY=INPUT 1*TPCM_PLENSTHSUN
+WALL  =ADJ_WALL   : SURF= 54 : AREA=    16.104 : ADJACENT=WEST : ADJ_SURF=7 : BACK
+ REGIME
+ GAIN        = PERS_ISO01 : SCALE= INPUT 1*PEO_SOUTHSUN : GEOPOS= 0
+ GAIN        = LIGHT      : SCALE= INPUT 1*LGT_SOUTHSUN : GEOPOS= 0
+ GAIN        = EQUIP      : SCALE= INPUT 1*EQP_SOUTHSUN : GEOPOS= 0
+ INFILTRATION= INF_SOUTHSUN
+ VENTILATION = VENT_SOUTHSUN
+ COOLING     = CL_SOUTHSUN
+ HEATING     = HT_SOUTHSUN
+ CAPACITANCE = 2762.15 : VOLUME= 460.356 : TINITIAL= 20      : PHINITIAL= 50      : WCAPR= 10
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*  Z o n e  PLENUM  /  A i r n o d e  PLENUM
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ZONE PLENUM
+RADIATIONMODE
+ BEAM=STANDARD : DIFFUSE=STANDARD : LONGWAVE=STANDARD : GEOMODE=MANUAL
+AIRNODE PLENUM
+WALL  =ADJ_CEILING : SURF= 57 : AREA=   321.364 : ADJACENT=SOUTH : ADJ_SURF=47 : BACK
+WALL  =BND_CEILING(2) : SURF= 58 : AREA=   405.718 : BOUNDARY=INPUT 1*TPCM_PLENWEST
+WALL  =ADJ_CEILING : SURF= 59 : AREA=    623.65 : ADJACENT=NORTH : ADJ_SURF=20 : BACK
+WALL  =BND_CEILING(2) : SURF= 60 : AREA=   423.422 : BOUNDARY=INPUT 1*TPCM_PLENEAST
+WALL  =ADJ_CEILING : SURF= 61 : AREA=    152.77 : ADJACENT=CONF : ADJ_SURF=38 : BACK
+WALL  =BND_CEILING(2) : SURF= 62 : AREA=   158.744 : BOUNDARY=INPUT 1*TPCM_PLENSTHSUN
+WALL  =ADJ_CEILING : SURF= 63 : AREA=   643.217 : ADJACENT=ELEVBLOCK : ADJ_SURF=17 : BACK
+WALL  =EXT_WALL   : SURF= 64 : AREA=    78.918 : EXTERNAL : ORI=W_90_90 : FSKY=0.5
+WALL  =EXT_WALL   : SURF= 65 : AREA=     15.75 : EXTERNAL : ORI=N_180_90 : FSKY=0.5
+WALL  =EXT_WALL   : SURF= 66 : AREA=     11.25 : EXTERNAL : ORI=E_270_90 : FSKY=0.5
+WALL  =EXT_WALL   : SURF= 67 : AREA=     69.75 : EXTERNAL : ORI=N_180_90 : FSKY=0.5
+WALL  =EXT_WALL   : SURF= 68 : AREA=    78.918 : EXTERNAL : ORI=E_270_90 : FSKY=0.5
+WALL  =EXT_WALL   : SURF= 69 : AREA=     15.75 : EXTERNAL : ORI=S_0_90 : FSKY=0.5
+WALL  =EXT_WALL   : SURF= 70 : AREA=     11.25 : EXTERNAL : ORI=W_90_90 : FSKY=0.5
+WALL  =BND_CEILING : SURF= 71 : AREA=   2728.88 : BOUNDARY=INPUT 1*TB_CONDITIONED
+WALL  =EXT_WALL   : SURF= 72 : AREA=     69.75 : EXTERNAL : ORI=S_0_90 : FSKY=0.5
+ REGIME
+ GAIN        = LIGHT      : SCALE= INPUT 1*LGT_PLENUM : GEOPOS= 0
+ GAIN        = EQUIP      : SCALE= INPUT 1*EQP_PLENUM : GEOPOS= 0
+ INFILTRATION= INF_PLENUM
+ CAPACITANCE = 24560   : VOLUME= 4093.33 : TINITIAL= 20      : PHINITIAL= 50      : WCAPR= 5
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*  O u t p u t s
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+OUTPUTS
+ TRANSFER : TIMEBASE=1.000
+ AIRNODES = WEST ELEVBLOCK NORTH EAST CONF SOUTH SOUTHSUN PLENUM 
+ NTYPES =   1 : TAIR - air temperature of airnode
+        =   9 : RELHUM - relativ humidity of airnode air
+        =  30 : QHEAT - sensible heating demand of airnode (positive values)
+        =  31 : QCOOL - sensible cooling demand of airnode (positive values)
+ AIRNODES = SOUTHSUN 
+ NTYPES =  20 : SURF = 53,  : QCOMO - energy to the outside surface incl. conv. to the air and l-wave radiation to other surfaces or Tsky
+ AIRNODES = PLENUM 
+ NTYPES =  20 : SURF = 62,  : QCOMO - energy to the outside surface incl. conv. to the air and l-wave radiation to other surfaces or Tsky
+ AIRNODES = WEST 
+ NTYPES =  20 : SURF = 3,  : QCOMO - energy to the outside surface incl. conv. to the air and l-wave radiation to other surfaces or Tsky
+ AIRNODES = PLENUM 
+ NTYPES =  20 : SURF = 58,  : QCOMO - energy to the outside surface incl. conv. to the air and l-wave radiation to other surfaces or Tsky
+ AIRNODES = EAST 
+ NTYPES =  20 : SURF = 31,  : QCOMO - energy to the outside surface incl. conv. to the air and l-wave radiation to other surfaces or Tsky
+ AIRNODES = PLENUM 
+ NTYPES =  20 : SURF = 60,  : QCOMO - energy to the outside surface incl. conv. to the air and l-wave radiation to other surfaces or Tsky
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*  E n d
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+END
+
+_EXTENSION_WINPOOL_START_
+Window 5.2  v5.2.17  DOE-2 Data File : Multi Band Calculation
+Unit System : SI
+Name        : DOE-2 WINDOW LIB
+Desc        : ASH140 DBLE - MOD
+Window ID   : 6001
+Tilt        : 90.0
+Glazings    : 2
+Frame       :  2 Al w/break            5.680
+Spacer      :  1 Class1                2.330  -0.010   0.138
+Total Height: 1500.0 mm
+Total Width : 1200.0 mm
+Glass Height: 1385.7 mm
+Glass Width : 1085.7 mm
+Mullion     : None
+Gap        Thick    Cond  dCond    Vis   dVis   Dens   dDens     Pr     dPr
+1 Air       13.0 0.02407  7.760  1.722  4.940  1.292 -0.0046  0.720 -0.0002
+2              0       0      0      0      0      0       0      0       0
+3              0       0      0      0      0      0       0      0       0
+4              0       0      0      0      0      0       0      0       0
+5              0       0      0      0      0      0       0      0       0
+Angle     0    10    20    30    40    50    60    70    80    90 Hemis
+Tsol  0.747 0.747 0.745 0.740 0.730 0.707 0.652 0.517 0.263 0.000 0.652
+Abs1  0.064 0.065 0.066 0.068 0.071 0.075 0.080 0.086 0.094 0.000 0.080
+Abs2  0.052 0.053 0.053 0.055 0.057 0.058 0.059 0.054 0.041 0.000 0.059
+Abs3      0     0     0     0     0     0     0     0     0     0     0
+Abs4      0     0     0     0     0     0     0     0     0     0     0
+Abs5      0     0     0     0     0     0     0     0     0     0     0
+Abs6      0     0     0     0     0     0     0     0     0     0     0
+Rfsol 0.136 0.136 0.136 0.137 0.143 0.160 0.210 0.343 0.602 1.000 0.210
+Rbsol 0.136 0.136 0.136 0.137 0.143 0.160 0.210 0.343 0.602 1.000 0.210
+Tvis  0.747 0.747 0.745 0.740 0.730 0.707 0.652 0.517 0.263 0.000 0.652
+Rfvis 0.136 0.136 0.136 0.137 0.143 0.160 0.210 0.343 0.602 1.000 0.210
+Rbvis 0.136 0.136 0.136 0.137 0.143 0.160 0.210 0.343 0.602 1.000 0.210
+SHGC  0.789 0.789 0.787 0.782 0.769 0.739 0.668 0.519 0.267 0.000 0.688
+SC: 0.81
+Layer ID#         9991     9991        0        0        0        0
+Tir              0.000    0.000        0        0        0        0
+Emis F           0.840    0.840        0        0        0        0
+Emis B           0.840    0.840        0        0        0        0
+Thickness(mm)      3.2      3.2        0        0        0        0
+Cond(W/m2-K     ) 333.9    333.9        0        0        0        0
+Spectral File         None         None         None         None         None         None
+Overall and Center of Glass Ig U-values (W/m2-K)
+Outdoor Temperature                 -17.8 C      15.6 C      26.7 C      37.8 C
+Solar      WdSpd  hcout hrout  hin
+(W/m2)     (m/s)     (W/m2-K)
+0        0.00   4.00  3.39  2.43  2.12 2.12  2.24 2.24  2.32 2.32  2.49 2.49
+0        6.71  30.84  3.23  2.58  2.72 2.72  2.80 2.80  2.89 2.89  3.13 3.13
+783        0.00   4.00  3.52  2.03  2.12 2.12  2.24 2.24  2.32 2.32  2.49 2.49
+783        6.71  30.84  3.27  2.39  2.72 2.72  2.80 2.80  2.89 2.89  3.13 3.13
+*** END OF LIBRARY ***
+***************************************************************************************************
+*WinID   Description                              Design         U-Value g-value T-sol Rf-sol T-vis
+***************************************************************************************************
+  6001   ASH140 DBLE - MOD                        3.2/13/3.2       2.89  0.789  0.747  0.136  0.747
+_EXTENSION_WINPOOL_END_
+
+_EXTENSION_BuildingGeometry_START_
+vertex 1 10.500000 52.612000 0.000000
+vertex 2 10.500000 29.656000 0.000000
+vertex 3 5.553000 29.656000 0.000000
+vertex 4 5.553000 0.000000 0.000000
+vertex 5 0.000000 0.000000 0.000000
+vertex 6 0.000000 52.612000 0.000000
+vertex 7 10.500000 45.112000 2.900000
+vertex 8 10.500000 45.112000 0.000000
+vertex 9 10.500000 52.612000 2.900000
+vertex 10 10.500000 45.235982 2.874600
+vertex 11 10.500000 45.235982 0.025400
+vertex 12 10.500000 52.488019 0.025400
+vertex 13 10.500000 52.488019 2.874600
+vertex 14 0.000000 52.612000 2.900000
+vertex 15 0.000000 0.000000 2.900000
+vertex 16 5.553000 0.000000 2.900000
+vertex 17 5.553000 29.656000 2.900000
+vertex 18 10.500000 29.656000 2.900000
+vertex 19 0.000000 51.742273 2.874600
+vertex 20 0.000000 51.742273 0.025400
+vertex 21 0.000000 0.869721 0.025400
+vertex 22 0.000000 0.869721 2.874600
+vertex 23 5.553000 5.553000 0.000000
+vertex 24 5.553000 5.553000 2.900000
+vertex 25 0.091796 0.000000 2.874600
+vertex 26 0.091796 0.000000 0.025400
+vertex 27 5.461205 0.000000 0.025400
+vertex 28 5.461205 0.000000 2.874600
+vertex 29 10.326425 52.612000 2.874600
+vertex 30 10.326425 52.612000 0.025400
+vertex 31 0.173574 52.612000 0.025400
+vertex 32 0.173574 52.612000 2.874600
+vertex 33 5.553000 15.456000 2.900000
+vertex 34 5.553000 15.456000 0.000000
+vertex 35 50.850000 29.656000 0.000000
+vertex 36 50.850000 15.456000 0.000000
+vertex 37 50.850000 15.456000 2.900000
+vertex 38 50.850000 29.656000 2.900000
+vertex 39 46.500000 15.456000 0.000000
+vertex 40 46.500000 15.456000 2.900000
+vertex 41 50.850000 45.112000 0.000000
+vertex 42 50.850000 45.112000 2.900000
+vertex 43 50.182976 45.112000 2.874600
+vertex 44 50.182976 45.112000 0.025400
+vertex 45 11.167022 45.112000 0.025400
+vertex 46 11.167022 45.112000 2.874600
+vertex 47 57.000000 45.112000 0.000000
+vertex 48 57.000000 -7.500000 0.000000
+vertex 49 46.500000 -7.500000 0.000000
+vertex 50 57.000000 -7.500000 2.900000
+vertex 51 57.000000 45.112000 2.900000
+vertex 52 57.000000 -6.630273 2.874600
+vertex 53 57.000000 -6.630273 0.025400
+vertex 54 57.000000 44.242279 0.025400
+vertex 55 57.000000 44.242279 2.874600
+vertex 56 56.898362 45.112000 2.874600
+vertex 57 56.898362 45.112000 0.025400
+vertex 58 50.951693 45.112000 0.025400
+vertex 59 50.951693 45.112000 2.874600
+vertex 60 46.500000 -7.500000 2.900000
+vertex 61 46.673575 -7.500000 2.874600
+vertex 62 46.673575 -7.500000 0.025400
+vertex 63 56.826426 -7.500000 0.025400
+vertex 64 56.826426 -7.500000 2.874600
+vertex 65 46.500000 12.360000 0.000000
+vertex 66 46.500000 12.360000 2.900000
+vertex 67 46.500000 0.000000 2.900000
+vertex 68 46.500000 0.000000 0.000000
+vertex 69 46.500000 -0.123982 2.874600
+vertex 70 46.500000 -0.123982 0.025400
+vertex 71 46.500000 -7.376019 0.025400
+vertex 72 46.500000 -7.376019 2.874600
+vertex 73 34.140000 12.360000 2.900000
+vertex 74 34.140000 0.000000 2.900000
+vertex 75 34.140000 12.360000 0.000000
+vertex 76 34.140000 0.000000 0.000000
+vertex 77 34.344323 0.000000 2.874600
+vertex 78 34.344323 0.000000 0.025400
+vertex 79 46.295677 0.000000 0.025400
+vertex 80 46.295677 0.000000 2.874600
+vertex 81 34.140000 5.553000 0.000000
+vertex 82 34.140000 5.553000 2.900000
+vertex 83 6.025569 0.000000 2.874600
+vertex 84 6.025569 0.000000 0.025400
+vertex 85 33.667332 0.000000 0.025400
+vertex 86 33.667332 0.000000 2.874600
+vertex 87 0.000000 52.612000 4.400000
+vertex 88 0.000000 0.000000 4.400000
+vertex 89 10.500000 52.612000 4.400000
+vertex 90 10.500000 45.112000 4.400000
+vertex 91 57.000000 45.112000 4.400000
+vertex 92 57.000000 -7.500000 4.400000
+vertex 93 46.500000 -7.500000 4.400000
+vertex 94 46.500000 0.000000 4.400000
+
+
+zone ELEVBLOCK
+wall 12 35 36 34 3
+wall 13 37 36 35 38
+wall 14 38 35 2 18
+wall 15 18 2 3 17
+wall 16 17 3 34 33
+wall 17 17 33 37 38
+wall 18 33 34 39 40
+wall 26 40 39 36 37
+
+zone NORTH
+wall 19 41 35 2 8
+wall 20 7 18 38 42
+wall 21 38 35 41 42
+wall 22 42 41 8 7
+window 78 43 44 45 46
+wall 23 7 8 2 18
+wall 24 18 2 35 38
+
+zone CONF
+wall 37 67 68 65 66
+wall 38 73 74 67 66
+wall 39 73 75 76 74
+wall 40 66 65 75 73
+wall 55 65 68 76 75
+wall 56 74 76 68 67
+window 73 77 78 79 80
+
+zone SOUTH
+wall 41 39 65 75 81 23 34
+wall 42 82 81 75 73
+wall 43 40 39 34 33
+wall 44 73 75 65 66
+wall 45 24 23 81 82
+wall 46 33 34 23 24
+wall 47 33 24 82 73 66 40
+wall 48 66 65 39 40
+_EXTENSION_BuildingGeometry_END_
+
+
+_EXTENSION_ExternalShadingGeometry_START_
+
+_EXTENSION_ExternalShadingGeometry_END_
+
+
+_EXTENSION_GeoPositionGeometry_START_
+_EXTENSION_GeoPositionGeometry_END_
+
+
+

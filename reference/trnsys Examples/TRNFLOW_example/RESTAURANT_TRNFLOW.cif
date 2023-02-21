@@ -1,0 +1,307 @@
+&-PR-IDENtification                                                                                 
+  ________________                                                                                  
+ |1.|Problem Name |                                                                                 
+ |__|             |                                                                                 
+ |________________|                                                                                 
+  ________________                                                                                  
+ |2.|Version Name |                                                                                 
+ |__|             |                                                                                 
+ |________________|                                                                                 
+ 
+ CIF File created from TRNSYS building input file:C:\TRNSYS18_00_0010\EXAMPLES\TRNFLOW_EXAMPLE\RESTAURANT_TRNFLOW.cif
+ 
+&-PR-SIMUlation options                                                                             
+  ____________________________________________________________                                      
+ | Simulation Option Keywords: One keyword per line           |                                     
+ |                             Keywords may be preceded by NO |                                     
+ |____________________________________________________________|                                     
+ | VENTilation                        CHECKCondensation       |                                     
+ | 2VENT                              INPUT                   |                                     
+ | POLutants <no>                     DEFAULT <no>            |                                     
+ | POLSTEP <step> [<time> <step2>]    SET                     |                                     
+ |                                    UNIT                    |                                     
+ |                                    ECHOSCHedule            |                                     
+ |                                    ONSCREEN [time|progress |                                     
+ | SCHEDtime <time>                      |niter|pol<n>| error]|                                     
+ | HISTOtime <time>                   STEADY                  |                                     
+ | STARTtime <time> [CONT|REUSE]      DEBUG <no>              |                                     
+ | STOPtime  <time> [KEEP]            LOOPRHO                 |                                     
+ |____________________________________________________________|                                     
+ 
+ START 1990jan01_01:00
+ STOP 1990JAN01_01:00
+ VENTILATION
+ 
+&-PR-UNITS                                                                                          
+  _______________________________                                                                   
+ | Unit Conversion Definitions   |                                                                  
+ | Name    |  Input   |  Output  |                                                                  
+ |_________|__________|__________|                                                                  
+ 
+ FLOW         kg/h       kg/h 
+ HUM          kg/kg      kg/kg
+ SOUR         kg/s       kg/h 
+ SINK         kg/s       kg/h 
+ CFLO         m3/h       m3/h 
+ 
+&-CR       CRACK                                                                                    
+  __________________________________                                                                
+ |1.| Prefix and Name | Description |                                                               
+ |__|        (-)      | [-]         |                                                               
+ |____________________|_____________|                                                               
+  ___________________________________________________                                               
+ |2.|   Cs    |Exp n   | Length  |  Wall Properties  |                                              
+ |__|         |        |         |Thickness| U-value |                                              
+ | (airl)     |  (-)   |   [m]   |   [m]   | [W/m2/K]|                                              
+ |____________|________|_________|_________|_________|                                              
+  _________________________________________________________                                         
+ |3.| Filter 1 | Filter 2 | Filter 3 | Filter 4 | Filter 5 |                                        
+ |__|   (-)    |   [-]    |   [-]    |   [-]    |   [-]    |                                        
+ |_____________|__________|__________|__________|__________|                                        
+ 
+ *CR_001  -
+  0.002 0.66
+  0. 0. 0. 0. 0.
+ *CR_002  -
+  0.1 0.65
+  0. 0. 0. 0. 0.
+ 
+&-FA       FAN                                                                                      
+# line1= Fan name....   #line2=flag....   #line3=Pminimum....   #line4=CO                           
+# line5 up to maybe line8=data pairs                                                                
+# the last line is always the filter line                                                           
+  __________________________________                                                                
+ |1.| Prefix and Name | Description |                                                               
+ |__|        (-)      | [-]         |                                                               
+ |____________________|_____________|                                                               
+  _____________________________________________________________                                     
+ |2.|# Flag: 1,2 = Polynomial C0,..C5, input provided by user  |                                    
+ |__|        3   = Interpolation calculated by COMIS           |                                    
+ |                 from data pairs                             |                                    
+ | ____________________________________________________________|                                    
+ | Flag|Exp Polynom.|RhoI    |  NfI   |     Cs        | Exp n  |                                    
+ | (-) |    (-)     |(kg/m3) | [rpm]  |  [airl]       |  [-]   |                                    
+ |_____|____________|________|________|_______________|________|                                    
+  _____________________________________________                                                     
+ |3.| Pmin  |  Pmax    |  Slope    | Intercept |                                                    
+ |__| (pres)|  (pres)  |(cflo/pres)|  (cflo)   |                                                    
+ |__________|__________|___________|___________|                                                    
+  ______________________________________________________________________                            
+ |4.|  C0   |   C1      |   C2      |   C3      |   C4      |   C5      |                           
+ |__|(cflo) | [cflo/    | [cflo /   | [cflo/    | [cflo/    | [cflo/    |                           
+ |          |   pres]   |   pres^2] |   pres^3] |   pres^4] |   pres^5] |                           
+ |__________|___________|___________|___________|___________|___________|                           
+  ____________________________________________________________________                              
+ |5.|  Fan Curve:   Pressure Rise vs. FlowRate, maximum 4 Lines       |                             
+ |__|  Data Pairs:  minimum 3 Pairs,    maximum 12 Pairs              |                             
+ |  (pres)  |  (cflo)   |  (pres)  |  (cflo)   |  (pres)  |  (cflo)   |                             
+ |__________|___________|__________|___________|__________|___________|                             
+  _________________________________________________________                                         
+ |9.| Filter 1 | Filter 2 | Filter 3 | Filter 4 | Filter 5 |                                        
+ |__|   (-)    |   [-]    |   [-]    |   [-]    |   [-]    |                                        
+ |_____________|__________|__________|__________|__________|                                        
+ 
+ *FA_001  -
+  3      d      1.2 1      0.2 0.65
+  d      d      d      d     
+  d     
+  0. 665. 40. 622. 80. 519. 
+  120. 354. 175. 26. 
+  0. 0. 0. 0. 0.
+ 
+&-DS          duct straight                                                                         
+# a duct fitting given here will result in an extra dynamic pressure                                
+# loss, Zeta                                                                                        
+  __________________________________                                                                
+ |1.| Prefix and Name | Description |                                                               
+ |__|        (-)      | [-]         |                                                               
+ |____________________|_____________|                                                               
+  __________________________________________________________________________________                
+ |2.|  Ducts straight part                         |       one Fitting    |Zeta for |               
+ |__|______________________________________________|______________________|negative |               
+ |  Diam1  |  Diam2  |  Rough  |  Lduct  |  Zeta   | Type |Param1 |Param2 |flow     |               
+ |   (m)   |   (m)   |   (mm)  |   (m)   |   [-]   | [-]  | [?]   | [?]   |   [-]   |               
+ |_________|_________|_________|_________|_________|______|_______|_______|_________|               
+  _________________________________________________________                                         
+ |3.| Filter 1 | Filter 2 | Filter 3 | Filter 4 | Filter 5 |                                        
+ |__|   (-)    |   [-]    |   [-]    |   [-]    |   [-]    |                                        
+ |_____________|__________|__________|__________|__________|                                        
+ 
+ *DS_002  -
+  0.2 0. 0.03 1.8 0. 6. 2. 0.  0.
+  0. 0. 0. 0. 0.
+ *DS_001  -
+  0.2 0. 0.03 0.2 0. 3. 2. 15.  0.
+  0. 0. 0. 0. 0.
+ *DS_003  -
+  0.2 0. 0.03 0.2 0. 5. 80. 0.  0.
+  0. 0. 0. 0. 0.
+ *DS_004  -
+  0.2 0. 0.03 0.2 0. 2. 80. 0.  0.
+  0. 0. 0. 0. 0.
+ 
+&-WI       Window / Door                                                                            
+  __________________________________                                                                
+ |1.| Prefix and Name | Description |                                                               
+ |__|        (-)      | [-]         |                                                               
+ |____________________|_____________|                                                               
+  __________________________________________________________________                                
+ |2.| Closed:   | Expn | LVO Type     | Lwmax  | Lhmax  |Type 1:    |                               
+ |__|  Cs       |      | 1=rectang    |        |        | Lextra    |                               
+ |              |      | 2=horizontal |        |        |Type 2:    |                               
+ |              |      | pivoting axis|        |        | Axisheight|                               
+ | (airl/m)     | (-)  | (-)          |  [m]   |  [m]   |   [m]     |                               
+ |______________|______|______________|________|________|___________|                               
+  ________________________________________________                                                  
+ |3.| Open. | Cd  | Width  | Height | Start Height|                                                 
+ |__| Fact. |     | Factor | Factor | Factor      |                                                 
+ |          |     |  LVO 1 |  LVO 1 |  LVO 1      |                                                 
+ |    (-)   | [-] |   [-]  |  [-]   |  [-]        |                                                 
+ |__________|_____|________|________|_____________|                                                 
+  _________________________________________________________                                         
+ |4.| Filter 1 | Filter 2 | Filter 3 | Filter 4 | Filter 5 |                                        
+ |__|   (-)    |   [-]    |   [-]    |   [-]    |   [-]    |                                        
+ |_____________|__________|__________|__________|__________|                                        
+ 
+ *WI_DOOR2  -
+  0.01 0.59 1. 1.2 2. 0.
+  0.     0.6 0.     1.     0.    
+  1.     0.6 1.     1.     0.    
+  0. 0. 0. 0. 0.
+ *WI_DOOR1  -
+  0.01 0.59 1. 1.2 2. 0.
+  0.     0.6 0.     1.     0.    
+  1.     0.6 1.     1.     0.    
+  0. 0. 0. 0. 0.
+ *WI_WIN_001  -
+  0.003 0.66 1. 1.5 1. 0.
+  0.     0.6 0.     1.     0.    
+  1.     0.6 1.     1.     0.    
+  0. 0. 0. 0. 0.
+ 
+&-NET-ZONes                                                                                         
+  _________________________________________________________________________________________         
+ |Zone| Name         | Temp |Ref.   |   Volume    | Humid.| Schedule | Temp.    | Hum.     |        
+ | ID |              |      | Height|   [m3]      |       |  Name    | Reference| Reference|        
+ |    |              |      |       |   H/D/W     |       |          | to BUI   | to BUI   |        
+ |    |              |      |       |             |       |          | Variable | Variable |        
+ | (-)| [-]          |[temp]| [m]   |   [m/m/m]   |[humi] |  [-]     |[°C]/[-]  |[humi]/[-]|        
+ |____|______________|______|_______|_____________|_______|__________|__________|__________|        
+ 
+  DINING          DINING          d      0. 3./4./28.125 d      d     
+  KITCHEN         KITCHEN         d      0. 3./4./14.0625 d      d     
+  STORAGE         STORAGE         d      0. 3./4./14.0625 d      d     
+ AN_001          AN_001          d      0. 0.01         d      d      21. 0.008
+  AN_006          AN_006          d      0. 0.01         d     
+  AN_005          AN_005          d      0. 0.01         d     
+  AN_002          AN_002          d      0. 0.01         d     
+  AN_003          AN_003          d      0. 0.01         d     
+  AN_004          AN_004          d      0. 0.01         d     
+ 
+&-NET-ZP zone-pollutants                                                                            
+  ____________________________________________________________________________________              
+ | Zone   |         Pollutant                                                         |             
+ |        |___________________________________________________________________________|             
+ |        |              |          |          |          |Source       |Sink         |             
+ | *ID    | Initial      |  Source  |  Sink    |  Decay   |Ref. to BUI  |Ref. to BUI  |             
+ |        | Concentration|          |          |          |Variable     |Variable     |             
+ | (-)    |    (conc?)   |  [sour?] |  [sink?] |  [1/s]   |[kg/s] / [-] | [kg/s] / [-]|             
+ |________|______________|__________|__________|__________|_____________|_____________|             
+ 
+ 
+&-NET-EXTernal node data                                                                            
+  _______________________________________                                                           
+ | External   | Facade     | Outside     |                                                          
+ |  Node Name |  Elem Name | Conc Factor |                                                          
+ |   (-)      |   (-)      |   [-]       |                                                          
+ |____________|____________|_____________|                                                          
+ 
+  EN_003          EN_003          1.
+  EN_004          EN_004          1.
+  EN_001          EN_001          1.
+  EN_002          EN_002          1.
+ 
+&-NET-LINks                                                                                         
+  __________________________________________________________________________________                
+ |Link|Type | Zone ID | Height | Own    | Act. | 3Dflow | Schedule Name   |Act.Val. |               
+ |    |     |_________|________| Height | Val. |   or   |   (10char)      |Reference|               
+ |    |     |    |    |    |   | Factor |      | Press. |_________________|to BUI   |               
+ | ID |Name |From|To  |From|To |        |      |        | Ref Link        |Variable |               
+ |(-) |(-)  |(-) |(-) |[m] |[m]|  [-]   | [-]  |  [pre] | Name[-]|Angle[°]|  [-]    |               
+ |____|_____|____|____|____|___|________|______|________|________|________|_________|               
+ 
+ L1    DS_001          KITCHEN         AN_001          0. 0. 0. d      d      d      d      1.
+ L2    CR_001          -EN_003         KITCHEN         0. 0. 0. d      d      d      d      1.
+ L3    CR_001          -EN_004         STORAGE         0. 0. 0. d      d      d      d      1.
+ L4    CR_001          -EN_004         DINING          0. 0. 0. d      d      d      d      1.
+ L5    CR_001          -EN_003         DINING          0. 0. 0. d      d      d      d      1.
+ L6    CR_001          -EN_001         KITCHEN         0. 0. 0. d      d      d      d      1.
+ L7    CR_001          -EN_001         STORAGE         0. 0. 0. d      d      d      d      1.
+ L8    CR_001          AN_006          AN_005          0. 0. 0. d      d      d      d      0.
+ L9    DS_002          AN_001          AN_002          0. 0. 0. d      d      d      d      1.
+ L10   FA_001          AN_002          AN_003          0. 0. 0. d      d      d      d      -2011.
+ L11   WI_DOOR2        DINING          STORAGE         0. 0. 1. d      d      d      d      0.
+ L12   WI_DOOR1        DINING          KITCHEN         0. 0. 1. d      d      d      d      0.
+ L13   DS_003          AN_003          -EN_001         0. 0. 0. d      d      d      d      1.
+ L14   DS_003          AN_004          KITCHEN         0. 0. 0. d      d      d      d      1.
+ L15   DS_002          AN_005          AN_004          0. 0. 0. d      d      d      d      1.
+ L16   FA_001          AN_006          AN_005          0. 0. 0. d      d      d      d      -2012.
+ L17   DS_004          -EN_001         AN_006          0. 0. 0. d      d      d      d      1.
+ L18   WI_WIN_001      -EN_002         DINING          0. 0. 1. d      d      d      d      0.
+ 
+&-CP-BUILding reference height for Cp data                                                          
+  __________                                                                                        
+ | Height   |                                                                                       
+ | (m)      |                                                                                       
+ |__________|                                                                                       
+ 
+  10.
+ 
+&-CP-VALUes                                                                                         
+  _________________                                                                                 
+ |1.|Dataset Name  |                                                                                
+ |__|______________|                                                                                
+  __________________________________________________________________________                        
+ |2.| *      | Wind Direction with respect to Building Axis   (first line ) |                       
+ |__| Facade | Cp Values                       (second and following lines) |                       
+ | Elem.Name |      |      |      |      |      |      |      |      |      |                       
+ |           |(deg) |[deg] |[deg] |[deg] |[deg] |[deg] |[deg] |[deg] |[deg] |                       
+ |   (-)     | (-)  | [-]  | [-]  | [-]  | [-]  | [-]  | [-]  | [-]  | [-]  |                       
+ |___________|______|______|______|______|______|______|______|______|______|                       
+ 
+ cpvalues
+  * 0. 90. 180. 270. 
+  EN_003          -0.2 -0.2 -0.2 0.8 
+  EN_004          -0.2 0.8 -0.2 -0.2 
+  EN_001          0.8 -0.2 -0.2 -0.2 
+  EN_002          -0.2 -0.2 0.8 -0.2 
+ 
+&-ENV-WINd and meteo related parameters                                                             
+  _____________________________________________________                                             
+ |1.|  Ref. Height  |  Altitude     | Wind Velocity    |                                            
+ |__| for Wind Speed| Meteo Station | Profile Exponent |                                            
+ |                  |               | Meteo Station    |                                            
+ |       (m)        |    (m)        |   (prof)         |                                            
+ |__________________|_______________|__________________|                                            
+  _______________________________________                                                           
+ |2.| Wind Direction | Wind Velocity     |                                                          
+ |__|    Angle       | Profile Exponent  |                                                          
+ |                   | Building Location |                                                          
+ |       (deg)       |     (prof)        |                                                          
+ |___________________|___________________|                                                          
+ 
+  d      d      d     
+  0. 0.26 
+ 
+&-SCH-METeo data                                                                                    
+  _________________                                                                                 
+ |1.| Dataset Name |                                                                                
+ |__|______________|                                                                                
+  _______________________________________________________________________                           
+ |2.|   Time       |       Wind       |Temperature |Humidity |Barometric |                          
+ |__|              |__________________|            |         |Pressure   |                          
+ |                 | Speed  |Direction|            |         |Absolute   |                          
+ |(-)              |(velo)  |  (deg)  |  (temp)    |[humi]   |  [kPa]    |                          
+ |_________________|________|_________|____________|_________|___________|                          
+ 
+ 

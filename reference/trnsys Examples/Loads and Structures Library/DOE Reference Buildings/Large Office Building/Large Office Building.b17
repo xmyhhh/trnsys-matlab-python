@@ -1,0 +1,1379 @@
+*********************************************************************************************************************************************************************************************************
+*  TRNBuild   2.0.164
+*********************************************************************************************************************************************************************************************************
+*   BUILDING DESCRIPTIONS FILE TRNSYS
+*   FOR BUILDING:   C:\Documents and Settings\Jeff Thornton\Desktop\Work\Building\Large Office Building\Trnsys3d\Large Office Building.b17
+*   GET BY WORKING WITH TRNBuild 1.0 for Windows
+*********************************************************************************************************************************************************************************************************
+*
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*  C o m m e n t s
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*  P r o j e c t
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*+++ PROJECT
+*+++ TITLE=LARGE OFFICE BUILDING
+*+++ DESCRIPTION=LARGE OFFICE REFERENCE BLDG NEW CONSTR. 90.1-2004 V1.3_5.0
+*+++ CREATED=NICK LAHAM
+*+++ ADDRESS=
+*+++ CITY=
+*+++ SWITCH=UNDEFINED
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*  P r o p e r t i e s
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+PROPERTIES
+ DENSITY=1.204 : CAPACITY=1.012 : PRESSURE=101325.000 : HVAPOR=2454.0 : SIGMA=2.041e-007 : RTEMP=293.15
+*--- alpha calculation -------------------
+ KFLOORUP=7.2 : EFLOORUP=0.31 : KFLOORDOWN=3.888 : EFLOORDOWN=0.31
+ KCEILUP=7.2 : ECEILUP=0.31 : KCEILDOWN=3.888 : ECEILDOWN=0.31
+ KVERTICAL=5.76 : EVERTICAL=0.3
+*
+*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+TYPES
+*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+*
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*  L a y e r s
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+LAYER PLASTERBOA
+ CONDUCTIVITY=  0.576 : CAPACITY=   0.84 : DENSITY=    950
+LAYER FBRGLS_ASHRAE
+ CONDUCTIVITY=  0.144 : CAPACITY=   0.84 : DENSITY=     12
+LAYER WD_SIDN_ASHRA
+ CONDUCTIVITY=  0.504 : CAPACITY=    0.9 : DENSITY=    530
+LAYER TMBR_FLR_ASHR
+ CONDUCTIVITY=  0.504 : CAPACITY=    1.2 : DENSITY=    650
+LAYER INS_FLR_ASH
+ RESISTANCE=    6.965
+LAYER RFDCK_ASHRAE
+ CONDUCTIVITY=  0.504 : CAPACITY=    0.9 : DENSITY=    530
+LAYER CONC_SLAB
+ CONDUCTIVITY=  4.068 : CAPACITY=      1 : DENSITY=   1400
+LAYER INS_FLR_ASH_900
+ RESISTANCE=    6.993
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*  I n p u t s
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+INPUTS TGROUND TBOUNDARY BRIGHT
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*  S c h e d u l e s
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+SCHEDULE WORKDAY
+ HOURS =0.000 8.000 18.000 24.0
+ VALUES=0 1. 0 0 
+SCHEDULE WEEKEND
+ HOURS =0.000 1.000 24.0
+ VALUES=0 0 0 
+SCHEDULE WORKLIGHT
+ HOURS =0.000 8.000 18.000 24.0
+ VALUES=0 1. 0 0 
+SCHEDULE DAYNIGHT
+ HOURS =0.000 6.000 18.000 24.0
+ VALUES=0 1. 0 0 
+SCHEDULE USE
+ DAYS=1 2 3 4 5 6 7
+ HOURLY=WORKDAY WORKDAY WORKDAY WORKDAY WORKDAY WEEKEND WEEKEND
+SCHEDULE LIGHT
+ DAYS=1 2 3 4 5 6 7
+ HOURLY=WORKLIGHT WORKLIGHT WORKLIGHT WORKLIGHT WORKLIGHT WEEKEND WEEKEND
+SCHEDULE SETOFF
+ DAYS=1 2 3 4 5 6 7
+ HOURLY=DAYNIGHT DAYNIGHT DAYNIGHT DAYNIGHT DAYNIGHT WEEKEND WEEKEND
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*  W a l l s
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+WALL BND_WALL
+ LAYERS   = PLASTERBOA FBRGLS_ASHRAE PLASTERBOA 
+ THICKNESS= 0.012      0.066         0.012      
+ ABS-FRONT= 0.6   : ABS-BACK= 0.6  
+ EPS-FRONT= 0.9   : EPS-BACK= 0.9  
+ HFRONT   = 11 : HBACK= 11
+WALL EXT_WALL
+ LAYERS   = PLASTERBOA FBRGLS_ASHRAE WD_SIDN_ASHRA 
+ THICKNESS= 0.012      0.066         0.009         
+ ABS-FRONT= 0.6   : ABS-BACK= 0.6  
+ EPS-FRONT= 0.9   : EPS-BACK= 0.9  
+ HFRONT   = 11 : HBACK= 64
+WALL EXT_ROOF
+ LAYERS   = PLASTERBOA FBRGLS_ASHRAE RFDCK_ASHRAE 
+ THICKNESS= 0.01       0.112         0.019        
+ ABS-FRONT= 0.6   : ABS-BACK= 0.6  
+ EPS-FRONT= 0.9   : EPS-BACK= 0.9  
+ HFRONT   = 11 : HBACK= 64
+WALL EXT_FLOOR
+ LAYERS   = TMBR_FLR_ASHR INS_FLR_ASH 
+ THICKNESS= 0.03          0           
+ ABS-FRONT= 0.6   : ABS-BACK= 0.6  
+ EPS-FRONT= 0.9   : EPS-BACK= 0.9  
+ HFRONT   = 11 : HBACK= 11
+WALL BND_CEILING
+ LAYERS   = CONC_SLAB 
+ THICKNESS= 0.08      
+ ABS-FRONT= 0.6   : ABS-BACK= 0.6  
+ EPS-FRONT= 0.9   : EPS-BACK= 0.9  
+ HFRONT   = 11 : HBACK= 11
+WALL BND_FLOOR
+ LAYERS   = TMBR_FLR_ASHR INS_FLR_ASH 
+ THICKNESS= 0.03          0           
+ ABS-FRONT= 0.6   : ABS-BACK= 0.6  
+ EPS-FRONT= 0.9   : EPS-BACK= 0.9  
+ HFRONT   = 11 : HBACK= 11
+WALL GROUND_FLOOR
+ LAYERS   = CONC_SLAB INS_FLR_ASH_900 
+ THICKNESS= 0.08      0               
+ ABS-FRONT= 0.6   : ABS-BACK= 0.6  
+ EPS-FRONT= 0.9   : EPS-BACK= 0.9  
+ HFRONT   = 11 : HBACK= 0.001
+WALL ADJ_WALL
+ LAYERS   = PLASTERBOA FBRGLS_ASHRAE PLASTERBOA 
+ THICKNESS= 0.012      0.066         0.012      
+ ABS-FRONT= 0.6   : ABS-BACK= 0.6  
+ EPS-FRONT= 0.9   : EPS-BACK= 0.9  
+ HFRONT   = 11 : HBACK= 11
+WALL ADJ_CEILING
+ LAYERS   = CONC_SLAB 
+ THICKNESS= 0.08      
+ ABS-FRONT= 0.6   : ABS-BACK= 0.6  
+ EPS-FRONT= 0.9   : EPS-BACK= 0.9  
+ HFRONT   = 11 : HBACK= 11
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*  W i n d o w s
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+WINDOW EXT_WINDOW1
+ WINID=6001 : HINSIDE=11 : HOUTSIDE=64 : SLOPE=90 : SPACID=0 : WWID=0.77 : WHEIG=1.08 : FFRAME=0.3 : UFRAME=10.9091 : ABSFRAME=0.6 : RISHADE=0 : RESHADE=0 : REFLISHADE=0.5 : REFLOSHADE=0.5 : ;
+ CCISHADE=0.5 : EPSFRAME=0.9 : EPSISHADE=0.9
+WINDOW EXT_WINDOW2
+ WINID=6001 : HINSIDE=11 : HOUTSIDE=64 : SLOPE=90 : SPACID=0 : WWID=0.77 : WHEIG=1.08 : FFRAME=0.3 : UFRAME=10.9091 : ABSFRAME=0.6 : RISHADE=0 : RESHADE=0 : REFLISHADE=0.5 : REFLOSHADE=0.5 : ;
+ CCISHADE=0.5 : EPSFRAME=0.9 : EPSISHADE=0.9
+WINDOW ADJ_WINDOW
+ WINID=6001 : HINSIDE=11 : HOUTSIDE=64 : SLOPE=90 : SPACID=0 : WWID=0.77 : WHEIG=1.08 : FFRAME=0.3 : UFRAME=10.9091 : ABSFRAME=0.6 : RISHADE=0 : RESHADE=0 : REFLISHADE=0.5 : REFLOSHADE=0.5 : ;
+ CCISHADE=0.5 : EPSFRAME=0.9 : EPSISHADE=0.9
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*  D e f a u l t  G a i n s
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*  O t h e r  G a i n s
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*  C o m f o r t
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*  I n f i l t r a t i o n
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*  V e n t i l a t i o n
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*  C o o l i n g
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+COOLING COOL001
+ ON=26
+ POWER=999999999
+ HUMIDITY=100
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*  H e a t i n g
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+HEATING HEAT001
+ ON=20
+ POWER=999999999
+ HUMIDITY=0
+ RRAD=0
+*
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*  Z o n e s
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ZONES GROUNDFLOOR_PLENUM PERIMETER_TOP_ZN_4 PERIMETER_MID_ZN_1 PERIMETER_BOT_ZN_1 MIDFLOOR_PLENUM CORE_TOP TOPFLOOR_PLENUM PERIMETER_TOP_ZN_2 PERIMETER_MID_ZN_3 PERIMETER_BOT_ZN_3 PERIMETER_TOP_ZN_1 ;
+ CORE_BOTTOM PERIMETER_MID_ZN_4 BASEMENT CORE_MID PERIMETER_BOT_ZN_4 PERIMETER_MID_ZN_2 PERIMETER_TOP_ZN_3 PERIMETER_BOT_ZN_2
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*  O r i e n t a t i o n s
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ORIENTATIONS H_0_0 S_0_90 W_90_90 N_180_90 E_270_90
+*
+*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+BUILDING
+*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+*
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*  Z o n e  GROUNDFLOOR_PLENUM  /  A i r n o d e  GROUNDFLOOR_PLENUM
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ZONE GROUNDFLOOR_PLENUM
+RADIATIONMODE
+ BEAM=STANDARD : DIFFUSE=STANDARD : LONGWAVE=STANDARD : GEOMODE=3D_DATA
+AIRNODE GROUNDFLOOR_PLENUM
+WALL  =ADJ_CEILING : SURF=  1 : AREA=   3563.11 : BOUNDARY=IDENTICAL
+WALL  =ADJ_CEILING : SURF=  2 : AREA=    313.42 : ADJACENT=PERIMETER_BOT_ZN_1 : ADJ_SURF=23 : BACK
+WALL  =ADJ_CEILING : SURF=  3 : AREA=   201.975 : ADJACENT=PERIMETER_BOT_ZN_2 : ADJ_SURF=125 : BACK
+WALL  =ADJ_CEILING : SURF=  4 : AREA=   313.413 : ADJACENT=PERIMETER_BOT_ZN_3 : ADJ_SURF=68 : BACK
+WALL  =ADJ_CEILING : SURF=  5 : AREA=   201.975 : ADJACENT=PERIMETER_BOT_ZN_4 : ADJ_SURF=107 : BACK
+WALL  =ADJ_CEILING : SURF=  6 : AREA=   2532.32 : ADJACENT=CORE_BOTTOM : ADJ_SURF=79 : BACK
+WALL  =EXT_WALL   : SURF=  7 : AREA=    59.421 : EXTERNAL : ORI=E_270_90 : FSKY=0.5
+WALL  =EXT_WALL   : SURF=  8 : AREA=    89.132 : EXTERNAL : ORI=N_180_90 : FSKY=0.5
+WALL  =EXT_WALL   : SURF=  9 : AREA=    89.132 : EXTERNAL : ORI=S_0_90 : FSKY=0.5
+WALL  =EXT_WALL   : SURF= 10 : AREA=    59.421 : EXTERNAL : ORI=W_90_90 : FSKY=0.5
+ REGIME
+ COOLING     = COOL001
+ HEATING     = HEAT001
+ CAPACITANCE = 5212.97 : VOLUME= 4344.14 : TINITIAL= 20      : PHINITIAL= 50      : WCAPR= 1
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*  Z o n e  PERIMETER_TOP_ZN_4  /  A i r n o d e  PERIMETER_TOP_ZN_4
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ZONE PERIMETER_TOP_ZN_4
+RADIATIONMODE
+ BEAM=STANDARD : DIFFUSE=STANDARD : LONGWAVE=STANDARD : GEOMODE=3D_DATA
+AIRNODE PERIMETER_TOP_ZN_4
+WALL  =ADJ_CEILING : SURF= 11 : AREA=   201.975 : ADJACENT=TOPFLOOR_PLENUM : ADJ_SURF=49 : FRONT
+WALL  =ADJ_CEILING : SURF= 12 : AREA=   201.975 : BOUNDARY=IDENTICAL
+WALL  =ADJ_WALL   : SURF= 13 : AREA=    108.64 : ADJACENT=CORE_TOP : ADJ_SURF=44 : FRONT
+WALL  =ADJ_WALL   : SURF= 14 : AREA=    17.747 : ADJACENT=PERIMETER_TOP_ZN_3 : ADJ_SURF=123 : FRONT
+WALL  =ADJ_WALL   : SURF= 15 : AREA=    17.747 : ADJACENT=PERIMETER_TOP_ZN_1 : ADJ_SURF=77 : FRONT
+WALL  =EXT_WALL   : SURF= 16 : AREA=    56.627 : EXTERNAL : ORI=W_90_90 : FSKY=0.5
+WINDOW=EXT_WINDOW1 : SURF=140 : AREA=    77.111 : EXTERNAL : ORI=W_90_90 : FSKY=0.5
+ REGIME
+ COOLING     = COOL001
+ HEATING     = HEAT001
+ CAPACITANCE = 665.064 : VOLUME= 554.22  : TINITIAL= 20      : PHINITIAL= 50      : WCAPR= 1
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*  Z o n e  PERIMETER_MID_ZN_1  /  A i r n o d e  PERIMETER_MID_ZN_1
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ZONE PERIMETER_MID_ZN_1
+RADIATIONMODE
+ BEAM=STANDARD : DIFFUSE=STANDARD : LONGWAVE=STANDARD : GEOMODE=3D_DATA
+AIRNODE PERIMETER_MID_ZN_1
+WALL  =ADJ_CEILING : SURF= 17 : AREA=    313.42 : ADJACENT=MIDFLOOR_PLENUM : ADJ_SURF=30 : FRONT
+WALL  =ADJ_CEILING : SURF= 18 : AREA=    313.42 : BOUNDARY=IDENTICAL
+WALL  =ADJ_WALL   : SURF= 19 : AREA=    17.747 : ADJACENT=PERIMETER_MID_ZN_2 : ADJ_SURF=116 : FRONT
+WALL  =ADJ_WALL   : SURF= 20 : AREA=   175.508 : ADJACENT=CORE_MID : ADJ_SURF=105 : FRONT
+WALL  =ADJ_WALL   : SURF= 21 : AREA=    17.747 : ADJACENT=PERIMETER_MID_ZN_4 : ADJ_SURF=89 : FRONT
+WALL  =EXT_WALL   : SURF= 22 : AREA=    84.861 : EXTERNAL : ORI=S_0_90 : FSKY=0.5
+WINDOW=EXT_WINDOW1 : SURF=138 : AREA=   115.745 : EXTERNAL : ORI=S_0_90 : FSKY=0.5
+ REGIME
+ COOLING     = COOL001
+ HEATING     = HEAT001
+ CAPACITANCE = 1032.03 : VOLUME= 860.024 : TINITIAL= 20      : PHINITIAL= 50      : WCAPR= 1
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*  Z o n e  PERIMETER_BOT_ZN_1  /  A i r n o d e  PERIMETER_BOT_ZN_1
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ZONE PERIMETER_BOT_ZN_1
+RADIATIONMODE
+ BEAM=STANDARD : DIFFUSE=STANDARD : LONGWAVE=STANDARD : GEOMODE=3D_DATA
+AIRNODE PERIMETER_BOT_ZN_1
+WALL  =ADJ_CEILING : SURF= 23 : AREA=    313.42 : ADJACENT=GROUNDFLOOR_PLENUM : ADJ_SURF=2 : FRONT
+WALL  =ADJ_CEILING : SURF= 24 : AREA=    313.42 : ADJACENT=BASEMENT : ADJ_SURF=100 : BACK
+WALL  =ADJ_WALL   : SURF= 25 : AREA=    17.747 : ADJACENT=PERIMETER_BOT_ZN_2 : ADJ_SURF=128 : FRONT
+WALL  =ADJ_WALL   : SURF= 26 : AREA=   175.508 : ADJACENT=CORE_BOTTOM : ADJ_SURF=83 : FRONT
+WALL  =ADJ_WALL   : SURF= 27 : AREA=    17.747 : ADJACENT=PERIMETER_BOT_ZN_4 : ADJ_SURF=111 : FRONT
+WALL  =EXT_WALL   : SURF= 28 : AREA=    84.861 : EXTERNAL : ORI=S_0_90 : FSKY=0.5
+WINDOW=EXT_WINDOW1 : SURF=132 : AREA=   115.745 : EXTERNAL : ORI=S_0_90 : FSKY=0.5
+ REGIME
+ COOLING     = COOL001
+ HEATING     = HEAT001
+ CAPACITANCE = 1032.03 : VOLUME= 860.024 : TINITIAL= 20      : PHINITIAL= 50      : WCAPR= 1
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*  Z o n e  MIDFLOOR_PLENUM  /  A i r n o d e  MIDFLOOR_PLENUM
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ZONE MIDFLOOR_PLENUM
+RADIATIONMODE
+ BEAM=STANDARD : DIFFUSE=STANDARD : LONGWAVE=STANDARD : GEOMODE=3D_DATA
+AIRNODE MIDFLOOR_PLENUM
+WALL  =ADJ_CEILING : SURF= 29 : AREA=   3563.11 : BOUNDARY=IDENTICAL
+WALL  =ADJ_CEILING : SURF= 30 : AREA=    313.42 : ADJACENT=PERIMETER_MID_ZN_1 : ADJ_SURF=17 : BACK
+WALL  =ADJ_CEILING : SURF= 31 : AREA=   201.975 : ADJACENT=PERIMETER_MID_ZN_2 : ADJ_SURF=113 : BACK
+WALL  =ADJ_CEILING : SURF= 32 : AREA=   313.413 : ADJACENT=PERIMETER_MID_ZN_3 : ADJ_SURF=61 : BACK
+WALL  =ADJ_CEILING : SURF= 33 : AREA=   201.975 : ADJACENT=PERIMETER_MID_ZN_4 : ADJ_SURF=85 : BACK
+WALL  =ADJ_CEILING : SURF= 34 : AREA=   2532.32 : ADJACENT=CORE_MID : ADJ_SURF=101 : BACK
+WALL  =EXT_WALL   : SURF= 35 : AREA=    59.421 : EXTERNAL : ORI=E_270_90 : FSKY=0.5
+WALL  =EXT_WALL   : SURF= 36 : AREA=    89.132 : EXTERNAL : ORI=N_180_90 : FSKY=0.5
+WALL  =EXT_WALL   : SURF= 37 : AREA=    89.132 : EXTERNAL : ORI=S_0_90 : FSKY=0.5
+WALL  =EXT_WALL   : SURF= 38 : AREA=    59.421 : EXTERNAL : ORI=W_90_90 : FSKY=0.5
+ REGIME
+ COOLING     = COOL001
+ HEATING     = HEAT001
+ CAPACITANCE = 5212.97 : VOLUME= 4344.14 : TINITIAL= 20      : PHINITIAL= 50      : WCAPR= 1
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*  Z o n e  CORE_TOP  /  A i r n o d e  CORE_TOP
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ZONE CORE_TOP
+RADIATIONMODE
+ BEAM=STANDARD : DIFFUSE=STANDARD : LONGWAVE=STANDARD : GEOMODE=3D_DATA
+AIRNODE CORE_TOP
+WALL  =ADJ_CEILING : SURF= 39 : AREA=   2532.32 : ADJACENT=TOPFLOOR_PLENUM : ADJ_SURF=50 : FRONT
+WALL  =ADJ_CEILING : SURF= 40 : AREA=   2532.32 : BOUNDARY=IDENTICAL
+WALL  =ADJ_WALL   : SURF= 41 : AREA=    108.64 : ADJACENT=PERIMETER_TOP_ZN_2 : ADJ_SURF=58 : FRONT
+WALL  =ADJ_WALL   : SURF= 42 : AREA=   175.508 : ADJACENT=PERIMETER_TOP_ZN_3 : ADJ_SURF=122 : FRONT
+WALL  =ADJ_WALL   : SURF= 43 : AREA=   175.508 : ADJACENT=PERIMETER_TOP_ZN_1 : ADJ_SURF=76 : FRONT
+WALL  =ADJ_WALL   : SURF= 44 : AREA=    108.64 : ADJACENT=PERIMETER_TOP_ZN_4 : ADJ_SURF=13 : BACK
+ REGIME
+ COOLING     = COOL001
+ HEATING     = HEAT001
+ CAPACITANCE = 8338.43 : VOLUME= 6948.69 : TINITIAL= 20      : PHINITIAL= 50      : WCAPR= 1
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*  Z o n e  TOPFLOOR_PLENUM  /  A i r n o d e  TOPFLOOR_PLENUM
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ZONE TOPFLOOR_PLENUM
+RADIATIONMODE
+ BEAM=STANDARD : DIFFUSE=STANDARD : LONGWAVE=STANDARD : GEOMODE=3D_DATA
+AIRNODE TOPFLOOR_PLENUM
+WALL  =EXT_ROOF   : SURF= 45 : AREA=   3563.11 : EXTERNAL : ORI=H_0_0 : FSKY=1
+WALL  =ADJ_CEILING : SURF= 46 : AREA=    313.42 : ADJACENT=PERIMETER_TOP_ZN_1 : ADJ_SURF=73 : BACK
+WALL  =ADJ_CEILING : SURF= 47 : AREA=   201.975 : ADJACENT=PERIMETER_TOP_ZN_2 : ADJ_SURF=55 : BACK
+WALL  =ADJ_CEILING : SURF= 48 : AREA=   313.413 : ADJACENT=PERIMETER_TOP_ZN_3 : ADJ_SURF=119 : BACK
+WALL  =ADJ_CEILING : SURF= 49 : AREA=   201.975 : ADJACENT=PERIMETER_TOP_ZN_4 : ADJ_SURF=11 : BACK
+WALL  =ADJ_CEILING : SURF= 50 : AREA=   2532.32 : ADJACENT=CORE_TOP : ADJ_SURF=39 : BACK
+WALL  =EXT_WALL   : SURF= 51 : AREA=    59.421 : EXTERNAL : ORI=E_270_90 : FSKY=0.5
+WALL  =EXT_WALL   : SURF= 52 : AREA=    89.132 : EXTERNAL : ORI=S_0_90 : FSKY=0.5
+WALL  =EXT_WALL   : SURF= 53 : AREA=    89.132 : EXTERNAL : ORI=N_180_90 : FSKY=0.5
+WALL  =EXT_WALL   : SURF= 54 : AREA=    59.421 : EXTERNAL : ORI=W_90_90 : FSKY=0.5
+ REGIME
+ COOLING     = COOL001
+ HEATING     = HEAT001
+ CAPACITANCE = 5212.97 : VOLUME= 4344.14 : TINITIAL= 20      : PHINITIAL= 50      : WCAPR= 1
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*  Z o n e  PERIMETER_TOP_ZN_2  /  A i r n o d e  PERIMETER_TOP_ZN_2
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ZONE PERIMETER_TOP_ZN_2
+RADIATIONMODE
+ BEAM=STANDARD : DIFFUSE=STANDARD : LONGWAVE=STANDARD : GEOMODE=3D_DATA
+AIRNODE PERIMETER_TOP_ZN_2
+WALL  =ADJ_CEILING : SURF= 55 : AREA=   201.975 : ADJACENT=TOPFLOOR_PLENUM : ADJ_SURF=47 : FRONT
+WALL  =ADJ_CEILING : SURF= 56 : AREA=   201.975 : BOUNDARY=IDENTICAL
+WALL  =ADJ_WALL   : SURF= 57 : AREA=    17.747 : ADJACENT=PERIMETER_TOP_ZN_3 : ADJ_SURF=121 : FRONT
+WALL  =ADJ_WALL   : SURF= 58 : AREA=    108.64 : ADJACENT=CORE_TOP : ADJ_SURF=41 : BACK
+WALL  =ADJ_WALL   : SURF= 59 : AREA=    17.747 : ADJACENT=PERIMETER_TOP_ZN_1 : ADJ_SURF=75 : FRONT
+WALL  =EXT_WALL   : SURF= 60 : AREA=    56.627 : EXTERNAL : ORI=E_270_90 : FSKY=0.5
+WINDOW=EXT_WINDOW1 : SURF=142 : AREA=    77.111 : EXTERNAL : ORI=E_270_90 : FSKY=0.5
+ REGIME
+ COOLING     = COOL001
+ HEATING     = HEAT001
+ CAPACITANCE = 665.064 : VOLUME= 554.22  : TINITIAL= 20      : PHINITIAL= 50      : WCAPR= 1
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*  Z o n e  PERIMETER_MID_ZN_3  /  A i r n o d e  PERIMETER_MID_ZN_3
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ZONE PERIMETER_MID_ZN_3
+RADIATIONMODE
+ BEAM=STANDARD : DIFFUSE=STANDARD : LONGWAVE=STANDARD : GEOMODE=3D_DATA
+AIRNODE PERIMETER_MID_ZN_3
+WALL  =ADJ_CEILING : SURF= 61 : AREA=   313.413 : ADJACENT=MIDFLOOR_PLENUM : ADJ_SURF=32 : FRONT
+WALL  =ADJ_CEILING : SURF= 62 : AREA=   313.413 : BOUNDARY=IDENTICAL
+WALL  =ADJ_WALL   : SURF= 63 : AREA=    17.747 : ADJACENT=PERIMETER_MID_ZN_2 : ADJ_SURF=115 : FRONT
+WALL  =ADJ_WALL   : SURF= 64 : AREA=   175.508 : ADJACENT=CORE_MID : ADJ_SURF=104 : FRONT
+WALL  =ADJ_WALL   : SURF= 65 : AREA=    17.747 : ADJACENT=PERIMETER_MID_ZN_4 : ADJ_SURF=88 : FRONT
+WALL  =EXT_WALL   : SURF= 66 : AREA=    84.861 : EXTERNAL : ORI=N_180_90 : FSKY=0.5
+WINDOW=EXT_WINDOW1 : SURF=136 : AREA=   115.745 : EXTERNAL : ORI=N_180_90 : FSKY=0.5
+ REGIME
+ COOLING     = COOL001
+ HEATING     = HEAT001
+ CAPACITANCE = 1032.01 : VOLUME= 860.005 : TINITIAL= 20      : PHINITIAL= 50      : WCAPR= 1
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*  Z o n e  PERIMETER_BOT_ZN_3  /  A i r n o d e  PERIMETER_BOT_ZN_3
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ZONE PERIMETER_BOT_ZN_3
+RADIATIONMODE
+ BEAM=STANDARD : DIFFUSE=STANDARD : LONGWAVE=STANDARD : GEOMODE=3D_DATA
+AIRNODE PERIMETER_BOT_ZN_3
+WALL  =ADJ_CEILING : SURF= 67 : AREA=   313.413 : ADJACENT=BASEMENT : ADJ_SURF=91 : BACK
+WALL  =ADJ_CEILING : SURF= 68 : AREA=   313.413 : ADJACENT=GROUNDFLOOR_PLENUM : ADJ_SURF=4 : FRONT
+WALL  =ADJ_WALL   : SURF= 69 : AREA=    17.747 : ADJACENT=PERIMETER_BOT_ZN_2 : ADJ_SURF=129 : FRONT
+WALL  =ADJ_WALL   : SURF= 70 : AREA=   175.508 : ADJACENT=CORE_BOTTOM : ADJ_SURF=82 : FRONT
+WALL  =ADJ_WALL   : SURF= 71 : AREA=    17.747 : ADJACENT=PERIMETER_BOT_ZN_4 : ADJ_SURF=110 : FRONT
+WALL  =EXT_WALL   : SURF= 72 : AREA=    84.861 : EXTERNAL : ORI=N_180_90 : FSKY=0.5
+WINDOW=EXT_WINDOW1 : SURF=131 : AREA=   115.745 : EXTERNAL : ORI=N_180_90 : FSKY=0.5
+ REGIME
+ COOLING     = COOL001
+ HEATING     = HEAT001
+ CAPACITANCE = 1032.01 : VOLUME= 860.005 : TINITIAL= 20      : PHINITIAL= 50      : WCAPR= 1
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*  Z o n e  PERIMETER_TOP_ZN_1  /  A i r n o d e  PERIMETER_TOP_ZN_1
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ZONE PERIMETER_TOP_ZN_1
+RADIATIONMODE
+ BEAM=STANDARD : DIFFUSE=STANDARD : LONGWAVE=STANDARD : GEOMODE=3D_DATA
+AIRNODE PERIMETER_TOP_ZN_1
+WALL  =ADJ_CEILING : SURF= 73 : AREA=    313.42 : ADJACENT=TOPFLOOR_PLENUM : ADJ_SURF=46 : FRONT
+WALL  =ADJ_CEILING : SURF= 74 : AREA=    313.42 : BOUNDARY=IDENTICAL
+WALL  =ADJ_WALL   : SURF= 75 : AREA=    17.747 : ADJACENT=PERIMETER_TOP_ZN_2 : ADJ_SURF=59 : BACK
+WALL  =ADJ_WALL   : SURF= 76 : AREA=   175.508 : ADJACENT=CORE_TOP : ADJ_SURF=43 : BACK
+WALL  =ADJ_WALL   : SURF= 77 : AREA=    17.747 : ADJACENT=PERIMETER_TOP_ZN_4 : ADJ_SURF=15 : BACK
+WALL  =EXT_WALL   : SURF= 78 : AREA=    84.861 : EXTERNAL : ORI=S_0_90 : FSKY=0.5
+WINDOW=EXT_WINDOW1 : SURF=141 : AREA=   115.745 : EXTERNAL : ORI=S_0_90 : FSKY=0.5
+ REGIME
+ COOLING     = COOL001
+ HEATING     = HEAT001
+ CAPACITANCE = 1032.03 : VOLUME= 860.024 : TINITIAL= 20      : PHINITIAL= 50      : WCAPR= 1
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*  Z o n e  CORE_BOTTOM  /  A i r n o d e  CORE_BOTTOM
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ZONE CORE_BOTTOM
+RADIATIONMODE
+ BEAM=STANDARD : DIFFUSE=STANDARD : LONGWAVE=STANDARD : GEOMODE=3D_DATA
+AIRNODE CORE_BOTTOM
+WALL  =ADJ_CEILING : SURF= 79 : AREA=   2532.32 : ADJACENT=GROUNDFLOOR_PLENUM : ADJ_SURF=6 : FRONT
+WALL  =ADJ_CEILING : SURF= 80 : AREA=   2532.32 : ADJACENT=BASEMENT : ADJ_SURF=93 : BACK
+WALL  =ADJ_WALL   : SURF= 81 : AREA=    108.64 : ADJACENT=PERIMETER_BOT_ZN_2 : ADJ_SURF=127 : FRONT
+WALL  =ADJ_WALL   : SURF= 82 : AREA=   175.508 : ADJACENT=PERIMETER_BOT_ZN_3 : ADJ_SURF=70 : BACK
+WALL  =ADJ_WALL   : SURF= 83 : AREA=   175.508 : ADJACENT=PERIMETER_BOT_ZN_1 : ADJ_SURF=26 : BACK
+WALL  =ADJ_WALL   : SURF= 84 : AREA=    108.64 : ADJACENT=PERIMETER_BOT_ZN_4 : ADJ_SURF=109 : FRONT
+ REGIME
+ COOLING     = COOL001
+ HEATING     = HEAT001
+ CAPACITANCE = 8338.43 : VOLUME= 6948.69 : TINITIAL= 20      : PHINITIAL= 50      : WCAPR= 1
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*  Z o n e  PERIMETER_MID_ZN_4  /  A i r n o d e  PERIMETER_MID_ZN_4
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ZONE PERIMETER_MID_ZN_4
+RADIATIONMODE
+ BEAM=STANDARD : DIFFUSE=STANDARD : LONGWAVE=STANDARD : GEOMODE=3D_DATA
+AIRNODE PERIMETER_MID_ZN_4
+WALL  =ADJ_CEILING : SURF= 85 : AREA=   201.975 : ADJACENT=MIDFLOOR_PLENUM : ADJ_SURF=33 : FRONT
+WALL  =ADJ_CEILING : SURF= 86 : AREA=   201.975 : BOUNDARY=IDENTICAL
+WALL  =ADJ_WALL   : SURF= 87 : AREA=    108.64 : ADJACENT=CORE_MID : ADJ_SURF=106 : FRONT
+WALL  =ADJ_WALL   : SURF= 88 : AREA=    17.747 : ADJACENT=PERIMETER_MID_ZN_3 : ADJ_SURF=65 : BACK
+WALL  =ADJ_WALL   : SURF= 89 : AREA=    17.747 : ADJACENT=PERIMETER_MID_ZN_1 : ADJ_SURF=21 : BACK
+WALL  =EXT_WALL   : SURF= 90 : AREA=    56.627 : EXTERNAL : ORI=W_90_90 : FSKY=0.5
+WINDOW=EXT_WINDOW1 : SURF=139 : AREA=    77.111 : EXTERNAL : ORI=W_90_90 : FSKY=0.5
+ REGIME
+ COOLING     = COOL001
+ HEATING     = HEAT001
+ CAPACITANCE = 665.064 : VOLUME= 554.22  : TINITIAL= 20      : PHINITIAL= 50      : WCAPR= 1
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*  Z o n e  BASEMENT  /  A i r n o d e  BASEMENT
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ZONE BASEMENT
+RADIATIONMODE
+ BEAM=STANDARD : DIFFUSE=STANDARD : LONGWAVE=STANDARD : GEOMODE=3D_DATA
+AIRNODE BASEMENT
+WALL  =ADJ_CEILING : SURF= 91 : AREA=   313.413 : ADJACENT=PERIMETER_BOT_ZN_3 : ADJ_SURF=67 : FRONT
+WALL  =ADJ_CEILING : SURF= 92 : AREA=   201.975 : ADJACENT=PERIMETER_BOT_ZN_4 : ADJ_SURF=108 : FRONT
+WALL  =ADJ_CEILING : SURF= 93 : AREA=   2532.32 : ADJACENT=CORE_BOTTOM : ADJ_SURF=80 : FRONT
+WALL  =GROUND_FLOOR : SURF= 94 : AREA=   3563.11 : BOUNDARY=INPUT 1*TGROUND
+WALL  =EXT_WALL   : SURF= 95 : AREA=   118.872 : BOUNDARY=INPUT 1*TGROUND
+WALL  =EXT_WALL   : SURF= 96 : AREA=   178.308 : BOUNDARY=INPUT 1*TGROUND
+WALL  =EXT_WALL   : SURF= 97 : AREA=   178.308 : BOUNDARY=INPUT 1*TGROUND
+WALL  =EXT_WALL   : SURF= 98 : AREA=   118.872 : BOUNDARY=INPUT 1*TGROUND
+WALL  =ADJ_CEILING : SURF= 99 : AREA=   201.975 : ADJACENT=PERIMETER_BOT_ZN_2 : ADJ_SURF=126 : FRONT
+WALL  =ADJ_CEILING : SURF=100 : AREA=    313.42 : ADJACENT=PERIMETER_BOT_ZN_1 : ADJ_SURF=24 : FRONT
+ REGIME
+ COOLING     = COOL001
+ HEATING     = HEAT001
+ CAPACITANCE = 10428.5 : VOLUME= 8690.42 : TINITIAL= 20      : PHINITIAL= 50      : WCAPR= 1
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*  Z o n e  CORE_MID  /  A i r n o d e  CORE_MID
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ZONE CORE_MID
+RADIATIONMODE
+ BEAM=STANDARD : DIFFUSE=STANDARD : LONGWAVE=STANDARD : GEOMODE=3D_DATA
+AIRNODE CORE_MID
+WALL  =ADJ_CEILING : SURF=101 : AREA=   2532.32 : ADJACENT=MIDFLOOR_PLENUM : ADJ_SURF=34 : FRONT
+WALL  =ADJ_CEILING : SURF=102 : AREA=   2532.32 : BOUNDARY=IDENTICAL
+WALL  =ADJ_WALL   : SURF=103 : AREA=    108.64 : ADJACENT=PERIMETER_MID_ZN_2 : ADJ_SURF=117 : FRONT
+WALL  =ADJ_WALL   : SURF=104 : AREA=   175.508 : ADJACENT=PERIMETER_MID_ZN_3 : ADJ_SURF=64 : BACK
+WALL  =ADJ_WALL   : SURF=105 : AREA=   175.508 : ADJACENT=PERIMETER_MID_ZN_1 : ADJ_SURF=20 : BACK
+WALL  =ADJ_WALL   : SURF=106 : AREA=    108.64 : ADJACENT=PERIMETER_MID_ZN_4 : ADJ_SURF=87 : BACK
+ REGIME
+ COOLING     = COOL001
+ HEATING     = HEAT001
+ CAPACITANCE = 8338.43 : VOLUME= 6948.69 : TINITIAL= 20      : PHINITIAL= 50      : WCAPR= 1
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*  Z o n e  PERIMETER_BOT_ZN_4  /  A i r n o d e  PERIMETER_BOT_ZN_4
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ZONE PERIMETER_BOT_ZN_4
+RADIATIONMODE
+ BEAM=STANDARD : DIFFUSE=STANDARD : LONGWAVE=STANDARD : GEOMODE=3D_DATA
+AIRNODE PERIMETER_BOT_ZN_4
+WALL  =ADJ_CEILING : SURF=107 : AREA=   201.975 : ADJACENT=GROUNDFLOOR_PLENUM : ADJ_SURF=5 : FRONT
+WALL  =ADJ_CEILING : SURF=108 : AREA=   201.975 : ADJACENT=BASEMENT : ADJ_SURF=92 : BACK
+WALL  =ADJ_WALL   : SURF=109 : AREA=    108.64 : ADJACENT=CORE_BOTTOM : ADJ_SURF=84 : BACK
+WALL  =ADJ_WALL   : SURF=110 : AREA=    17.747 : ADJACENT=PERIMETER_BOT_ZN_3 : ADJ_SURF=71 : BACK
+WALL  =ADJ_WALL   : SURF=111 : AREA=    17.747 : ADJACENT=PERIMETER_BOT_ZN_1 : ADJ_SURF=27 : BACK
+WALL  =EXT_WALL   : SURF=112 : AREA=    56.627 : EXTERNAL : ORI=W_90_90 : FSKY=0.5
+WINDOW=EXT_WINDOW1 : SURF=134 : AREA=    77.111 : EXTERNAL : ORI=W_90_90 : FSKY=0.5
+ REGIME
+ COOLING     = COOL001
+ HEATING     = HEAT001
+ CAPACITANCE = 665.064 : VOLUME= 554.22  : TINITIAL= 20      : PHINITIAL= 50      : WCAPR= 1
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*  Z o n e  PERIMETER_MID_ZN_2  /  A i r n o d e  PERIMETER_MID_ZN_2
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ZONE PERIMETER_MID_ZN_2
+RADIATIONMODE
+ BEAM=STANDARD : DIFFUSE=STANDARD : LONGWAVE=STANDARD : GEOMODE=3D_DATA
+AIRNODE PERIMETER_MID_ZN_2
+WALL  =ADJ_CEILING : SURF=113 : AREA=   201.975 : ADJACENT=MIDFLOOR_PLENUM : ADJ_SURF=31 : FRONT
+WALL  =ADJ_CEILING : SURF=114 : AREA=   201.975 : BOUNDARY=IDENTICAL
+WALL  =ADJ_WALL   : SURF=115 : AREA=    17.747 : ADJACENT=PERIMETER_MID_ZN_3 : ADJ_SURF=63 : BACK
+WALL  =ADJ_WALL   : SURF=116 : AREA=    17.747 : ADJACENT=PERIMETER_MID_ZN_1 : ADJ_SURF=19 : BACK
+WALL  =ADJ_WALL   : SURF=117 : AREA=    108.64 : ADJACENT=CORE_MID : ADJ_SURF=103 : BACK
+WALL  =EXT_WALL   : SURF=118 : AREA=    56.627 : EXTERNAL : ORI=E_270_90 : FSKY=0.5
+WINDOW=EXT_WINDOW1 : SURF=137 : AREA=    77.111 : EXTERNAL : ORI=E_270_90 : FSKY=0.5
+ REGIME
+ COOLING     = COOL001
+ HEATING     = HEAT001
+ CAPACITANCE = 665.064 : VOLUME= 554.22  : TINITIAL= 20      : PHINITIAL= 50      : WCAPR= 1
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*  Z o n e  PERIMETER_TOP_ZN_3  /  A i r n o d e  PERIMETER_TOP_ZN_3
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ZONE PERIMETER_TOP_ZN_3
+RADIATIONMODE
+ BEAM=STANDARD : DIFFUSE=STANDARD : LONGWAVE=STANDARD : GEOMODE=3D_DATA
+AIRNODE PERIMETER_TOP_ZN_3
+WALL  =ADJ_CEILING : SURF=119 : AREA=   313.413 : ADJACENT=TOPFLOOR_PLENUM : ADJ_SURF=48 : FRONT
+WALL  =ADJ_CEILING : SURF=120 : AREA=   313.413 : BOUNDARY=IDENTICAL
+WALL  =ADJ_WALL   : SURF=121 : AREA=    17.747 : ADJACENT=PERIMETER_TOP_ZN_2 : ADJ_SURF=57 : BACK
+WALL  =ADJ_WALL   : SURF=122 : AREA=   175.508 : ADJACENT=CORE_TOP : ADJ_SURF=42 : BACK
+WALL  =ADJ_WALL   : SURF=123 : AREA=    17.747 : ADJACENT=PERIMETER_TOP_ZN_4 : ADJ_SURF=14 : BACK
+WALL  =EXT_WALL   : SURF=124 : AREA=    84.861 : EXTERNAL : ORI=N_180_90 : FSKY=0.5
+WINDOW=EXT_WINDOW1 : SURF=133 : AREA=   115.745 : EXTERNAL : ORI=N_180_90 : FSKY=0.5
+ REGIME
+ COOLING     = COOL001
+ HEATING     = HEAT001
+ CAPACITANCE = 1032.01 : VOLUME= 860.005 : TINITIAL= 20      : PHINITIAL= 50      : WCAPR= 1
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*  Z o n e  PERIMETER_BOT_ZN_2  /  A i r n o d e  PERIMETER_BOT_ZN_2
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ZONE PERIMETER_BOT_ZN_2
+RADIATIONMODE
+ BEAM=STANDARD : DIFFUSE=STANDARD : LONGWAVE=STANDARD : GEOMODE=3D_DATA
+AIRNODE PERIMETER_BOT_ZN_2
+WALL  =ADJ_CEILING : SURF=125 : AREA=   201.975 : ADJACENT=GROUNDFLOOR_PLENUM : ADJ_SURF=3 : FRONT
+WALL  =ADJ_CEILING : SURF=126 : AREA=   201.975 : ADJACENT=BASEMENT : ADJ_SURF=99 : BACK
+WALL  =ADJ_WALL   : SURF=127 : AREA=    108.64 : ADJACENT=CORE_BOTTOM : ADJ_SURF=81 : BACK
+WALL  =ADJ_WALL   : SURF=128 : AREA=    17.747 : ADJACENT=PERIMETER_BOT_ZN_1 : ADJ_SURF=25 : BACK
+WALL  =ADJ_WALL   : SURF=129 : AREA=    17.747 : ADJACENT=PERIMETER_BOT_ZN_3 : ADJ_SURF=69 : BACK
+WALL  =EXT_WALL   : SURF=130 : AREA=    56.627 : EXTERNAL : ORI=E_270_90 : FSKY=0.5
+WINDOW=EXT_WINDOW1 : SURF=135 : AREA=    77.111 : EXTERNAL : ORI=E_270_90 : FSKY=0.5
+ REGIME
+ COOLING     = COOL001
+ HEATING     = HEAT001
+ CAPACITANCE = 665.064 : VOLUME= 554.22  : TINITIAL= 20      : PHINITIAL= 50      : WCAPR= 1
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*  O u t p u t s
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+OUTPUTS
+ TRANSFER : TIMEBASE=1.000
+ DEFAULT
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*  E n d
+*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+END
+
+_EXTENSION_WINPOOL_START_
+Window 5.2  v5.2.17  DOE-2 Data File : Multi Band Calculation
+Unit System : SI
+Name        : DOE-2 WINDOW LIB
+Desc        : ASH140 DBLE - MOD
+Window ID   : 6001
+Tilt        : 90.0
+Glazings    : 2
+Frame       :  2 Al w/break            5.680
+Spacer      :  1 Class1                2.330  -0.010   0.138
+Total Height: 1500.0 mm
+Total Width : 1200.0 mm
+Glass Height: 1385.7 mm
+Glass Width : 1085.7 mm
+Mullion     : None
+Gap        Thick    Cond  dCond    Vis   dVis   Dens   dDens     Pr     dPr
+1 Air       13.0 0.02407  7.760  1.722  4.940  1.292 -0.0046  0.720 -0.0002
+2              0       0      0      0      0      0       0      0       0
+3              0       0      0      0      0      0       0      0       0
+4              0       0      0      0      0      0       0      0       0
+5              0       0      0      0      0      0       0      0       0
+Angle     0    10    20    30    40    50    60    70    80    90 Hemis
+Tsol  0.747 0.747 0.745 0.740 0.730 0.707 0.652 0.517 0.263 0.000 0.652
+Abs1  0.064 0.065 0.066 0.068 0.071 0.075 0.080 0.086 0.094 0.000 0.080
+Abs2  0.052 0.053 0.053 0.055 0.057 0.058 0.059 0.054 0.041 0.000 0.059
+Abs3      0     0     0     0     0     0     0     0     0     0     0
+Abs4      0     0     0     0     0     0     0     0     0     0     0
+Abs5      0     0     0     0     0     0     0     0     0     0     0
+Abs6      0     0     0     0     0     0     0     0     0     0     0
+Rfsol 0.136 0.136 0.136 0.137 0.143 0.160 0.210 0.343 0.602 1.000 0.210
+Rbsol 0.136 0.136 0.136 0.137 0.143 0.160 0.210 0.343 0.602 1.000 0.210
+Tvis  0.747 0.747 0.745 0.740 0.730 0.707 0.652 0.517 0.263 0.000 0.652
+Rfvis 0.136 0.136 0.136 0.137 0.143 0.160 0.210 0.343 0.602 1.000 0.210
+Rbvis 0.136 0.136 0.136 0.137 0.143 0.160 0.210 0.343 0.602 1.000 0.210
+SHGC  0.789 0.789 0.787 0.782 0.769 0.739 0.668 0.519 0.267 0.000 0.688
+SC: 0.81
+Layer ID#         9991     9991        0        0        0        0
+Tir              0.000    0.000        0        0        0        0
+Emis F           0.840    0.840        0        0        0        0
+Emis B           0.840    0.840        0        0        0        0
+Thickness(mm)      3.2      3.2        0        0        0        0
+Cond(W/m2-K     ) 333.9    333.9        0        0        0        0
+Spectral File         None         None         None         None         None         None
+Overall and Center of Glass Ig U-values (W/m2-K)
+Outdoor Temperature                 -17.8 C      15.6 C      26.7 C      37.8 C
+Solar      WdSpd  hcout hrout  hin
+(W/m2)     (m/s)     (W/m2-K)
+0        0.00   4.00  3.39  2.43  2.12 2.12  2.24 2.24  2.32 2.32  2.49 2.49
+0        6.71  30.84  3.23  2.58  2.72 2.72  2.80 2.80  2.89 2.89  3.13 3.13
+783        0.00   4.00  3.52  2.03  2.12 2.12  2.24 2.24  2.32 2.32  2.49 2.49
+783        6.71  30.84  3.27  2.39  2.72 2.72  2.80 2.80  2.89 2.89  3.13 3.13
+*** END OF LIBRARY ***
+***************************************************************************************************
+*WinID   Description                              Design         U-Value g-value T-sol Rf-sol T-vis
+***************************************************************************************************
+  6001   ASH140 DBLE - MOD                        3.2/13/3.2       2.89  0.789  0.747  0.136  0.747
+_EXTENSION_WINPOOL_END_
+
+_EXTENSION_BuildingGeometry_START_
+vertex 1 0.000000 48.738100 3.963200
+vertex 2 0.000000 0.000000 3.963200
+vertex 3 73.107200 0.000000 3.963200
+vertex 4 73.107200 48.738100 3.963200
+vertex 5 68.534000 4.573200 2.744000
+vertex 6 73.107200 0.000000 2.744000
+vertex 7 0.000000 0.000000 2.744000
+vertex 8 4.573200 4.573200 2.744000
+vertex 9 73.107200 48.738100 2.744000
+vertex 10 73.107200 0.000000 2.744000
+vertex 11 68.534000 4.573200 2.744000
+vertex 12 68.534000 44.165000 2.744000
+vertex 13 73.107200 48.738100 2.744000
+vertex 14 68.534000 44.165000 2.744000
+vertex 15 4.573200 44.165000 2.744000
+vertex 16 0.000000 48.738100 2.744000
+vertex 17 4.573200 44.165000 2.744000
+vertex 18 4.573200 4.573200 2.744000
+vertex 19 0.000000 0.000000 2.744000
+vertex 20 0.000000 48.738100 2.744000
+vertex 21 68.534000 44.165000 2.744000
+vertex 22 68.534000 4.573200 2.744000
+vertex 23 4.573200 4.573200 2.744000
+vertex 24 4.573200 44.165000 2.744000
+vertex 25 73.107200 0.000000 3.963200
+vertex 26 73.107200 0.000000 2.744000
+vertex 27 73.107200 48.738100 2.744000
+vertex 28 73.107200 48.738100 3.963200
+vertex 29 73.107200 48.738100 3.963200
+vertex 30 73.107200 48.738100 2.744000
+vertex 31 0.000000 48.738100 2.744000
+vertex 32 0.000000 48.738100 3.963200
+vertex 33 0.000000 0.000000 3.963200
+vertex 34 0.000000 0.000000 2.744000
+vertex 35 73.107200 0.000000 2.744000
+vertex 36 73.107200 0.000000 3.963200
+vertex 37 0.000000 48.738100 3.963200
+vertex 38 0.000000 48.738100 2.744000
+vertex 39 0.000000 0.000000 2.744000
+vertex 40 0.000000 0.000000 3.963200
+vertex 41 0.000000 48.738100 46.339200
+vertex 42 0.000000 0.000000 46.339200
+vertex 43 4.573200 4.573200 46.339200
+vertex 44 4.573200 44.165000 46.339200
+vertex 45 4.573200 44.165000 43.595200
+vertex 46 4.573200 4.573200 43.595200
+vertex 47 0.000000 0.000000 43.595200
+vertex 48 0.000000 48.738100 43.595200
+vertex 49 4.573200 4.573200 46.339200
+vertex 50 4.573200 4.573200 43.595200
+vertex 51 4.573200 44.165000 43.595200
+vertex 52 4.573200 44.165000 46.339200
+vertex 53 4.573200 44.165000 46.339200
+vertex 54 4.573200 44.165000 43.595200
+vertex 55 0.000000 48.738100 43.595200
+vertex 56 0.000000 48.738100 46.339200
+vertex 57 0.000000 0.000000 46.339200
+vertex 58 0.000000 0.000000 43.595200
+vertex 59 4.573200 4.573200 43.595200
+vertex 60 4.573200 4.573200 46.339200
+vertex 61 0.000000 48.738100 46.339200
+vertex 62 0.000000 48.738100 43.595200
+vertex 63 0.000000 0.000000 43.595200
+vertex 64 0.000000 0.000000 46.339200
+vertex 65 0.000000 48.688000 46.095200
+vertex 66 0.000000 48.688000 44.509800
+vertex 67 0.000000 0.050000 44.509800
+vertex 68 0.000000 0.050000 46.095200
+vertex 69 4.573200 4.573200 22.560000
+vertex 70 0.000000 0.000000 22.560000
+vertex 71 73.107200 0.000000 22.560000
+vertex 72 68.534000 4.573200 22.560000
+vertex 73 68.534000 4.573200 19.816000
+vertex 74 73.107200 0.000000 19.816000
+vertex 75 0.000000 0.000000 19.816000
+vertex 76 4.573200 4.573200 19.816000
+vertex 77 73.107200 0.000000 22.560000
+vertex 78 73.107200 0.000000 19.816000
+vertex 79 68.534000 4.573200 19.816000
+vertex 80 68.534000 4.573200 22.560000
+vertex 81 68.534000 4.573200 22.560000
+vertex 82 68.534000 4.573200 19.816000
+vertex 83 4.573200 4.573200 19.816000
+vertex 84 4.573200 4.573200 22.560000
+vertex 85 4.573200 4.573200 22.560000
+vertex 86 4.573200 4.573200 19.816000
+vertex 87 0.000000 0.000000 19.816000
+vertex 88 0.000000 0.000000 22.560000
+vertex 89 0.000000 0.000000 22.560000
+vertex 90 0.000000 0.000000 19.816000
+vertex 91 73.107200 0.000000 19.816000
+vertex 92 73.107200 0.000000 22.560000
+vertex 93 0.050000 0.000000 22.316000
+vertex 94 0.050000 0.000000 20.730600
+vertex 95 73.057000 0.000000 20.730600
+vertex 96 73.057000 0.000000 22.316000
+vertex 97 4.573200 4.573200 2.744000
+vertex 98 0.000000 0.000000 2.744000
+vertex 99 73.107200 0.000000 2.744000
+vertex 100 68.534000 4.573200 2.744000
+vertex 101 68.534000 4.573200 0.000000
+vertex 102 73.107200 0.000000 0.000000
+vertex 103 0.000000 0.000000 0.000000
+vertex 104 4.573200 4.573200 0.000000
+vertex 105 73.107200 0.000000 2.744000
+vertex 106 73.107200 0.000000 0.000000
+vertex 107 68.534000 4.573200 0.000000
+vertex 108 68.534000 4.573200 2.744000
+vertex 109 68.534000 4.573200 2.744000
+vertex 110 68.534000 4.573200 0.000000
+vertex 111 4.573200 4.573200 0.000000
+vertex 112 4.573200 4.573200 2.744000
+vertex 113 4.573200 4.573200 2.744000
+vertex 114 4.573200 4.573200 0.000000
+vertex 115 0.000000 0.000000 0.000000
+vertex 116 0.000000 0.000000 2.744000
+vertex 117 0.000000 0.000000 2.744000
+vertex 118 0.000000 0.000000 0.000000
+vertex 119 73.107200 0.000000 0.000000
+vertex 120 73.107200 0.000000 2.744000
+vertex 121 0.050000 0.000000 2.500000
+vertex 122 0.050000 0.000000 0.914600
+vertex 123 73.057000 0.000000 0.914600
+vertex 124 73.057000 0.000000 2.500000
+vertex 125 0.000000 48.738100 23.779200
+vertex 126 0.000000 0.000000 23.779200
+vertex 127 73.107200 0.000000 23.779200
+vertex 128 73.107200 48.738100 23.779200
+vertex 129 68.534000 4.573200 22.560000
+vertex 130 73.107200 0.000000 22.560000
+vertex 131 0.000000 0.000000 22.560000
+vertex 132 4.573200 4.573200 22.560000
+vertex 133 73.107200 48.738100 22.560000
+vertex 134 73.107200 0.000000 22.560000
+vertex 135 68.534000 4.573200 22.560000
+vertex 136 68.534000 44.165000 22.560000
+vertex 137 73.107200 48.738100 22.560000
+vertex 138 68.534000 44.165000 22.560000
+vertex 139 4.573200 44.165000 22.560000
+vertex 140 0.000000 48.738100 22.560000
+vertex 141 4.573200 44.165000 22.560000
+vertex 142 4.573200 4.573200 22.560000
+vertex 143 0.000000 0.000000 22.560000
+vertex 144 0.000000 48.738100 22.560000
+vertex 145 68.534000 44.165000 22.560000
+vertex 146 68.534000 4.573200 22.560000
+vertex 147 4.573200 4.573200 22.560000
+vertex 148 4.573200 44.165000 22.560000
+vertex 149 73.107200 0.000000 23.779200
+vertex 150 73.107200 0.000000 22.560000
+vertex 151 73.107200 48.738100 22.560000
+vertex 152 73.107200 48.738100 23.779200
+vertex 153 73.107200 48.738100 23.779200
+vertex 154 73.107200 48.738100 22.560000
+vertex 155 0.000000 48.738100 22.560000
+vertex 156 0.000000 48.738100 23.779200
+vertex 157 0.000000 0.000000 23.779200
+vertex 158 0.000000 0.000000 22.560000
+vertex 159 73.107200 0.000000 22.560000
+vertex 160 73.107200 0.000000 23.779200
+vertex 161 0.000000 48.738100 23.779200
+vertex 162 0.000000 48.738100 22.560000
+vertex 163 0.000000 0.000000 22.560000
+vertex 164 0.000000 0.000000 23.779200
+vertex 165 4.573200 44.165000 46.339200
+vertex 166 4.573200 4.573200 46.339200
+vertex 167 68.534000 4.573200 46.339200
+vertex 168 68.534000 44.165000 46.339200
+vertex 169 68.534000 44.165000 43.595200
+vertex 170 68.534000 4.573200 43.595200
+vertex 171 4.573200 4.573200 43.595200
+vertex 172 4.573200 44.165000 43.595200
+vertex 173 68.534000 4.573200 46.339200
+vertex 174 68.534000 4.573200 43.595200
+vertex 175 68.534000 44.165000 43.595200
+vertex 176 68.534000 44.165000 46.339200
+vertex 177 68.534000 44.165000 46.339200
+vertex 178 68.534000 44.165000 43.595200
+vertex 179 4.573200 44.165000 43.595200
+vertex 180 4.573200 44.165000 46.339200
+vertex 181 4.573200 4.573200 46.339200
+vertex 182 4.573200 4.573200 43.595200
+vertex 183 68.534000 4.573200 43.595200
+vertex 184 68.534000 4.573200 46.339200
+vertex 185 4.573200 44.165000 46.339200
+vertex 186 4.573200 44.165000 43.595200
+vertex 187 4.573200 4.573200 43.595200
+vertex 188 4.573200 4.573200 46.339200
+vertex 189 0.000000 48.738100 47.558400
+vertex 190 0.000000 0.000000 47.558400
+vertex 191 73.107200 0.000000 47.558400
+vertex 192 73.107200 48.738100 47.558400
+vertex 193 68.534000 4.573200 46.339200
+vertex 194 73.107200 0.000000 46.339200
+vertex 195 0.000000 0.000000 46.339200
+vertex 196 4.573200 4.573200 46.339200
+vertex 197 73.107200 48.738100 46.339200
+vertex 198 73.107200 0.000000 46.339200
+vertex 199 68.534000 4.573200 46.339200
+vertex 200 68.534000 44.165000 46.339200
+vertex 201 73.107200 48.738100 46.339200
+vertex 202 68.534000 44.165000 46.339200
+vertex 203 4.573200 44.165000 46.339200
+vertex 204 0.000000 48.738100 46.339200
+vertex 205 4.573200 44.165000 46.339200
+vertex 206 4.573200 4.573200 46.339200
+vertex 207 0.000000 0.000000 46.339200
+vertex 208 0.000000 48.738100 46.339200
+vertex 209 68.534000 44.165000 46.339200
+vertex 210 68.534000 4.573200 46.339200
+vertex 211 4.573200 4.573200 46.339200
+vertex 212 4.573200 44.165000 46.339200
+vertex 213 73.107200 0.000000 47.558400
+vertex 214 73.107200 0.000000 46.339200
+vertex 215 73.107200 48.738100 46.339200
+vertex 216 73.107200 48.738100 47.558400
+vertex 217 0.000000 0.000000 47.558400
+vertex 218 0.000000 0.000000 46.339200
+vertex 219 73.107200 0.000000 46.339200
+vertex 220 73.107200 0.000000 47.558400
+vertex 221 73.107200 48.738100 47.558400
+vertex 222 73.107200 48.738100 46.339200
+vertex 223 0.000000 48.738100 46.339200
+vertex 224 0.000000 48.738100 47.558400
+vertex 225 0.000000 48.738100 47.558400
+vertex 226 0.000000 48.738100 46.339200
+vertex 227 0.000000 0.000000 46.339200
+vertex 228 0.000000 0.000000 47.558400
+vertex 229 68.534000 44.165000 46.339200
+vertex 230 68.534000 4.573200 46.339200
+vertex 231 73.107200 0.000000 46.339200
+vertex 232 73.107200 48.738100 46.339200
+vertex 233 73.107200 48.738100 43.595200
+vertex 234 73.107200 0.000000 43.595200
+vertex 235 68.534000 4.573200 43.595200
+vertex 236 68.534000 44.165000 43.595200
+vertex 237 73.107200 48.738100 46.339200
+vertex 238 73.107200 48.738100 43.595200
+vertex 239 68.534000 44.165000 43.595200
+vertex 240 68.534000 44.165000 46.339200
+vertex 241 68.534000 44.165000 46.339200
+vertex 242 68.534000 44.165000 43.595200
+vertex 243 68.534000 4.573200 43.595200
+vertex 244 68.534000 4.573200 46.339200
+vertex 245 68.534000 4.573200 46.339200
+vertex 246 68.534000 4.573200 43.595200
+vertex 247 73.107200 0.000000 43.595200
+vertex 248 73.107200 0.000000 46.339200
+vertex 249 73.107200 0.000000 46.339200
+vertex 250 73.107200 0.000000 43.595200
+vertex 251 73.107200 48.738100 43.595200
+vertex 252 73.107200 48.738100 46.339200
+vertex 253 73.107200 0.050000 46.095200
+vertex 254 73.107200 0.050000 44.509800
+vertex 255 73.107200 48.688000 44.509800
+vertex 256 73.107200 48.688000 46.095200
+vertex 257 0.000000 48.738100 22.560000
+vertex 258 4.573200 44.165000 22.560000
+vertex 259 68.534000 44.165000 22.560000
+vertex 260 73.107200 48.738100 22.560000
+vertex 261 73.107200 48.738100 19.816000
+vertex 262 68.534000 44.165000 19.816000
+vertex 263 4.573200 44.165000 19.816000
+vertex 264 0.000000 48.738100 19.816000
+vertex 265 68.534000 44.165000 22.560000
+vertex 266 68.534000 44.165000 19.816000
+vertex 267 73.107200 48.738100 19.816000
+vertex 268 73.107200 48.738100 22.560000
+vertex 269 4.573200 44.165000 22.560000
+vertex 270 4.573200 44.165000 19.816000
+vertex 271 68.534000 44.165000 19.816000
+vertex 272 68.534000 44.165000 22.560000
+vertex 273 0.000000 48.738100 22.560000
+vertex 274 0.000000 48.738100 19.816000
+vertex 275 4.573200 44.165000 19.816000
+vertex 276 4.573200 44.165000 22.560000
+vertex 277 73.107200 48.738100 22.560000
+vertex 278 73.107200 48.738100 19.816000
+vertex 279 0.000000 48.738100 19.816000
+vertex 280 0.000000 48.738100 22.560000
+vertex 281 73.057000 48.738100 22.316000
+vertex 282 73.057000 48.738100 20.730600
+vertex 283 0.050000 48.738100 20.730600
+vertex 284 0.050000 48.738100 22.316000
+vertex 285 73.107200 48.738100 0.000000
+vertex 286 68.534000 44.165000 0.000000
+vertex 287 4.573200 44.165000 0.000000
+vertex 288 0.000000 48.738100 0.000000
+vertex 289 0.000000 48.738100 2.744000
+vertex 290 4.573200 44.165000 2.744000
+vertex 291 68.534000 44.165000 2.744000
+vertex 292 73.107200 48.738100 2.744000
+vertex 293 68.534000 44.165000 2.744000
+vertex 294 68.534000 44.165000 0.000000
+vertex 295 73.107200 48.738100 0.000000
+vertex 296 73.107200 48.738100 2.744000
+vertex 297 4.573200 44.165000 2.744000
+vertex 298 4.573200 44.165000 0.000000
+vertex 299 68.534000 44.165000 0.000000
+vertex 300 68.534000 44.165000 2.744000
+vertex 301 0.000000 48.738100 2.744000
+vertex 302 0.000000 48.738100 0.000000
+vertex 303 4.573200 44.165000 0.000000
+vertex 304 4.573200 44.165000 2.744000
+vertex 305 73.107200 48.738100 2.744000
+vertex 306 73.107200 48.738100 0.000000
+vertex 307 0.000000 48.738100 0.000000
+vertex 308 0.000000 48.738100 2.744000
+vertex 309 73.057000 48.738100 2.500000
+vertex 310 73.057000 48.738100 0.914600
+vertex 311 0.050000 48.738100 0.914600
+vertex 312 0.050000 48.738100 2.500000
+vertex 313 4.573200 4.573200 46.339200
+vertex 314 0.000000 0.000000 46.339200
+vertex 315 73.107200 0.000000 46.339200
+vertex 316 68.534000 4.573200 46.339200
+vertex 317 68.534000 4.573200 43.595200
+vertex 318 73.107200 0.000000 43.595200
+vertex 319 0.000000 0.000000 43.595200
+vertex 320 4.573200 4.573200 43.595200
+vertex 321 73.107200 0.000000 46.339200
+vertex 322 73.107200 0.000000 43.595200
+vertex 323 68.534000 4.573200 43.595200
+vertex 324 68.534000 4.573200 46.339200
+vertex 325 68.534000 4.573200 46.339200
+vertex 326 68.534000 4.573200 43.595200
+vertex 327 4.573200 4.573200 43.595200
+vertex 328 4.573200 4.573200 46.339200
+vertex 329 4.573200 4.573200 46.339200
+vertex 330 4.573200 4.573200 43.595200
+vertex 331 0.000000 0.000000 43.595200
+vertex 332 0.000000 0.000000 46.339200
+vertex 333 0.000000 0.000000 46.339200
+vertex 334 0.000000 0.000000 43.595200
+vertex 335 73.107200 0.000000 43.595200
+vertex 336 73.107200 0.000000 46.339200
+vertex 337 0.050000 0.000000 46.095200
+vertex 338 0.050000 0.000000 44.509800
+vertex 339 73.057000 0.000000 44.509800
+vertex 340 73.057000 0.000000 46.095200
+vertex 341 4.573200 44.165000 2.744000
+vertex 342 4.573200 4.573200 2.744000
+vertex 343 68.534000 4.573200 2.744000
+vertex 344 68.534000 44.165000 2.744000
+vertex 345 68.534000 44.165000 0.000000
+vertex 346 68.534000 4.573200 0.000000
+vertex 347 4.573200 4.573200 0.000000
+vertex 348 4.573200 44.165000 0.000000
+vertex 349 68.534000 4.573200 2.744000
+vertex 350 68.534000 4.573200 0.000000
+vertex 351 68.534000 44.165000 0.000000
+vertex 352 68.534000 44.165000 2.744000
+vertex 353 68.534000 44.165000 2.744000
+vertex 354 68.534000 44.165000 0.000000
+vertex 355 4.573200 44.165000 0.000000
+vertex 356 4.573200 44.165000 2.744000
+vertex 357 4.573200 4.573200 2.744000
+vertex 358 4.573200 4.573200 0.000000
+vertex 359 68.534000 4.573200 0.000000
+vertex 360 68.534000 4.573200 2.744000
+vertex 361 4.573200 44.165000 2.744000
+vertex 362 4.573200 44.165000 0.000000
+vertex 363 4.573200 4.573200 0.000000
+vertex 364 4.573200 4.573200 2.744000
+vertex 365 0.000000 48.738100 22.560000
+vertex 366 0.000000 0.000000 22.560000
+vertex 367 4.573200 4.573200 22.560000
+vertex 368 4.573200 44.165000 22.560000
+vertex 369 4.573200 44.165000 19.816000
+vertex 370 4.573200 4.573200 19.816000
+vertex 371 0.000000 0.000000 19.816000
+vertex 372 0.000000 48.738100 19.816000
+vertex 373 4.573200 4.573200 22.560000
+vertex 374 4.573200 4.573200 19.816000
+vertex 375 4.573200 44.165000 19.816000
+vertex 376 4.573200 44.165000 22.560000
+vertex 377 4.573200 44.165000 22.560000
+vertex 378 4.573200 44.165000 19.816000
+vertex 379 0.000000 48.738100 19.816000
+vertex 380 0.000000 48.738100 22.560000
+vertex 381 0.000000 0.000000 22.560000
+vertex 382 0.000000 0.000000 19.816000
+vertex 383 4.573200 4.573200 19.816000
+vertex 384 4.573200 4.573200 22.560000
+vertex 385 0.000000 48.738100 22.560000
+vertex 386 0.000000 48.738100 19.816000
+vertex 387 0.000000 0.000000 19.816000
+vertex 388 0.000000 0.000000 22.560000
+vertex 389 0.000000 48.688000 22.316000
+vertex 390 0.000000 48.688000 20.730600
+vertex 391 0.000000 0.050000 20.730600
+vertex 392 0.000000 0.050000 22.316000
+vertex 393 0.000000 48.738100 0.000000
+vertex 394 4.573200 44.165000 0.000000
+vertex 395 68.534000 44.165000 0.000000
+vertex 396 73.107200 48.738100 0.000000
+vertex 397 0.000000 48.738100 0.000000
+vertex 398 0.000000 0.000000 0.000000
+vertex 399 4.573200 4.573200 0.000000
+vertex 400 4.573200 44.165000 0.000000
+vertex 401 4.573200 44.165000 0.000000
+vertex 402 4.573200 4.573200 0.000000
+vertex 403 68.534000 4.573200 0.000000
+vertex 404 68.534000 44.165000 0.000000
+vertex 405 73.107200 48.738100 -2.439000
+vertex 406 73.107200 0.000000 -2.439000
+vertex 407 0.000000 0.000000 -2.439000
+vertex 408 0.000000 48.738100 -2.439000
+vertex 409 73.107200 0.000000 0.000000
+vertex 410 73.107200 0.000000 -2.439000
+vertex 411 73.107200 48.738100 -2.439000
+vertex 412 73.107200 48.738100 0.000000
+vertex 413 73.107200 48.738100 0.000000
+vertex 414 73.107200 48.738100 -2.439000
+vertex 415 0.000000 48.738100 -2.439000
+vertex 416 0.000000 48.738100 0.000000
+vertex 417 0.000000 0.000000 0.000000
+vertex 418 0.000000 0.000000 -2.439000
+vertex 419 73.107200 0.000000 -2.439000
+vertex 420 73.107200 0.000000 0.000000
+vertex 421 0.000000 48.738100 0.000000
+vertex 422 0.000000 48.738100 -2.439000
+vertex 423 0.000000 0.000000 -2.439000
+vertex 424 0.000000 0.000000 0.000000
+vertex 425 68.534000 44.165000 0.000000
+vertex 426 68.534000 4.573200 0.000000
+vertex 427 73.107200 0.000000 0.000000
+vertex 428 73.107200 48.738100 0.000000
+vertex 429 0.000000 0.000000 0.000000
+vertex 430 73.107200 0.000000 0.000000
+vertex 431 68.534000 4.573200 0.000000
+vertex 432 4.573200 4.573200 0.000000
+vertex 433 4.573200 44.165000 22.560000
+vertex 434 4.573200 4.573200 22.560000
+vertex 435 68.534000 4.573200 22.560000
+vertex 436 68.534000 44.165000 22.560000
+vertex 437 68.534000 44.165000 19.816000
+vertex 438 68.534000 4.573200 19.816000
+vertex 439 4.573200 4.573200 19.816000
+vertex 440 4.573200 44.165000 19.816000
+vertex 441 68.534000 4.573200 22.560000
+vertex 442 68.534000 4.573200 19.816000
+vertex 443 68.534000 44.165000 19.816000
+vertex 444 68.534000 44.165000 22.560000
+vertex 445 68.534000 44.165000 22.560000
+vertex 446 68.534000 44.165000 19.816000
+vertex 447 4.573200 44.165000 19.816000
+vertex 448 4.573200 44.165000 22.560000
+vertex 449 4.573200 4.573200 22.560000
+vertex 450 4.573200 4.573200 19.816000
+vertex 451 68.534000 4.573200 19.816000
+vertex 452 68.534000 4.573200 22.560000
+vertex 453 4.573200 44.165000 22.560000
+vertex 454 4.573200 44.165000 19.816000
+vertex 455 4.573200 4.573200 19.816000
+vertex 456 4.573200 4.573200 22.560000
+vertex 457 0.000000 48.738100 2.744000
+vertex 458 0.000000 0.000000 2.744000
+vertex 459 4.573200 4.573200 2.744000
+vertex 460 4.573200 44.165000 2.744000
+vertex 461 4.573200 44.165000 0.000000
+vertex 462 4.573200 4.573200 0.000000
+vertex 463 0.000000 0.000000 0.000000
+vertex 464 0.000000 48.738100 0.000000
+vertex 465 4.573200 4.573200 2.744000
+vertex 466 4.573200 4.573200 0.000000
+vertex 467 4.573200 44.165000 0.000000
+vertex 468 4.573200 44.165000 2.744000
+vertex 469 4.573200 44.165000 2.744000
+vertex 470 4.573200 44.165000 0.000000
+vertex 471 0.000000 48.738100 0.000000
+vertex 472 0.000000 48.738100 2.744000
+vertex 473 0.000000 0.000000 2.744000
+vertex 474 0.000000 0.000000 0.000000
+vertex 475 4.573200 4.573200 0.000000
+vertex 476 4.573200 4.573200 2.744000
+vertex 477 0.000000 48.738100 2.744000
+vertex 478 0.000000 48.738100 0.000000
+vertex 479 0.000000 0.000000 0.000000
+vertex 480 0.000000 0.000000 2.744000
+vertex 481 0.000000 48.688000 2.500000
+vertex 482 0.000000 48.688000 0.914600
+vertex 483 0.000000 0.050000 0.914600
+vertex 484 0.000000 0.050000 2.500000
+vertex 485 68.534000 44.165000 22.560000
+vertex 486 68.534000 4.573200 22.560000
+vertex 487 73.107200 0.000000 22.560000
+vertex 488 73.107200 48.738100 22.560000
+vertex 489 73.107200 48.738100 19.816000
+vertex 490 73.107200 0.000000 19.816000
+vertex 491 68.534000 4.573200 19.816000
+vertex 492 68.534000 44.165000 19.816000
+vertex 493 73.107200 48.738100 22.560000
+vertex 494 73.107200 48.738100 19.816000
+vertex 495 68.534000 44.165000 19.816000
+vertex 496 68.534000 44.165000 22.560000
+vertex 497 68.534000 4.573200 22.560000
+vertex 498 68.534000 4.573200 19.816000
+vertex 499 73.107200 0.000000 19.816000
+vertex 500 73.107200 0.000000 22.560000
+vertex 501 68.534000 44.165000 22.560000
+vertex 502 68.534000 44.165000 19.816000
+vertex 503 68.534000 4.573200 19.816000
+vertex 504 68.534000 4.573200 22.560000
+vertex 505 73.107200 0.000000 22.560000
+vertex 506 73.107200 0.000000 19.816000
+vertex 507 73.107200 48.738100 19.816000
+vertex 508 73.107200 48.738100 22.560000
+vertex 509 73.107200 0.050000 22.316000
+vertex 510 73.107200 0.050000 20.730600
+vertex 511 73.107200 48.688000 20.730600
+vertex 512 73.107200 48.688000 22.316000
+vertex 513 0.000000 48.738100 46.339200
+vertex 514 4.573200 44.165000 46.339200
+vertex 515 68.534000 44.165000 46.339200
+vertex 516 73.107200 48.738100 46.339200
+vertex 517 73.107200 48.738100 43.595200
+vertex 518 68.534000 44.165000 43.595200
+vertex 519 4.573200 44.165000 43.595200
+vertex 520 0.000000 48.738100 43.595200
+vertex 521 68.534000 44.165000 46.339200
+vertex 522 68.534000 44.165000 43.595200
+vertex 523 73.107200 48.738100 43.595200
+vertex 524 73.107200 48.738100 46.339200
+vertex 525 4.573200 44.165000 46.339200
+vertex 526 4.573200 44.165000 43.595200
+vertex 527 68.534000 44.165000 43.595200
+vertex 528 68.534000 44.165000 46.339200
+vertex 529 0.000000 48.738100 46.339200
+vertex 530 0.000000 48.738100 43.595200
+vertex 531 4.573200 44.165000 43.595200
+vertex 532 4.573200 44.165000 46.339200
+vertex 533 73.107200 48.738100 46.339200
+vertex 534 73.107200 48.738100 43.595200
+vertex 535 0.000000 48.738100 43.595200
+vertex 536 0.000000 48.738100 46.339200
+vertex 537 73.057000 48.738100 46.095200
+vertex 538 73.057000 48.738100 44.509800
+vertex 539 0.050000 48.738100 44.509800
+vertex 540 0.050000 48.738100 46.095200
+vertex 541 73.107200 48.738100 2.744000
+vertex 542 68.534000 44.164900 2.744000
+vertex 543 68.534000 4.573100 2.744000
+vertex 544 73.107200 0.000000 2.744000
+vertex 545 73.107200 48.738100 0.000000
+vertex 546 73.107200 0.000000 0.000000
+vertex 547 68.534000 4.573100 0.000000
+vertex 548 68.534000 44.164900 0.000000
+vertex 549 68.534000 4.573100 2.744000
+vertex 550 68.534000 44.164900 2.744000
+vertex 551 68.534000 44.164900 0.000000
+vertex 552 68.534000 4.573100 0.000000
+vertex 553 73.107200 0.000000 2.744000
+vertex 554 68.534000 4.573100 2.744000
+vertex 555 68.534000 4.573100 0.000000
+vertex 556 73.107200 0.000000 0.000000
+vertex 557 68.534000 44.164900 2.744000
+vertex 558 73.107200 48.738100 2.744000
+vertex 559 73.107200 48.738100 0.000000
+vertex 560 68.534000 44.164900 0.000000
+vertex 561 73.107200 48.738100 2.744000
+vertex 562 73.107200 0.000000 2.744000
+vertex 563 73.107200 0.000000 0.000000
+vertex 564 73.107200 48.738100 0.000000
+vertex 565 73.107200 48.688100 2.500000
+vertex 566 73.107200 0.050100 2.500000
+vertex 567 73.107200 0.050100 0.914600
+vertex 568 73.107200 48.688100 0.914600
+
+
+zone GROUNDFLOOR_PLENUM
+wall 1 1 2 3 4
+wall 2 5 6 7 8
+wall 3 9 10 11 12
+wall 4 13 14 15 16
+wall 5 17 18 19 20
+wall 6 21 22 23 24
+wall 7 25 26 27 28
+wall 8 29 30 31 32
+wall 9 33 34 35 36
+wall 10 37 38 39 40
+
+zone PERIMETER_TOP_ZN_4
+wall 11 41 42 43 44
+wall 12 45 46 47 48
+wall 13 49 50 51 52
+wall 14 53 54 55 56
+wall 15 57 58 59 60
+wall 16 61 62 63 64
+window 140 65 66 67 68
+
+zone PERIMETER_MID_ZN_1
+wall 17 69 70 71 72
+wall 18 73 74 75 76
+wall 19 77 78 79 80
+wall 20 81 82 83 84
+wall 21 85 86 87 88
+wall 22 89 90 91 92
+window 138 93 94 95 96
+
+zone PERIMETER_BOT_ZN_1
+wall 23 97 98 99 100
+wall 24 101 102 103 104
+wall 25 105 106 107 108
+wall 26 109 110 111 112
+wall 27 113 114 115 116
+wall 28 117 118 119 120
+window 132 121 122 123 124
+
+zone MIDFLOOR_PLENUM
+wall 29 125 126 127 128
+wall 30 129 130 131 132
+wall 31 133 134 135 136
+wall 32 137 138 139 140
+wall 33 141 142 143 144
+wall 34 145 146 147 148
+wall 35 149 150 151 152
+wall 36 153 154 155 156
+wall 37 157 158 159 160
+wall 38 161 162 163 164
+
+zone CORE_TOP
+wall 39 165 166 167 168
+wall 40 169 170 171 172
+wall 41 173 174 175 176
+wall 42 177 178 179 180
+wall 43 181 182 183 184
+wall 44 185 186 187 188
+
+zone TOPFLOOR_PLENUM
+wall 45 189 190 191 192
+wall 46 193 194 195 196
+wall 47 197 198 199 200
+wall 48 201 202 203 204
+wall 49 205 206 207 208
+wall 50 209 210 211 212
+wall 51 213 214 215 216
+wall 52 217 218 219 220
+wall 53 221 222 223 224
+wall 54 225 226 227 228
+
+zone PERIMETER_TOP_ZN_2
+wall 55 229 230 231 232
+wall 56 233 234 235 236
+wall 57 237 238 239 240
+wall 58 241 242 243 244
+wall 59 245 246 247 248
+wall 60 249 250 251 252
+window 142 253 254 255 256
+
+zone PERIMETER_MID_ZN_3
+wall 61 257 258 259 260
+wall 62 261 262 263 264
+wall 63 265 266 267 268
+wall 64 269 270 271 272
+wall 65 273 274 275 276
+wall 66 277 278 279 280
+window 136 281 282 283 284
+
+zone PERIMETER_BOT_ZN_3
+wall 67 285 286 287 288
+wall 68 289 290 291 292
+wall 69 293 294 295 296
+wall 70 297 298 299 300
+wall 71 301 302 303 304
+wall 72 305 306 307 308
+window 131 309 310 311 312
+
+zone PERIMETER_TOP_ZN_1
+wall 73 313 314 315 316
+wall 74 317 318 319 320
+wall 75 321 322 323 324
+wall 76 325 326 327 328
+wall 77 329 330 331 332
+wall 78 333 334 335 336
+window 141 337 338 339 340
+
+zone CORE_BOTTOM
+wall 79 341 342 343 344
+wall 80 345 346 347 348
+wall 81 349 350 351 352
+wall 82 353 354 355 356
+wall 83 357 358 359 360
+wall 84 361 362 363 364
+
+zone PERIMETER_MID_ZN_4
+wall 85 365 366 367 368
+wall 86 369 370 371 372
+wall 87 373 374 375 376
+wall 88 377 378 379 380
+wall 89 381 382 383 384
+wall 90 385 386 387 388
+window 139 389 390 391 392
+
+zone BASEMENT
+wall 91 393 394 395 396
+wall 92 397 398 399 400
+wall 93 401 402 403 404
+wall 94 405 406 407 408
+wall 95 409 410 411 412
+wall 96 413 414 415 416
+wall 97 417 418 419 420
+wall 98 421 422 423 424
+wall 99 425 426 427 428
+wall 100 429 430 431 432
+
+zone CORE_MID
+wall 101 433 434 435 436
+wall 102 437 438 439 440
+wall 103 441 442 443 444
+wall 104 445 446 447 448
+wall 105 449 450 451 452
+wall 106 453 454 455 456
+
+zone PERIMETER_BOT_ZN_4
+wall 107 457 458 459 460
+wall 108 461 462 463 464
+wall 109 465 466 467 468
+wall 110 469 470 471 472
+wall 111 473 474 475 476
+wall 112 477 478 479 480
+window 134 481 482 483 484
+
+zone PERIMETER_MID_ZN_2
+wall 113 485 486 487 488
+wall 114 489 490 491 492
+wall 115 493 494 495 496
+wall 116 497 498 499 500
+wall 117 501 502 503 504
+wall 118 505 506 507 508
+window 137 509 510 511 512
+
+zone PERIMETER_TOP_ZN_3
+wall 119 513 514 515 516
+wall 120 517 518 519 520
+wall 121 521 522 523 524
+wall 122 525 526 527 528
+wall 123 529 530 531 532
+wall 124 533 534 535 536
+window 133 537 538 539 540
+
+zone PERIMETER_BOT_ZN_2
+wall 125 541 542 543 544
+wall 126 545 546 547 548
+wall 127 549 550 551 552
+wall 128 553 554 555 556
+wall 129 557 558 559 560
+wall 130 561 562 563 564
+window 135 565 566 567 568
+_EXTENSION_BuildingGeometry_END_
+
+
+_EXTENSION_ExternalShadingGeometry_START_
+
+_EXTENSION_ExternalShadingGeometry_END_
+
+
+_EXTENSION_GeoPositionGeometry_START_
+_EXTENSION_GeoPositionGeometry_END_
+
+
+

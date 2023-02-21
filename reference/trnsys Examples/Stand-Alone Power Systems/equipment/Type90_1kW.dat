@@ -1,0 +1,34 @@
+WECS_Typ Bonus 1kW (24)                ! Wind Turbine type
+WECS_REF www.bergey.com                ! Data source
+Len_Unit m                             ! Length unit, must be m (do NOT edit)
+Spd_Unit m/s                           ! Speed unit, must be m/s (do NOT edit)
+Pwr_Unit kW                            ! Power unit, must be m (do NOT edit)
+Ctl_mode P                             ! Control mode: S=stall; P=pitch; V=variable speed !! EXACTLY 1 SPACE BEFORE THE 'S', 'P' or 'V' character !!
+Rotor_Ht   24.00                       ! Rotor center height, meters
+Rotor_Di    2.5                        ! Rotor diameter, meters
+Sensr_Ht   24.00                       ! Sensor Height for data pairs given here below, meters (often rotor center height)
+Sher_Exp    0.16                       ! Power-law exponent for vertical wind profile
+Turb_Int    0.10                       ! Turbulence intensity valid for this curve
+Air_Dens    1.225                      ! Power curve air density, kg/m3
+Pwr_Ratd    1.00                       ! Rated power of the turbine, kW
+Spd_Ratd   11.00                       ! Rated wind speed, m/s
+Num_Pair   19                          ! Number of (wind speed, power) data pairs in the file
+   0	0.00                           ! First data pair (wind speed, power) - Free format - ALWAYS START AT 0.0 !!!
+   1	0.00                           ! Second data pair - Free format
+   2	0.00                           ! ...
+   3	0.000
+   4	0.040
+   5	0.080
+   6	0.130
+   7	0.200
+   8	0.340
+   9	0.470                        ! ...
+   10	0.600                        ! Use Maximum 100 data pairs !!!
+   11	0.715                        ! ...
+   12	0.825
+   13	0.925
+   14	1.000
+   15	1.025
+   16	1.050
+   17	1.025                        ! ...
+   18	1.000                        ! Last data pair - Free format

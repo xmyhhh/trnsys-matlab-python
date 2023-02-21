@@ -1,0 +1,684 @@
+*********************************************************************************
+*  TRNBuild   3.0.282
+*********************************************************************************
+*   BUILDING DESCRIPTIONS FILE TRNSYS
+*   FOR BUILDING:   C:\Trnsys18.00.0013\Examples\Slab on Grade\SingleFamilyDetached.b18
+*   GET BY WORKING WITH TRNBuild 1.0 for Windows
+*********************************************************************************
+*
+*--------------------------------------------------------------------------------
+*  C o m m e n t s
+*--------------------------------------------------------------------------------
+*--------------------------------------------------------------------------------
+*  P r o j e c t
+*--------------------------------------------------------------------------------
+*+++ PROJECT
+*+++ TITLE=SINGLE FAMILY DETACHED RESIDENCE
+*+++ DESCRIPTION=BUILDING FILE USED IN EXAMPLES
+*+++ CREATED=THERMAL ENERGY SYSTEM SPECIALISTS, LLC
+*+++ ADDRESS=
+*+++ CITY=
+*+++ SWITCH=UNDEFINED
+*--------------------------------------------------------------------------------
+*  P r o p e r t i e s
+*--------------------------------------------------------------------------------
+PROPERTIES
+ DENSITY=1.204 : CAPACITY=1.012 : PRESSURE=101325.000 : HVAPOR=2454.0 : SIGMA=2.041e-007 : RTEMP=293.15
+*--- convective heat transfer coefficient calculation ---------------------
+ KFLOORUP=7.2 : EFLOORUP=0.31 : KFLOORDOWN=3.888 : EFLOORDOWN=0.31
+ KCEILUP=7.2 : ECEILUP=0.31 : KCEILDOWN=3.888 : ECEILDOWN=0.31
+ KVERTICAL=5.76 : EVERTICAL=0.3
+*--- radiance parameters -------------------
+ SCENE_ROTATION_ANGLE=0 : GROUND_IDS= : GROUND_REFLECTANCE=0.2 : SHADER_REFLECTANCE=0
+ CALC_MODE=RAD : LATITUDE=48 : LONGITUDE=-9.2 : TIME_ZONE=-15 : SITE_ELEVATION=200
+ AB=5 : AD=1000 : AS=20 : AR=300 : AA=0.1
+ LR=6 : ST=0.15 : SJ=1 : LW=0.004 : DJ=0 : DS=0.2 : DR=2 : DP=512
+*--- comfort parameters -------------------
+ DIAM-SENSOR=0.07 : EPS-SENSOR=0.82 : REFL-SENSOR=0.47 : ELV_AIRSPEED1=0.3 : ELV_AIRSPEED2=0.7 : ELV_AIRSPEED3=1.2
+*--- other -------------------
+ FSCAL_TREGENZA=MEDIUM : SHM_MODE=0 : SURFGRID=0.2
+*--- daylight  -------------------
+ UDIMIN=100 : UDIMAX=2000 : DAMIN=300
+*
+*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+TYPES
+*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+*
+*--------------------------------------------------------------------------------
+*  L a y e r s
+*--------------------------------------------------------------------------------
+LAYER CONCRETESL
+ CONDUCTIVITY=  4.068 : CAPACITY=      1 : DENSITY=   1400 : PERT=      0 : PENRT=      0
+LAYER GYPBOARD
+ CONDUCTIVITY=   0.61 : CAPACITY=   0.84 : DENSITY=    800 : PERT=      0 : PENRT=      0
+LAYER 2X12JOISTS
+ CONDUCTIVITY=   5.63 : CAPACITY=  1.024 : DENSITY=   33.1 : PERT=      0 : PENRT=      0
+LAYER PLYWOOD
+ CONDUCTIVITY=  0.416 : CAPACITY=  1.214 : DENSITY=  544.6 : PERT=      0 : PENRT=      0
+LAYER WOODFLOOR
+ CONDUCTIVITY=  0.504 : CAPACITY=    1.2 : DENSITY=    650 : PERT=      0 : PENRT=      0
+LAYER CELLULOSE
+ CONDUCTIVITY=   0.14 : CAPACITY=  1.382 : DENSITY=   48.1 : PERT=      0 : PENRT=      0
+LAYER 2X12ROOF
+ CONDUCTIVITY=   0.18 : CAPACITY=  0.871 : DENSITY=     47 : PERT=      0 : PENRT=      0
+LAYER ASPHSHINGLE
+ CONDUCTIVITY=  0.223 : CAPACITY=   0.92 : DENSITY=   2115 : PERT=      0 : PENRT=      0
+LAYER 2X4JOISTS
+ CONDUCTIVITY=  1.736 : CAPACITY=  1.024 : DENSITY=   33.1 : PERT=      0 : PENRT=      0
+LAYER 2X6INSSTUD
+ CONDUCTIVITY=  0.191 : CAPACITY=  0.888 : DENSITY=   62.6 : PERT=      0 : PENRT=      0
+LAYER TILE
+ RESISTANCE=    0.002 : PERT=      0 : PENRT=      0
+LAYER CARPET
+ RESISTANCE=    0.102 : PERT=      0 : PENRT=      0
+LAYER 2X6UNINSSTUD
+ CONDUCTIVITY=  2.637 : CAPACITY=  1.036 : DENSITY=   49.1 : PERT=      0 : PENRT=      0
+LAYER GARDOOR
+ RESISTANCE=     1.09 : PERT=      0 : PENRT=      0
+*--------------------------------------------------------------------------------
+*  I n p u t s
+*--------------------------------------------------------------------------------
+INPUTS HOUTSIDE TGND_MAIN TGND_GAR TGND_SUN
+INPUTS_DESCRIPTION
+ HOUTSIDE : any : Input
+ TGND_MAIN : any : Input
+ TGND_GAR : any : Input
+ TGND_SUN : any : Input
+*--------------------------------------------------------------------------------
+*  S c h e d u l e s
+*--------------------------------------------------------------------------------
+*--------------------------------------------------------------------------------
+*  C O N S T R U C T I O N (Wall, Floor, Ceiling,..)
+*--------------------------------------------------------------------------------
+CONSTRUCTION SLAB
+ LAYERS   = CONCRETESL 
+ THICKNESS= 0.102      
+ ABS-FRONT= 0.6   : ABS-BACK= 0.6  
+ EPS-FRONT= 0.9   : EPS-BACK= 0.9  
+ HFRONT   = FLOOR : HBACK= 0.0001
+CONSTRUCTION CEILINGFLOOR
+ LAYERS   = GYPBOARD 2X12JOISTS PLYWOOD WOODFLOOR 
+ THICKNESS= 0.016    0.292      0.019   0.019     
+ ABS-FRONT= 0.6   : ABS-BACK= 0.6  
+ EPS-FRONT= 0.9   : EPS-BACK= 0.9  
+ HFRONT   = CEILING : HBACK= FLOOR
+CONSTRUCTION CEILING
+ LAYERS   = GYPBOARD CELLULOSE 
+ THICKNESS= 0.016    0.356     
+ ABS-FRONT= 0.6   : ABS-BACK= 0.6  
+ EPS-FRONT= 0.9   : EPS-BACK= 0.9  
+ HFRONT   = CEILING : HBACK= FLOOR
+CONSTRUCTION INSULROOF
+ LAYERS   = GYPBOARD 2X12ROOF PLYWOOD ASPHSHINGLE 
+ THICKNESS= 0.016    0.292    0.019   0.006       
+ ABS-FRONT= 0.6   : ABS-BACK= 0.6  
+ EPS-FRONT= 0.9   : EPS-BACK= 0.9  
+ HFRONT   = CEILING : HBACK= INPUT 1*HOUTSIDE
+CONSTRUCTION ROOF
+ LAYERS   = 2X4JOISTS PLYWOOD ASPHSHINGLE 
+ THICKNESS= 0.089     0.019   0.006       
+ ABS-FRONT= 0.6   : ABS-BACK= 0.6  
+ EPS-FRONT= 0.9   : EPS-BACK= 0.9  
+ HFRONT   = CEILING : HBACK= INPUT 1*HOUTSIDE
+CONSTRUCTION DECKROOF
+ LAYERS   = GYPBOARD 2X12ROOF ASPHSHINGLE WOODFLOOR 
+ THICKNESS= 0.016    0.292    0.063       0.019     
+ ABS-FRONT= 0.6   : ABS-BACK= 0.6  
+ EPS-FRONT= 0.9   : EPS-BACK= 0.9  
+ HFRONT   = CEILING : HBACK= INPUT 1*HOUTSIDE
+CONSTRUCTION INTERN_INSUL
+ LAYERS   = PLYWOOD 2X6INSSTUD GYPBOARD 
+ THICKNESS= 0.013   0.14       0.013    
+ ABS-FRONT= 0.6   : ABS-BACK= 0.6  
+ EPS-FRONT= 0.9   : EPS-BACK= 0.9  
+ HFRONT   = VERTICAL : HBACK= VERTICAL
+CONSTRUCTION TILESLAB
+ LAYERS   = TILE  CONCRETESL 
+ THICKNESS= 0     0.102      
+ ABS-FRONT= 0.6   : ABS-BACK= 0.6  
+ EPS-FRONT= 0.9   : EPS-BACK= 0.9  
+ HFRONT   = FLOOR : HBACK= 0.0001
+CONSTRUCTION CARPETSLAB
+ LAYERS   = CARPET CONCRETESL 
+ THICKNESS= 0      0.102      
+ ABS-FRONT= 0.6   : ABS-BACK= 0.6  
+ EPS-FRONT= 0.9   : EPS-BACK= 0.9  
+ HFRONT   = FLOOR : HBACK= 0.0001
+CONSTRUCTION INTERN_ATTIC
+ LAYERS   = GYPBOARD 2X6INSSTUD 
+ THICKNESS= 0.013    0.14       
+ ABS-FRONT= 0.6   : ABS-BACK= 0.6  
+ EPS-FRONT= 0.9   : EPS-BACK= 0.9  
+ HFRONT   = VERTICAL : HBACK= VERTICAL
+CONSTRUCTION EXTERN_UNINS
+ LAYERS   = 2X6UNINSSTUD PLYWOOD 
+ THICKNESS= 0.14         0.019   
+ ABS-FRONT= 0.6   : ABS-BACK= 0.6  
+ EPS-FRONT= 0.9   : EPS-BACK= 0.9  
+ HFRONT   = VERTICAL : HBACK= INPUT 1*HOUTSIDE
+CONSTRUCTION GARDOOR
+ LAYERS   = GARDOOR 
+ THICKNESS= 0       
+ ABS-FRONT= 0.6   : ABS-BACK= 0.6  
+ EPS-FRONT= 0.9   : EPS-BACK= 0.9  
+ HFRONT   = VERTICAL : HBACK= INPUT 1*HOUTSIDE
+CONSTRUCTION EXTERN
+ LAYERS   = GYPBOARD 2X6INSSTUD PLYWOOD 
+ THICKNESS= 0.013    0.14       0.019   
+ ABS-FRONT= 0.6   : ABS-BACK= 0.6  
+ EPS-FRONT= 0.9   : EPS-BACK= 0.9  
+ HFRONT   = VERTICAL : HBACK= INPUT 1*HOUTSIDE
+*--------------------------------------------------------------------------------
+*  W i n d o w s
+*--------------------------------------------------------------------------------
+WINDOW PROCHDOOR
+ WINID=6001 : HINSIDE=VERTICAL : HOUTSIDE=VERTICAL : SLOPE=90 : SPACID=1 : WWID=0.77 : WHEIG=1.08 : FFRAME=0.15 : UFRAME=8.17 : ABSFRAME=0.6 : RISHADE=0 : RESHADE=0 : REFLISHADE=0.5 : REFLOSHADE=0.5 : CCISHADE=0.5 : EPSFRAME=0.9 : EPSISHADE=0.9 : ITSHADECLOSE=648 : ITSHADEOPEN=576 : FLOWTOAIRNODE=0 : PERT=0 : PENRT=0 : RADMATERIAL=undefined : RADMATERIAL_SHD1=undefined
+WINDOW SINGLE
+ WINID=1001 : HINSIDE=VERTICAL : HOUTSIDE=INPUT 1*HOUTSIDE : SLOPE=90 : SPACID=1 : WWID=0.77 : WHEIG=1.08 : FFRAME=0.15 : UFRAME=8.17 : ABSFRAME=0.6 : RISHADE=0 : RESHADE=0 : REFLISHADE=0.5 : REFLOSHADE=0.5 : CCISHADE=0.5 : EPSFRAME=0.9 : EPSISHADE=0.9 : ITSHADECLOSE=648 : ITSHADEOPEN=576 : FLOWTOAIRNODE=0 : PERT=0 : PENRT=0 : RADMATERIAL=undefined : RADMATERIAL_SHD1=undefined
+WINDOW DBLE_ARLOWE
+ WINID=5001 : HINSIDE=VERTICAL : HOUTSIDE=INPUT 1*HOUTSIDE : SLOPE=90 : SPACID=1 : WWID=0.77 : WHEIG=1.08 : FFRAME=0.15 : UFRAME=8.17 : ABSFRAME=0.6 : RISHADE=0 : RESHADE=0 : REFLISHADE=0.5 : REFLOSHADE=0.5 : CCISHADE=0.5 : EPSFRAME=0.9 : EPSISHADE=0.9 : ITSHADECLOSE=648 : ITSHADEOPEN=576 : FLOWTOAIRNODE=0 : PERT=0 : PENRT=0 : RADMATERIAL=undefined : RADMATERIAL_SHD1=undefined
+WINDOW PATIODOOR
+ WINID=6001 : HINSIDE=VERTICAL : HOUTSIDE=INPUT 1*HOUTSIDE : SLOPE=90 : SPACID=1 : WWID=0.77 : WHEIG=1.08 : FFRAME=0.15 : UFRAME=8.17 : ABSFRAME=0.6 : RISHADE=0 : RESHADE=0 : REFLISHADE=0.5 : REFLOSHADE=0.5 : CCISHADE=0.5 : EPSFRAME=0.9 : EPSISHADE=0.9 : ITSHADECLOSE=648 : ITSHADEOPEN=576 : FLOWTOAIRNODE=0 : PERT=0 : PENRT=0 : RADMATERIAL=undefined : RADMATERIAL_SHD1=undefined
+*--------------------------------------------------------------------------------
+*  G a i n s / L o s s e s
+*--------------------------------------------------------------------------------
+*--------------------------------------------------------------------------------
+*  C o m f o r t
+*--------------------------------------------------------------------------------
+*--------------------------------------------------------------------------------
+*  I n f i l t r a t i o n
+*--------------------------------------------------------------------------------
+*--------------------------------------------------------------------------------
+*  V e n t i l a t i o n
+*--------------------------------------------------------------------------------
+*--------------------------------------------------------------------------------
+*  C o o l i n g
+*--------------------------------------------------------------------------------
+COOLING COOL001
+ ON=26
+ POWER=999999999
+ HUMIDITY=100
+ ELPOWERFRAC=0
+ AREA_RELATED_POWER=0
+*--------------------------------------------------------------------------------
+*  H e a t i n g
+*--------------------------------------------------------------------------------
+HEATING HEAT001
+ ON=20
+ POWER=999999999
+ HUMIDITY=0
+ RRAD=0
+ ELPOWERFRAC=0
+ AREA_RELATED_POWER=0
+*--------------------------------------------------------------------------------
+*  D a y l i g h t   C o n t r o l 
+*--------------------------------------------------------------------------------
+*
+*--------------------------------------------------------------------------------
+*  Z o n e s
+*--------------------------------------------------------------------------------
+ZONES GROUNDFLR UPSTAIRS ATTIC GARAGE SUNROOM
+*--------------------------------------------------------------------------------
+*  O r i e n t a t i o n s
+*--------------------------------------------------------------------------------
+HEMISPHERE NORTHERN
+ORIENTATIONS NORTH SOUTH EAST WEST HORIZONTAL NROOF SEROOF SWROOF EROOF WROOF EGARROOF WGARROOF
+*
+*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+BUILDING
+*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+*
+*--------------------------------------------------------------------------------
+*  Z o n e  GROUNDFLR  /  A i r n o d e  GROUNDFLR
+*--------------------------------------------------------------------------------
+ZONE GROUNDFLR
+RADIATIONMODE
+ BEAM=STANDARD : DIFFUSE=STANDARD : LONGWAVE=STANDARD : GEOMODE=MANUAL : FSOLAIR=0
+DAYLIGHTMODE
+ DLSHADE =-1
+AIRNODE GROUNDFLR
+WALL         =TILESLAB   : SURF=  1 : AREA=    139.35 : BOUNDARY=INPUT 1*TGND_MAIN
+WALL         =CEILINGFLOOR : SURF=  2 : AREA=    139.35 : ADJACENT=UPSTAIRS : ADJ_SURF=3 : FRONT
+WALL         =INTERN_INSUL : SURF= 14 : AREA=       6.6 : ADJACENT=SUNROOM : ADJ_SURF=13 : BACK
+WINDOW=PROCHDOOR  : SURF= 16 : AREA=      4.55 : ADJACENT=SUNROOM : ADJ_SURF=15 : BACK : ORI=SOUTH 
+WALL         =INTERN_INSUL : SURF= 20 : AREA=     29.73 : ADJACENT=GARAGE : ADJ_SURF=19 : BACK
+WALL         =EXTERN     : SURF= 36 : AREA=     37.34 : EXTERNAL : ORI=NORTH : FSKY=0.5
+WINDOW=DBLE_ARLOWE : SURF= 37 : AREA=      7.24 : EXTERNAL : ORI=NORTH : FSKY=0.5
+WALL         =EXTERN     : SURF= 41 : AREA=     20.42 : EXTERNAL : ORI=WEST : FSKY=0.5
+WINDOW=DBLE_ARLOWE : SURF= 42 : AREA=      1.81 : EXTERNAL : ORI=WEST : FSKY=0.5
+WALL         =EXTERN     : SURF= 45 : AREA=     18.67 : EXTERNAL : ORI=SOUTH : FSKY=0.5
+WINDOW=PATIODOOR  : SURF= 46 : AREA=      3.25 : EXTERNAL : ORI=SOUTH : FSKY=0.5
+WINDOW=DBLE_ARLOWE : SURF= 47 : AREA=      3.62 : EXTERNAL : ORI=SOUTH : FSKY=0.5
+WALL         =EXTERN     : SURF= 53 : AREA=     19.61 : EXTERNAL : ORI=EAST : FSKY=0.5
+WINDOW=DBLE_ARLOWE : SURF= 54 : AREA=      3.62 : EXTERNAL : ORI=EAST : FSKY=0.5
+ REGIME
+ COOLING     = COOL001
+ HEATING     = HEAT001
+ CAPACITANCE = 5096.9  : VOLUME= 424.74  : REFAREA= 1       : TINITIAL= 20      : PHINITIAL= 50      : WCAPR= 1
+*--------------------------------------------------------------------------------
+*  Z o n e  UPSTAIRS  /  A i r n o d e  UPSTAIRS
+*--------------------------------------------------------------------------------
+ZONE UPSTAIRS
+RADIATIONMODE
+ BEAM=STANDARD : DIFFUSE=STANDARD : LONGWAVE=STANDARD : GEOMODE=MANUAL : FSOLAIR=0
+DAYLIGHTMODE
+ DLSHADE =-1
+AIRNODE UPSTAIRS
+WALL         =CEILINGFLOOR : SURF=  3 : AREA=    139.35 : ADJACENT=GROUNDFLR : ADJ_SURF=2 : BACK
+WALL         =CEILING    : SURF=  4 : AREA=     83.61 : ADJACENT=ATTIC : ADJ_SURF=5 : FRONT
+WALL         =INTERN_ATTIC : SURF= 17 : AREA=     11.61 : ADJACENT=ATTIC : ADJ_SURF=18 : FRONT
+WALL         =INTERN_INSUL : SURF= 22 : AREA=      7.43 : ADJACENT=GARAGE : ADJ_SURF=21 : BACK
+WALL         =EXTERN     : SURF= 38 : AREA=     47.56 : EXTERNAL : ORI=NORTH : FSKY=0.5
+WINDOW=DBLE_ARLOWE : SURF= 39 : AREA=      3.62 : EXTERNAL : ORI=NORTH : FSKY=0.5
+WINDOW=PATIODOOR  : SURF= 40 : AREA=      4.55 : EXTERNAL : ORI=NORTH : FSKY=0.5
+WALL         =EXTERN     : SURF= 43 : AREA=     31.21 : EXTERNAL : ORI=WEST : FSKY=0.5
+WINDOW=DBLE_ARLOWE : SURF= 44 : AREA=      3.62 : EXTERNAL : ORI=WEST : FSKY=0.5
+WALL         =EXTERN     : SURF= 48 : AREA=     49.37 : EXTERNAL : ORI=SOUTH : FSKY=0.5
+WINDOW=DBLE_ARLOWE : SURF= 49 : AREA=      5.43 : EXTERNAL : ORI=SOUTH : FSKY=0.5
+WINDOW=DBLE_ARLOWE : SURF= 50 : AREA=      2.78 : EXTERNAL : ORI=SOUTH : FSKY=0.5
+WALL         =EXTERN     : SURF= 51 : AREA=     19.61 : EXTERNAL : ORI=EAST : FSKY=0.5
+WINDOW=DBLE_ARLOWE : SURF= 52 : AREA=      3.62 : EXTERNAL : ORI=EAST : FSKY=0.5
+ REGIME
+ COOLING     = COOL001
+ HEATING     = HEAT001
+ CAPACITANCE = 6330.8  : VOLUME= 527.569 : REFAREA= 1       : TINITIAL= 20      : PHINITIAL= 50      : WCAPR= 1
+*--------------------------------------------------------------------------------
+*  Z o n e  ATTIC  /  A i r n o d e  ATTIC
+*--------------------------------------------------------------------------------
+ZONE ATTIC
+RADIATIONMODE
+ BEAM=STANDARD : DIFFUSE=STANDARD : LONGWAVE=STANDARD : GEOMODE=MANUAL : FSOLAIR=0
+DAYLIGHTMODE
+ DLSHADE =-1
+AIRNODE ATTIC
+WALL         =CEILING    : SURF=  5 : AREA=     83.61 : ADJACENT=UPSTAIRS : ADJ_SURF=4 : BACK
+WALL         =ROOF       : SURF=  6 : AREA=     53.54 : EXTERNAL : ORI=SEROOF : FSKY=1
+WALL         =ROOF       : SURF=  7 : AREA=     53.54 : EXTERNAL : ORI=NROOF : FSKY=1
+WALL         =INTERN_ATTIC : SURF= 18 : AREA=     11.61 : ADJACENT=UPSTAIRS : ADJ_SURF=17 : BACK
+WALL         =EXTERN_UNINS : SURF= 23 : AREA=     11.61 : EXTERNAL : ORI=EAST : FSKY=0.5
+ REGIME
+ CAPACITANCE = 1528.3  : VOLUME= 127.362 : REFAREA= 1       : TINITIAL= 20      : PHINITIAL= 50      : WCAPR= 1
+*--------------------------------------------------------------------------------
+*  Z o n e  GARAGE  /  A i r n o d e  GARAGE
+*--------------------------------------------------------------------------------
+ZONE GARAGE
+RADIATIONMODE
+ BEAM=STANDARD : DIFFUSE=STANDARD : LONGWAVE=STANDARD : GEOMODE=MANUAL : FSOLAIR=0
+DAYLIGHTMODE
+ DLSHADE =-1
+AIRNODE GARAGE
+WALL         =SLAB       : SURF=  8 : AREA=     59.46 : BOUNDARY=INPUT 1*TGND_GAR
+WALL         =ROOF       : SURF=  9 : AREA=     31.15 : EXTERNAL : ORI=EGARROOF : FSKY=1
+WALL         =ROOF       : SURF= 10 : AREA=     31.15 : EXTERNAL : ORI=WGARROOF : FSKY=1
+WALL         =INTERN_INSUL : SURF= 19 : AREA=     29.73 : ADJACENT=GROUNDFLR : ADJ_SURF=20 : FRONT
+WALL         =INTERN_INSUL : SURF= 21 : AREA=      7.43 : ADJACENT=UPSTAIRS : ADJ_SURF=22 : FRONT
+WALL         =EXTERN_UNINS : SURF= 24 : AREA=     16.77 : EXTERNAL : ORI=EAST : FSKY=0.5
+WINDOW=SINGLE     : SURF= 28 : AREA=      1.81 : EXTERNAL : ORI=EAST : FSKY=0.5
+WALL         =EXTERN_UNINS : SURF= 25 : AREA=     16.77 : EXTERNAL : ORI=WEST : FSKY=0.5
+WINDOW=SINGLE     : SURF= 29 : AREA=      1.81 : EXTERNAL : ORI=WEST : FSKY=0.5
+WALL         =EXTERN_UNINS : SURF= 26 : AREA=     16.35 : EXTERNAL : ORI=SOUTH : FSKY=0.5
+WALL         =GARDOOR    : SURF= 27 : AREA=     20.81 : EXTERNAL : ORI=SOUTH : FSKY=0.5
+ REGIME
+ CAPACITANCE = 2648.8  : VOLUME= 220.73  : REFAREA= 1       : TINITIAL= 20      : PHINITIAL= 50      : WCAPR= 1
+*--------------------------------------------------------------------------------
+*  Z o n e  SUNROOM  /  A i r n o d e  SUNROOM
+*--------------------------------------------------------------------------------
+ZONE SUNROOM
+RADIATIONMODE
+ BEAM=STANDARD : DIFFUSE=STANDARD : LONGWAVE=STANDARD : GEOMODE=MANUAL : FSOLAIR=0
+DAYLIGHTMODE
+ DLSHADE =-1
+AIRNODE SUNROOM
+WALL         =CARPETSLAB : SURF= 11 : AREA=     17.84 : BOUNDARY=INPUT 1*TGND_SUN
+WALL         =DECKROOF   : SURF= 12 : AREA=     17.84 : EXTERNAL : ORI=HORIZONTAL : FSKY=0.5
+WALL         =INTERN_INSUL : SURF= 13 : AREA=       6.6 : ADJACENT=GROUNDFLR : ADJ_SURF=14 : FRONT
+WINDOW=PROCHDOOR  : SURF= 15 : AREA=      4.55 : ADJACENT=GROUNDFLR : ADJ_SURF=16 : FRONT : ORI=SOUTH 
+WALL         =EXTERN     : SURF= 30 : AREA=     13.05 : EXTERNAL : ORI=EAST : FSKY=0.5
+WINDOW=DBLE_ARLOWE : SURF= 32 : AREA=      1.81 : EXTERNAL : ORI=EAST : FSKY=0.5
+WALL         =EXTERN     : SURF= 31 : AREA=     13.05 : EXTERNAL : ORI=WEST : FSKY=0.5
+WINDOW=DBLE_ARLOWE : SURF= 33 : AREA=      1.81 : EXTERNAL : ORI=WEST : FSKY=0.5
+WALL         =EXTERN     : SURF= 34 : AREA=       6.6 : EXTERNAL : ORI=SOUTH : FSKY=0.5
+WINDOW=PATIODOOR  : SURF= 35 : AREA=      4.55 : EXTERNAL : ORI=SOUTH : FSKY=0.5
+ REGIME
+ CAPACITANCE = 652.5   : VOLUME= 54.376  : REFAREA= 1       : TINITIAL= 20      : PHINITIAL= 50      : WCAPR= 1
+*--------------------------------------------------------------------------------
+*  O u t p u t s
+*--------------------------------------------------------------------------------
+OUTPUTS
+ TRANSFER : TIMEBASE=1.000
+ AIRNODES = GROUNDFLR UPSTAIRS ATTIC GARAGE SUNROOM 
+ NTYPES =   1 : TAIR - air temperature of airnode
+        =   9 : RELHUM - relativ humidity of airnode air
+ AIRNODES = GROUNDFLR 
+ NTYPES =  18 : SURF = 1,  : TSO - outside surface temperature
+        =  20 : SURF = 1,  : QCOMO - energy to the outside surface incl. conv. to the air and l-wave radiation to other surfaces or Tsky
+ AIRNODES = GARAGE 
+ NTYPES =  18 : SURF = 8,  : TSO - outside surface temperature
+        =  20 : SURF = 8,  : QCOMO - energy to the outside surface incl. conv. to the air and l-wave radiation to other surfaces or Tsky
+ AIRNODES = SUNROOM 
+ NTYPES =  18 : SURF = 11,  : TSO - outside surface temperature
+        =  20 : SURF = 11,  : QCOMO - energy to the outside surface incl. conv. to the air and l-wave radiation to other surfaces or Tsky
+ AIRNODES = GROUNDFLR SUNROOM GARAGE UPSTAIRS ATTIC 
+ NTYPES =  30 : QHEAT - sensible heating demand of airnode (positive values)
+*
+*--------------------------------------------------------------------------------
+*--------------------------------------------------------------------------------
+*--------------------------------------------------------------------------------
+*  T R N S F L O W Multizone Airflow Network (Model COMIS 3.1)
+*--------------------------------------------------------------------------------
+*--------------------------------------------------------------------------------
+*--------------------------------------------------------------------------------
+*
+*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+MULTIZONE_AIRFLOW_NETWORK
+*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+*
+CALCFLOWS=0
+*--------------------------------------------------------------------------------
+*  A d d  T R N S F L O W  C o m m a n d s
+*--------------------------------------------------------------------------------
+*
+*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+POLLUTANTS
+*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+*
+*
+*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+LINKTYPES
+*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+*
+*--------------------------------------------------------------------------------
+*  C r a c k s
+*--------------------------------------------------------------------------------
+*--------------------------------------------------------------------------------
+*  F a n s
+*--------------------------------------------------------------------------------
+*--------------------------------------------------------------------------------
+*  S t r a i g h t   D u c t s
+*--------------------------------------------------------------------------------
+*--------------------------------------------------------------------------------
+*  F l o w   C o n t r o l l e r s
+*--------------------------------------------------------------------------------
+*--------------------------------------------------------------------------------
+*  L a r g e    V e r t i c a l   Openings (Windows+Doors)
+*--------------------------------------------------------------------------------
+*--------------------------------------------------------------------------------
+*  T e s t   D a t a   C o m p o n e n t s
+*--------------------------------------------------------------------------------
+*
+*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+NODETYPES
+*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+*
+*--------------------------------------------------------------------------------
+*  E x t e r n a l   N o d e s  (CP VALUES)
+*--------------------------------------------------------------------------------
+*--------------------------------------------------------------------------------
+*  A u x i l i a r y   N o d e s
+*--------------------------------------------------------------------------------
+*--------------------------------------------------------------------------------
+*  T h e r m a l  Z o n e   N o d e s
+*--------------------------------------------------------------------------------
+*--------------------------------------------------------------------------------
+*  W i n d   v e  l o c i t y   p r o f i l e
+*--------------------------------------------------------------------------------
+*
+*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+WIND_VELOPROF
+*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+*
+*--------------------------------------------------------------------------------
+*  A i r l i n k   N e t w o r k
+*--------------------------------------------------------------------------------
+*
+*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+AIRLINK_NETWORK
+*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+*
+*--------------------------------------------------------------------------------
+*  E n d
+*--------------------------------------------------------------------------------
+END
+
+_EXTENSION_WINPOOL_START_
+WINDOW 4.1  DOE-2 Data File : Multi Band Calculation
+Unit System : SI
+Name        : TRNSYS 15 WINDOW LIB
+Desc        : virtual (non existant or open) window
+Window ID   : 1
+Tilt        : 90.0
+Glazings    : 1
+Frame       : 11                       2.270
+Spacer      :  1 Class1                2.330  -0.010   0.138
+Total Height: 1219.2 mm
+Total Width :  914.4 mm
+Glass Height: 1079.5 mm
+Glass Width :  774.7 mm
+Mullion     : None
+Gap        Thick   Cond  dCond    Vis   dVis   Dens   dDens     Pr     dPr
+1              0       0      0      0      0      0       0      0       0
+2              0       0      0      0      0      0       0      0       0
+3              0       0      0      0      0      0       0      0       0
+4              0       0      0      0      0      0       0      0       0
+5              0       0      0      0      0      0       0      0       0
+Angle     0    10    20    30    40    50    60    70    80    90 Hemis
+Tsol  1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 0.998 0.000 0.998
+Abs1  0.000 0.000 0.000 0.000 0.000 0.000 0.000 0.000 0.001 0.000 0.001
+Abs2      0     0     0     0     0     0     0     0     0     0     0
+Abs3      0     0     0     0     0     0     0     0     0     0     0
+Abs4      0     0     0     0     0     0     0     0     0     0     0
+Abs5      0     0     0     0     0     0     0     0     0     0     0
+Abs6      0     0     0     0     0     0     0     0     0     0     0
+Rfsol 0.001 0.001 0.001 0.001 0.001 0.001 0.001 0.001 0.001 1.000 0.001
+Rbsol 0.001 0.001 0.001 0.001 0.001 0.001 0.001 0.001 0.001 1.000 0.001
+Tvis  1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 0.000 1.000
+Rfvis 0.000 0.000 0.000 0.000 0.000 0.000 0.000 0.000 0.000 0.000 0.000
+Rbvis 0.000 0.000 0.000 0.000 0.000 0.000 0.000 0.000 0.000 0.000 0.000
+SHGC  1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 1.000 0.000 1.000
+Tvis_daylight: 1
+Layer ID#         9052        0        0        0        0        0
+Tir              0.000        0        0        0        0        0
+Emis F           1.000        0        0        0        0        0
+Emis B           1.000        0        0        0        0        0
+Thickness(mm)    0.001        0        0        0        0        0
+Cond(W/m2-C     ) 999.0        0        0        0        0        0
+Spectral File     None     None     None     None     None     None
+Overall and Center of Glass Ig U-values (W/m2-C)
+Outdoor Temperature                 -17.8 C      15.6 C      26.7 C      37.8 C
+Solar      WdSpd  hcout hrout  hin
+(W/m2)     (m/s)     (W/m2-C)
+0        0.00  12.25  3.42  8.23  5.27 5.27  4.95 4.95  4.94 4.94  5.53 5.53
+0        6.71  25.47  3.33  8.29  6.26 6.26  5.73 5.73  5.68 5.68  6.46 6.46
+783        0.00  12.25  3.49  8.17  5.25 5.25  4.58 4.58  5.24 5.24  5.66 5.66
+783        6.71  25.47  3.37  8.27  6.25 6.25  5.53 5.53  5.95 5.95  6.57 6.57
+Window 5.2  v5.2.17  DOE-2 Data File : Multi Band Calculation
+Unit System : SI
+Name        : DOE-2 WINDOW LIB
+Desc        : ASH140 DBLE
+Window ID   : 6001
+Tilt        : 90.0
+Glazings    : 2
+Frame       :  2 Al w/break            5.680
+Spacer      :  1 Class1                2.330  -0.010   0.138
+Total Height: 1500.0 mm
+Total Width : 1200.0 mm
+Glass Height: 1385.7 mm
+Glass Width : 1085.7 mm
+Mullion     : None
+Gap        Thick    Cond  dCond    Vis   dVis   Dens   dDens     Pr     dPr
+1 Air       13.0 0.02407  7.760  1.722  4.940  1.292 -0.0046  0.720 -0.0002
+2              0       0      0      0      0      0       0      0       0
+3              0       0      0      0      0      0       0      0       0
+4              0       0      0      0      0      0       0      0       0
+5              0       0      0      0      0      0       0      0       0
+Angle     0    10    20    30    40    50    60    70    80    90 Hemis
+Tsol  0.746 0.746 0.743 0.737 0.723 0.690 0.619 0.472 0.226 0.000 0.642
+Abs1  0.068 0.068 0.069 0.072 0.075 0.079 0.085 0.094 0.101 0.000 0.079
+Abs2  0.055 0.055 0.056 0.058 0.060 0.061 0.061 0.056 0.043 0.000 0.057
+Abs3      0     0     0     0     0     0     0     0     0     0     0
+Abs4      0     0     0     0     0     0     0     0     0     0     0
+Abs5      0     0     0     0     0     0     0     0     0     0     0
+Abs6      0     0     0     0     0     0     0     0     0     0     0
+Rfsol 0.130 0.130 0.131 0.133 0.142 0.169 0.234 0.378 0.629 1.000 0.211
+Rbsol 0.130 0.130 0.131 0.133 0.142 0.169 0.234 0.378 0.629 1.000 0.211
+Tvis  0.814 0.814 0.813 0.809 0.797 0.766 0.693 0.537 0.272 0.000 0.712
+Rfvis 0.150 0.150 0.150 0.153 0.164 0.193 0.264 0.418 0.682 1.000 0.238
+Rbvis 0.150 0.150 0.150 0.153 0.164 0.193 0.264 0.418 0.682 1.000 0.238
+SHGC  0.789 0.789 0.787 0.782 0.769 0.739 0.668 0.519 0.267 0.000 0.688
+Tvis_daylight: 0.814
+Layer ID#         9991     9991        0        0        0        0
+Tir              0.000    0.000        0        0        0        0
+Emis F           0.840    0.840        0        0        0        0
+Emis B           0.840    0.840        0        0        0        0
+Thickness(mm)      3.2      3.2        0        0        0        0
+Cond(W/m2-K     ) 333.9    333.9        0        0        0        0
+Spectral File         None         None         None         None         None         None
+Overall and Center of Glass Ig U-values (W/m2-K)
+Outdoor Temperature                 -17.8 C      15.6 C      26.7 C      37.8 C
+Solar      WdSpd  hcout hrout  hin
+(W/m2)     (m/s)     (W/m2-K)
+0        0.00   4.00  3.39  2.43  2.12 2.12  2.24 2.24  2.32 2.32  2.49 2.49
+0        6.71  30.84  3.23  2.58  2.72 2.72  2.80 2.80  2.89 2.89  3.13 3.13
+783        0.00   4.00  3.52  2.03  2.12 2.12  2.24 2.24  2.32 2.32  2.49 2.49
+783        6.71  30.84  3.27  2.39  2.72 2.72  2.80 2.80  2.89 2.89  3.13 3.13
+WINDOW 4.1  TRNSYS 15 Data File : Multi Band Calculation
+Unit System : SI
+Name        : TRNSYS 15 WINDOW LIB
+Desc        : Single
+Window ID   : 1001
+Tilt        : 90.0
+Glazings    : 1
+Frame       :  1 Al no break          10.790
+Spacer      :  1 Class1                2.330  -0.010   0.138
+Total Height: 1219.2 mm
+Total Width :  914.4 mm
+Glass Height: 1104.9 mm
+Glass Width :  800.1 mm
+Mullion     : None
+Gap        Thick   Cond  dCond    Vis   dVis   Dens   dDens     Pr     dPr
+1              0       0      0      0      0      0       0      0       0
+2              0       0      0      0      0      0       0      0       0
+3              0       0      0      0      0      0       0      0       0
+4              0       0      0      0      0      0       0      0       0
+5              0       0      0      0      0      0       0      0       0
+Angle     0    10    20    30    40    50    60    70    80    90 Hemis
+Tsol  0.850 0.850 0.848 0.844 0.835 0.814 0.766 0.652 0.399 0.000 0.770
+Abs1  0.075 0.076 0.077 0.080 0.083 0.087 0.091 0.093 0.092 0.000 0.084
+Abs2      0     0     0     0     0     0     0     0     0     0     0
+Abs3      0     0     0     0     0     0     0     0     0     0     0
+Abs4      0     0     0     0     0     0     0     0     0     0     0
+Abs5      0     0     0     0     0     0     0     0     0     0     0
+Abs6      0     0     0     0     0     0     0     0     0     0     0
+Rfsol 0.075 0.074 0.075 0.076 0.082 0.099 0.144 0.255 0.509 1.000 0.136
+Rbsol 0.075 0.074 0.075 0.076 0.082 0.099 0.144 0.255 0.509 1.000 0.136
+Tvis  0.901 0.901 0.900 0.897 0.890 0.871 0.824 0.706 0.441 0.000 0.823
+Rfvis 0.081 0.081 0.082 0.083 0.090 0.108 0.155 0.271 0.536 1.000 0.146
+Rbvis 0.081 0.081 0.082 0.083 0.090 0.108 0.155 0.271 0.536 1.000 0.146
+SHGC  0.870 0.870 0.868 0.865 0.857 0.837 0.790 0.677 0.423 0.000 0.792
+Tvis_daylight: 0.901
+Layer ID#            1        0        0        0        0        0
+Tir              0.000        0        0        0        0        0
+Emis F           0.840        0        0        0        0        0
+Emis B           0.840        0        0        0        0        0
+Thickness(mm)      2.5        0        0        0        0        0
+Cond(W/m2-C     ) 360.0        0        0        0        0        0
+Spectral File     None     None     None     None     None     None
+Overall and Center of Glass Ig U-values (W/m2-C)
+Outdoor Temperature                 -17.8 C      15.6 C      26.7 C      37.8 C
+Solar      WdSpd  hcout hrout  hin
+(W/m2)     (m/s)     (W/m2-C)
+0        0.00  12.25  3.43  8.23  5.32 5.32  4.99 4.99  4.98 4.98  5.59 5.59
+0        6.71  25.47  3.34  8.30  6.33 6.33  5.79 5.79  5.74 5.74  6.54 6.54
+783        0.00  12.25  3.47  8.18  5.30 5.30  4.76 4.76  5.24 5.24  5.70 5.70
+783        6.71  25.47  3.37  8.28  6.32 6.32  5.64 5.64  5.96 5.96  6.63 6.63
+WINDOW 4.1  TRNSYS 15 Data File : Multi Band Calculation
+Unit System : SI
+Name        : TRNSYS 15 WINDOW LIB
+Desc        : Dble,Low-e,Ar
+Window ID   : 5001
+Tilt        : 90.0
+Glazings    : 2
+Frame       :  1 Al no break          10.790
+Spacer      :  1 Class1                2.330  -0.010   0.138
+Total Height: 1219.2 mm
+Total Width :  914.4 mm
+Glass Height: 1104.9 mm
+Glass Width :  800.1 mm
+Mullion     : None
+Gap        Thick   Cond  dCond    Vis   dVis   Dens   dDens     Pr     dPr
+1 Argon     12.7 0.01620  5.000  2.110  6.300  1.780 -0.0060  0.680 0.00066
+2              0       0      0      0      0      0       0      0       0
+3              0       0      0      0      0      0       0      0       0
+4              0       0      0      0      0      0       0      0       0
+5              0       0      0      0      0      0       0      0       0
+Angle     0    10    20    30    40    50    60    70    80    90 Hemis
+Tsol  0.544 0.548 0.539 0.529 0.514 0.486 0.426 0.312 0.145 0.000 0.453
+Abs1  0.187 0.190 0.200 0.207 0.210 0.218 0.242 0.273 0.248 0.001 0.221
+Abs2  0.048 0.049 0.049 0.050 0.051 0.052 0.050 0.045 0.033 0.000 0.048
+Abs3      0     0     0     0     0     0     0     0     0     0     0
+Abs4      0     0     0     0     0     0     0     0     0     0     0
+Abs5      0     0     0     0     0     0     0     0     0     0     0
+Abs6      0     0     0     0     0     0     0     0     0     0     0
+Rfsol 0.220 0.214 0.212 0.214 0.224 0.244 0.282 0.371 0.574 0.999 0.268
+Rbsol 0.236 0.231 0.230 0.232 0.241 0.261 0.307 0.414 0.629 1.000 0.291
+Tvis  0.769 0.774 0.763 0.749 0.730 0.692 0.605 0.440 0.205 0.000 0.642
+Rfvis 0.138 0.131 0.128 0.131 0.143 0.168 0.217 0.323 0.549 0.999 0.197
+Rbvis 0.127 0.120 0.119 0.124 0.138 0.168 0.233 0.379 0.650 1.000 0.208
+SHGC  0.596 0.600 0.592 0.583 0.569 0.543 0.483 0.366 0.188 0.000 0.507
+Tvis_daylight: 0.769
+Layer ID#          400        1        0        0        0        0
+Tir              0.000    0.000        0        0        0        0
+Emis F           0.840    0.840        0        0        0        0
+Emis B           0.100    0.840        0        0        0        0
+Thickness(mm)      3.0      2.5        0        0        0        0
+Cond(W/m2-C     ) 300.0    360.0        0        0        0        0
+Spectral File     None     None     None     None     None     None
+Overall and Center of Glass Ig U-values (W/m2-C)
+Outdoor Temperature                 -17.8 C      15.6 C      26.7 C      37.8 C
+Solar      WdSpd  hcout hrout  hin
+(W/m2)     (m/s)     (W/m2-C)
+0        0.00  12.25  3.24  7.59  1.44 1.44  1.35 1.35  1.38 1.38  1.45 1.45
+0        6.71  25.47  3.21  7.62  1.51 1.51  1.39 1.39  1.43 1.43  1.51 1.51
+783        0.00  12.25  3.41  6.82  1.41 1.41  1.42 1.42  1.47 1.47  1.53 1.53
+783        6.71  25.47  3.31  7.10  1.51 1.51  1.45 1.45  1.51 1.51  1.56 1.56
+*** END OF LIBRARY ***
+************************************************************************************************************
+*WinID   Description                              Design         U-Value g-value T-sol Rf-sol T-vis-daylight
+************************************************************************************************************
+     1   virtual (non existant or open) window    0.001            5.68  1  1  0.001  1
+  6001   ASH140 DBLE                              3.2/13/3.2       2.89  0.789  0.746  0.13  0.814
+  1001   Single                                   2.5              5.74  0.87  0.85  0.075  0.901
+  5001   Dble,Low-e,Ar                            3/12.7/2.5       1.43  0.596  0.544  0.22  0.769
+_EXTENSION_WINPOOL_END_
+
+_EXTENSION_BuildingGeometry_START_
+
+_EXTENSION_BuildingGeometry_END_
+
+
+_EXTENSION_VirtualSurfaceGeometry_START_
+_EXTENSION_VirtualSurfaceGeometry_END_
+
+
+_EXTENSION_ExternalShadingGeometry_START_
+
+_EXTENSION_ExternalShadingGeometry_END_
+
+
+_EXTENSION_GeoPositionGeometry_START_
+_EXTENSION_GeoPositionGeometry_END_
+
+
+_EXTENSION_DaylightSensorPoints_START_
+_EXTENSION_DaylightSensorPoints_END_
+
+
+_EXTENSION_AdditionalDaylightGeometry_START_
+_EXTENSION_AdditionalDaylightGeometry_END_
+
+
+_EXTENSION_VAMPARAMS_START_
+_EXTENSION_VAMPARAMS_END_
+
+
+

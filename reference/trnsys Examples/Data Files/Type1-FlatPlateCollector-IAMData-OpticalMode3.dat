@@ -1,0 +1,41 @@
+   0   10   20   30   40   50   60   70   80   90
+1.000
+0.997
+0.988
+0.971
+0.943
+0.897
+0.815
+0.644
+0.120
+0.000
+* --- Comments (These lines are ignored by Type 1) ---
+*
+*
+* This file includes IAM data for a hypothetical collector for which the following data is available:
+*
+* Incidence angle  |    0° |   10° |   20° |   30° |   40° |   50° |   60° |   70° |   80° |   90° |
+* --------------------------------------------------------------------------------------------------
+* IAM              | 1.000 | 0.997 | 0.988 | 0.971 | 0.943 | 0.897 | 0.815 | 0.644 | 0.120 | 0.000 |
+*
+* NOTE: These values are not meant to be representative of "standard solar collectors". 
+*      They were chosen to illustrate the use of Type 1
+*      Collector test reports are available on the web from testing institutes if you need 
+*      representative data (e.g. www.spf.ch).
+*
+* The data file for Type1 must include the following data:
+*
+* --- The file first includes the 10 values of incidence angle:
+*    0   10   20   30   40   50   60   70   80   90
+* --- Then a column of IAM values for different angles.
+* --- 1 st value: IAM for incidence angle = 0°
+* 1.00
+* --- 2 nd value: IAM for incidence angle = 10°
+* 0.997
+* --- 3 rd value: IAM for incidence angle = 20°
+* 0.988
+* --- Etc.
+* --- 9th  value: IAM for incidence angle = 80°
+* 0.120
+* --- 10th value: IAM for incidence angle = 90°
+* 0.000

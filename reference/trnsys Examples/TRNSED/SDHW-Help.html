@@ -1,0 +1,182 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Language" content="en-us">
+<meta name="GENERATOR" content="Microsoft FrontPage 5.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>New Page 1</title>
+</head>
+
+<body>
+
+<div align="center">
+  <center>
+  <table border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111" width="740" id="AutoNumber1">
+    <tr>
+      <td>
+      <p align="center"><i><font face="Arial" size="6" color="#CC0000"><b>Solar 
+      Domestic Hot Water System</b></font></i></p>
+      <p align="center"><font size="4" face="Arial">A Simple TRNSED Demo</font></p>
+<h2><font face="Arial">Contents</font></h2>
+<ul>
+  <li><font face="Arial"><a href="#Install">Installing and Launching the 
+  program</a></font></li>
+  <li><font face="Arial"><a href="#System">Simulated System</a></font></li>
+  <li><font face="Arial"><a href="#SimSetup">Setting Up a Simulation and Getting Detailed Help</a></font></li>
+  <li><font face="Arial"><a href="#Run">Launching a Simulation</a></font></li>
+  <li><font face="Arial"><a href="#Results">Viewing and Interpreting results</a></font></li>
+  <li><font face="Arial"><a href="#Troubleshooting">Troubleshooting the simulation</a></font></li>
+</ul>
+<h2><font face="Arial"><a name="Install"></a>Installing and Launching the program</font></h2>
+<p><font face="Arial">The setup program has copied all the required files in the 
+destination directory you selected.</font></p>
+      <p><font face="Arial">You can launch the demo by running &quot;SDHW-TRNSED.exe&quot;. Once 
+      TRNSED is 
+launched, you should click on OK to close the welcome dialog box. The program 
+      will automatically open the SDHW-TRNSED.trd file.</font></p>
+<h3><font face="Arial">What is TRNSYS? What is TRNSED?</font></h3>
+<p><font face="Arial"><b>TRNSYS</b> ('tran-sis') is a <u>TR</u>a<u>N</u>sient <u>SY</u>stems <u>S</u>imulation program with a 
+modular structure. It recognizes a system description language in which the user 
+specifies the components that constitute the system and the manner in which they 
+are connected. The TRNSYS library includes many of the components commonly found 
+in thermal and electrical energy systems, as well as component routines to 
+handle input of weather data or other time-dependent forcing functions and 
+output of simulation results. The modular nature of TRNSYS procides the program 
+with tremendous flexibility, and facilitates the addition to the program of 
+mathematical models not included in the standard TRNSYS library. TRNSYS is well 
+suited to detailed analyses of any system whose behavior is dependent on the 
+passage of time. TRNSYS has become reference software for researchers and 
+engineers around the world. Main applications include: solar systems (solar 
+thermal and photovoltaic systems), low energy buildings and HVAC systems, 
+renewable energy systems, cogeneration, fuel cells. For more information, please 
+visit the 
+<a href="file:///D://MKuSEL/Trnsys/Trnsed/FCDemo/H2Demo20/sel.me.wisc.edu/trnsys">TRNSYS website</a>.</font></p>
+<p><font face="Arial"><b>TRNSED</b> is a stand-alone visual interface for TRNSYS. It can be freely 
+redistributed and allows TRNSYS users to share their work with other persons who 
+do not own a TRNSYS license or who do not understand all the details involved in 
+a simulation.</font></p>
+<p><font face="Arial"><a href="#Top">Back to Contents</a></font></p>
+<h2><font face="Arial"><a name="System"></a>Simulated System</font></h2>
+<p style="text-align: center">
+<font face="Arial">
+<img border="0" src="SDHW-Schematics.bmp" width="700" height="500"></font></p>
+<p><font face="Arial">The Solar Domestic Hot Water (SDHW) system consists of 
+solar collectors, a storage tank with auxiliary heating, a controller for the 
+solar loop and some piping equipment.&nbsp; </font></p>
+<p><font face="Arial">The simulation also includes Utility Components (Weather 
+Data and Solar Radiation Processor, Load, etc.). </font></p>
+<h3><font face="Arial">Simulation Parameters</font></h3>
+<p><font face="Arial">The TRNSYS models are often very detailed and require 
+some technical knowledge to
+modify their parameters. The aim of this TRNSED application is to allow users to 
+modify a few global parameters (system location, yearly load, rated power of the 
+different components) in order to get a feeling on how the system works without 
+having to understand the detailed models. The detail level of required 
+parameters can be adapted to the intended user of the simulation.</font></p>
+<h3><font face="Arial">Simulation outputs</font></h3>
+
+<p><font face="Arial">The main simulation results are plotted during the simulation, and 
+4 output 
+files
+are also created: SDHW-TRNSED.plt and .pl2 present a printed version of&nbsp; 
+all the variables plotted by the online plotter. &quot;daily.txt&quot; and &quot;Totals.txt&quot; 
+have integrated data.</font></p>
+
+<p><font face="Arial"><a href="#Top">Back to Contents</a></font></p>
+
+<h2><font face="Arial"><a name="SimSetup"></a>Setting Up a Simulation</font></h2>
+
+<p><font face="Arial">The simulations are set up entirely from input fields in 
+the different tabs. In 
+numerical value fields, you will type the value of a certain parameter, say the 
+collector area, or the slope of the collectors. TRNSED will try to detect if a 
+parameter that you have typed is out of range and warn you accordingly.</font></p>
+
+<p><font face="Arial"><a href="#Top">Back to Content</a></font></p>
+
+<h2><font face="Arial"><a name="Run"></a>Launching a Simulation</font></h2>
+
+<p><font face="Arial">To launch a simulation, select “Calculate” from the TRNSYS menu at the 
+top of the screen or press the F8 key. After a moment, an online display of 
+system variables will pop up and your simulation will begin to run. At the end 
+of the simulation, a message will pop up saying that calculations have 
+completed, do you wish to exit the online plotter. If you click yes, the program 
+will revert back to its input screen. If you click no, the online plotter will 
+stay visible until you select “Exit Online Plotter” from the “Calculations” menu 
+at the top left of the screen. Information on viewing and interpreting results 
+is included in the &quot;<a href="#Results">Viewing and Interpreting Results</a>&quot; section of this document.</font></p>
+
+<p><font face="Arial"><a href="#Top">Back to Content</a></font></p>
+
+<h2><font face="Arial"><a name="Results"></a>Viewing and Interpreting Results</font></h2>
+
+<p><font face="Arial">There are a few different ways that you can see results from a 
+TRNSYS 
+simulation.  </font></p>
+
+<h3><font face="Arial">Using the online plotter</font></h3>
+
+<p><font face="Arial">Once a simulation has completed, you can click “No” when asked 
+whether you want to exit the online plotter. With the online plot still 
+displayed, hold down the shift key and move the mouse along the x-axis and the 
+names of the displayed variables (at the top of the plot) will be replaced by 
+their values. If you press CTRL-SHIFT while moving the mouse, only the values 
+occurring at a time step will be displayed (i.e. interpolation will be turned 
+off in the online plotter).</font></p>
+
+<p><font face="Arial">If the plot is too complex, you can “switch off” variables from 
+the display by clicking on their names. You might notice that some variables are 
+switched off in the default configuration to make the plot more readable. They 
+are greyed out on the display. Just click on a variable name to activate it 
+again.</font></p>
+
+<p><font face="Arial">You can also zoom in the plots by selecting a 
+rectangular area with the mouse (click on the plot to select the upper left 
+corner and then drag to define the rectangle. The zoom window is created when 
+you release the mouse button). In the zoom window, you can display the value of 
+all variables for a given time by pressing shift and moving the mouse. If you 
+click on an axis (time, left or right axis) a control box will popup where you 
+can modify the axis limits.</font></p>
+
+<p><font face="Arial">You can also change the background color of the plot 
+between black and white using the “Plot Options” menu. </font></p>
+
+<h3><font face="Arial">Additional output files</font></h3>
+
+<p><font face="Arial">The plotted values are also printed to text files (.plt an 
+.pl2, located in the destination directory). You can import those text 
+files in any post-processing program for further analysis. Daily integrated 
+values and wimulation totals are also available in &quot;Daily.txt&quot; and &quot;Totals.txt&quot;.</font></p>
+
+<p><font face="Arial"><a href="#Top">Back to Contents</a></font></p>
+
+<h2><font face="Arial"><a name="Troubleshooting"></a>Troubleshooting the 
+simulation</font></h2>
+
+<p><font face="Arial">If ever you run a simulation and TRNSYS encounters a problem, it will display 
+the message that “an error was found in the deck, please check the listing file 
+for more information.” The deck is the TRNSYS input file and the listing file 
+(.lst) is 
+generated every time the TRNSED demo is run. There is a large amount of 
+complex information in the listing file but the actual errors that caused the 
+simulation to stop are likely to be printed at the very end of the file. The 
+simulation log file offers a more condensed version of error messages and 
+warnings. You can view the log file by selecting &quot;Windows / Log&quot;.</font></p>
+
+<p><font face="Arial">Most errors come from bad parameters or bad a parameter 
+combination. You can try to solve the problem by reverting the last parameter 
+change you made.</font></p>
+
+<p><font face="Arial"><a href="#Top">Back to Contents</a></font></p>
+
+      <p align="justify">&nbsp;</p>
+      <p align="justify">&nbsp;</td>
+    </tr>
+  </table>
+  </center>
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,16 @@
+8
+  1,Generic Model Reference Curve (40 kW) (DEGS2.EES)
+  40.0     2.0780  9.2521
+  2,Volvo Penta D 100 B Gen Set (72 kW) (Neumann, 1987)
+  72.0     4.2419  16.4926
+  3,MAN Diesel-Motor D 0224 ME (32 kW) (Pryor, 2001)
+  32.0     1.2945  7.4180
+  4,DEUTZ air cooled engines (20 kW) (DEUTZ, 1996)
+  20.0     0.8038  4.3500
+  5,Onan DGCB Diesel-Fueled Gen Set (18 kW) (Onan, 1994a)
+  18.0     1.5500  4.8000
+  6,Onan DKAE Diesel-Fueled Gen Set (55 kW) (Onan, 1994b)
+  55.0     2.5000  13.2000
+  7,Generic Model Rottnest Island (300 kW) (DEGS2.EES)
+  300.0   13.6986  60.9906
+  8,Detroit Diesel Gen Set (522 kW) (Cippitelli, 1992)

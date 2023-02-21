@@ -1,0 +1,7 @@
+12.78  15.56  18.33  21.11  23.89  26.67          ! Values of Entering Air Dry-Bulb Temperature (C)
+1.03 	       0.88               ! Multipliers for Heating Capacity and Power at 12.78
+1.02 	       0.92               ! Multipliers for Heating Capacity and Power at 15.56
+1.01 	       0.96               ! Multipliers for Heating Capacity and Power at 18.33
+1.00 	       1.00               ! Multipliers for Heating Capacity and Power at 21.11
+0.99 	       1.04               ! Multipliers for Heating Capacity and Power at 23.89
+0.98 	       1.08               ! Multipliers for Heating Capacity and Power at 26.67

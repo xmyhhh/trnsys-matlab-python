@@ -1,0 +1,7 @@
+! This file provides the mapping instructions for picture SDHW-Schematics.bmp
+<area href="#Simulation parameters" coords="40,30,100,100" hint="Simulation controls and Location">
+<area href="Help\SDHW-Advanced-Help.html" coords="600,30,660,100" hint="Click here for help">
+<area href="#Solar Collector" coords="365,110,434,175" hint="Solar collectors parameters">
+<area href="#Storage Tank" coords="450,300,520,365" hint="Storage Tank parameters">
+<area href="#DHW Load" coords="170,400,235,470" hint="DHW Load">
+<area href="#Outputs" coords="520,25,580,90" hint="Simulation Outputs">

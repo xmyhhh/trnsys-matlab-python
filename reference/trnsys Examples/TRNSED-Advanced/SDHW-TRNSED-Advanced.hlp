@@ -1,0 +1,4 @@
+.topic=1
+This is the total area for the whole collector array. It should match the reference area (Gross, Aperture or Absorber) used when defining the efficiency parameters a0, a1 and a2.
+.topic=1000
+No text-based help has been provided for this topic.

@@ -1,0 +1,27 @@
+283.14	330.33		!Values of Airflow in liters per second (l/s) 
+0.19	0.28	0.38	!Values of Liquid Flow Rate in liters per second (l/s)
+-1.11	10	21.11	32.22 !Values of Entering Liquid Temperature in Degrees Celsius
+14652	4104		!Total Heating(kJ/h) and Power(kJ/h) at 283.14/0.19/-1.11  
+19728	4392		!Total Heating(kJ/h) and Power(kJ/h) at 283.14/0.19/10 
+24372	4752		!Total Heating(kJ/h) and Power(kJ/h) at 283.14/0.19/21.11
+28584	5076		!Total Heating(kJ/h) and Power(kJ/h) at 283.14/0.19/32.22
+15408	4212		!Total Heating(kJ/h) and Power(kJ/h) at 283.14/0.28/-1.11 
+20664	4500		!Total Heating(kJ/h) and Power(kJ/h) at 283.14/0.28/10 
+25524	4860		!Total Heating(kJ/h) and Power(kJ/h) at 283.14/0.28/21.11 
+29772	5184		!Total Heating(kJ/h) and Power(kJ/h) at 283.14/0.28/32.22
+15732	4248		!Total Heating(kJ/h) and Power(kJ/h) at 283.14/0.38/-1.11
+20988	4572		!Total Heating(kJ/h) and Power(kJ/h) at 283.14/0.38/10 
+26172	4932		!Total Heating(kJ/h) and Power(kJ/h) at 283.14/0.38/21.11
+30276	5256		!Total Heating(kJ/h) and Power(kJ/h) at 283.14/0.38/32.22
+14976	4176		!Total Heating(kJ/h) and Power(kJ/h) at 330.33/0.19/-1.11
+20160	4392		!Total Heating(kJ/h) and Power(kJ/h) at 330.33/0.19/10 
+24912	4680		!Total Heating(kJ/h) and Power(kJ/h) at 330.33/0.19/21.11
+29556	4932		!Total Heating(kJ/h) and Power(kJ/h) at 330.33/0.19/32.22
+15732	4248		!Total Heating(kJ/h) and Power(kJ/h) at 330.33/0.28/-1.11
+21096	4500		!Total Heating(kJ/h) and Power(kJ/h) at 330.33/0.28/10 
+26172	4788		!Total Heating(kJ/h) and Power(kJ/h) at 330.33/0.28/21.11
+30924	5040		!Total Heating(kJ/h) and Power(kJ/h) at 330.33/0.28/32.22
+16056	4284		!Total Heating(kJ/h) and Power(kJ/h) at 330.33/0.38/-1.11
+21528	4536		!Total Heating(kJ/h) and Power(kJ/h) at 330.33/0.38/10 
+26784	4824		!Total Heating(kJ/h) and Power(kJ/h) at 330.33/0.38/21.11
+31428	5076		!Total Heating(kJ/h) and Power(kJ/h) at 330.33/0.38/32.22
