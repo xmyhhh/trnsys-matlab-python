@@ -214,7 +214,7 @@ DDPG_VarianceDecayRate = 1e-5; % Half-life of 1,000 episodes
 agent = rlDDPGAgent(actor, critic, agentOpts);
 
 maxepisodes = MAX_EPISODES;
-maxsteps = ceil(Tf/Ts);
+maxsteps = 3600 ;
 
 % For parallel computing: 'UseParallel',true, ...
 criticOptions.UseDevice = 'gpu';

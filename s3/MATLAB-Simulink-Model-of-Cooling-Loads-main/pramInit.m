@@ -105,7 +105,7 @@ tSetpoint = 23; % degC
 assignin('base','tSetpoint',tSetpoint);
 
 % Room air initial temperature
-tRoom  = 5;     % deg C
+tRoom  = 23;     % deg C
 
 assignin('base','tRoom',tRoom);
 

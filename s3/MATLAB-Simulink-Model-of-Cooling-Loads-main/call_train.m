@@ -1,5 +1,16 @@
 function outputArg = call_train(exp_name, cfg_name, max_eps, VALVE_SIMULATION_MODEL, BATCH_SIZE, ACCEPTABLE_DELTA, action_min, action_max)
 
+
+    exp_name = "default";
+    cfg_name = "h0";
+    VALVE_SIMULATION_MODEL = "sm_DDPG_Training_Circuit_h0";
+    BATCH_SIZE = 128;
+    ACCEPTABLE_DELTA = 0.5;
+    max_eps = 1000;
+    action_min = 0.01;
+    action_max = 0.23;
+
+
     hyper_MODELS_PATH = strcat('./results/' , exp_name , '/' , cfg_name , '/' );
     hyper_VALVE_SIMULATION_MODEL = VALVE_SIMULATION_MODEL;
     hyper_BATCH_SIZE = BATCH_SIZE;
@@ -7,6 +18,9 @@ function outputArg = call_train(exp_name, cfg_name, max_eps, VALVE_SIMULATION_MO
     hyper_MAX_EPISODES = max_eps;
     hyper_action_min = action_min;
     hyper_action_max = action_max;
+
+
+
 
     code_DDPG_Training;
     outputArg = 0;
