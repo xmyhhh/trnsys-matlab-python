@@ -4,11 +4,11 @@ function outputArg = call_train(exp_name, cfg_name, max_eps, VALVE_SIMULATION_MO
     exp_name = "default";
     cfg_name = "h0";
     VALVE_SIMULATION_MODEL = "sm_DDPG_Training_Circuit_h0";
-    BATCH_SIZE = 128;
+    BATCH_SIZE = 64;
     ACCEPTABLE_DELTA = 0.5;
-    max_eps = 1000;
+    max_eps = 2000;
     action_min = 0.01;
-    action_max = 0.23;
+    action_max = 0.22;
 
 
     hyper_MODELS_PATH = strcat('./results/' , exp_name , '/' , cfg_name , '/' );
