@@ -65,7 +65,7 @@
 
 clear all;
 delete(gcp('nocreate'))
-pool = parpool(6);
+pool = parpool(5);
 tstart= datetime();
 
 %% ========================================================================
@@ -86,8 +86,8 @@ USE_PRE_TRAINED_MODEL = false;
 PRE_TRAINED_MODEL_FILE = 'Grade_I.mat';
 
 %% Set training parameters
-SAVE_AGENT_THRESHOLD = 700;     % Save a point-model at this avg. reward 
-STOP_TRAINING = 730;            % Stop model training at this avg. reward 
+SAVE_AGENT_THRESHOLD = 12000;     % Save a point-model at this avg. reward 
+STOP_TRAINING = 20000;            % Stop model training at this avg. reward 
 MAX_REWARD = STOP_TRAINING;     % Stop model training at this avg. reward
 
 %% GRADED LEARNING PARAMETERS
@@ -113,10 +113,10 @@ AVERAGE_WINDOW = 50;        % Average over 50 time-steps
 ACCEPTABLE_DELTA = 0.05;
 
 % DDPG Hyper-paramaters
-criticLearningRate = 1e-03;
-actorLearningRate  = 1e-04;
+criticLearningRate = 1e-05;
+actorLearningRate  = 1e-06;
 GAMMA = 0.90;
-BATCH_SIZE = 64;
+BATCH_SIZE =128;
 
 % Critic network: Neurons for fully-connected Observsation (state) and Action paths 
 neuronsOP_FC1 = 50; neuronsOP_FC2 = 25; neuronsAP_FC1 = 25;
