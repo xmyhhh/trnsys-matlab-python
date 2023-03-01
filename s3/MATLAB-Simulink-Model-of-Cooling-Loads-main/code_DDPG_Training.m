@@ -87,8 +87,8 @@ USE_PRE_TRAINED_MODEL = false;
 PRE_TRAINED_MODEL_FILE = 'Grade_I.mat';
 
 %% Set training parameters
-SAVE_AGENT_THRESHOLD = 2000;     % Save a point-model at this avg. reward
-STOP_TRAINING = 10000;            % Stop model training at this avg. reward
+SAVE_AGENT_THRESHOLD = hyper_SAVE_AGENT_THRESHOLD;     % Save a point-model at this avg. reward
+STOP_TRAINING = hyper_STOP_TRAINING;            % Stop model training at this avg. reward
 MAX_REWARD = STOP_TRAINING;     % Stop model training at this avg. reward
 
 %% GRADED LEARNING PARAMETERS
@@ -110,16 +110,16 @@ assignin('base','TIME_DELAY',TIME_DELAY);
 % Epsiode and time related
 MAX_EPISODES = hyper_MAX_EPISODES;
 
-Ts = 1.0;   % Ts: Sample time (secs)
-Tf = 150;   % Tf: Simulation length (secs)
+Ts = hyper_agent_sample_time;   % Ts: Sample time (secs)
+
 assignin('base','Ts',Ts);
-assignin('base','Tf',Tf);
+
 AVERAGE_WINDOW = 50;        % Average over 50 time-steps 
 ACCEPTABLE_DELTA = hyper_ACCEPTABLE_DELTA;
 
 % DDPG Hyper-paramaters
-criticLearningRate = 1e-03;
-actorLearningRate  = 1e-04;
+criticLearningRate = hyper_criticLearningRate;
+actorLearningRate  = hyper_actorLearningRate;
 GAMMA = 0.90;
 BATCH_SIZE = hyper_BATCH_SIZE;
 
@@ -214,7 +214,7 @@ DDPG_VarianceDecayRate = 1e-5; % Half-life of 1,000 episodes
 agent = rlDDPGAgent(actor, critic, agentOpts);
 
 maxepisodes = MAX_EPISODES;
-maxsteps = 2000 ;
+maxsteps = hyper_maxsteps ;
 
 % For parallel computing: 'UseParallel',true, ...
 criticOptions.UseDevice = 'gpu';

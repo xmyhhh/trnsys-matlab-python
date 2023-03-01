@@ -1,4 +1,4 @@
-function outputArg = call_train(exp_name, cfg_name, max_eps, VALVE_SIMULATION_MODEL, BATCH_SIZE, ACCEPTABLE_DELTA, action_min, action_max)
+function outputArg = call_train(exp_name, cfg_name, max_eps, VALVE_SIMULATION_MODEL, BATCH_SIZE, ACCEPTABLE_DELTA, action_min, action_max, criticLearningRate, actorLearningRate, agent_sample_time, SAVE_AGENT_THRESHOLD, STOP_TRAINING, maxsteps)
 
 % 
 %     exp_name = "default";
@@ -20,7 +20,12 @@ function outputArg = call_train(exp_name, cfg_name, max_eps, VALVE_SIMULATION_MO
     hyper_action_max = action_max;
 
 
-
+    hyper_criticLearningRate = criticLearningRate;
+    hyper_actorLearningRate = actorLearningRate;
+    hyper_agent_sample_time = agent_sample_time;
+    hyper_SAVE_AGENT_THRESHOLD = SAVE_AGENT_THRESHOLD;
+    hyper_STOP_TRAINING = STOP_TRAINING;
+    hyper_maxsteps = maxsteps;
 
     code_DDPG_Training;
     outputArg = 0;
