@@ -214,7 +214,7 @@ DDPG_VarianceDecayRate = 1e-5; % Half-life of 1,000 episodes
 agent = rlDDPGAgent(actor, critic, agentOpts);
 
 maxepisodes = MAX_EPISODES;
-maxsteps = 1800 ;
+maxsteps = 2000 ;
 
 % For parallel computing: 'UseParallel',true, ...
 criticOptions.UseDevice = 'gpu';
@@ -284,7 +284,7 @@ telapsed
 function in = localResetFcn(in, RL_System)
     pramInit;
     block_Reference_Signal = strcat (RL_System, '/Reference_Signal');
-    Reference_Signal = 15.5 + randi(9) + rand;
+    Reference_Signal = 16 + randi(6) + rand;
     in = setBlockParameter(in, block_Reference_Signal, ...
         'Value', num2str(Reference_Signal));
 

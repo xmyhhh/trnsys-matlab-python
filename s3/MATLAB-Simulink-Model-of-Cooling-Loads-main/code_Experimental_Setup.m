@@ -31,6 +31,7 @@
 
 
 %% Set paths
+pramInit;
 MODELS_PATH = hyper_MODELS_PATH;
 VALVE_SIMULATION_MODEL = hyper_VALVE_SIMULATION_MODEL; % Simulink experimentation circuit
 RL_AGENT = strcat(VALVE_SIMULATION_MODEL, '/RL Sub-System/RL Agent');
@@ -106,14 +107,11 @@ set(0,'DefaultFigureVisible','off');
 figure
 set(gcf,'position',[50,50,5000,10000]);
 subplot(311)
-
-plot(experiences.SimulationInfo.tcw2_rl,'r')
+plot(experiences.SimulationInfo.reference,'r')
 hold on
-plot(experiences.SimulationInfo.reference,'g')
-hold on
-plot(experiences.SimulationInfo.tcw2_pid,'b')
-title('rl-pid-ref')
-legend('RL','Setting','PID')
+plot(experiences.SimulationInfo.rommTemperature_RL,'g')
+title('rl-ref')
+legend('Setting','RL')
 
 subplot(312)
 plot(experiences.Action.flow,'r')
@@ -129,6 +127,6 @@ plot(experiences.Observation.observations.Time, experiences.Observation.observat
 title('rl_Observation')
 legend('Observation-delta','Observation-accDelta');
 
-saveas(gcf, strcat(MODELS_PATH, "pid_vs_rl.png"))
+saveas(gcf, strcat(MODELS_PATH, "rl.png"))
 
 
