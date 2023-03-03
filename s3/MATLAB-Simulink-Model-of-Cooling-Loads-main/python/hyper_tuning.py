@@ -28,22 +28,22 @@ def OrderedYaml():
 
 
 def start_train(cfg, exp_name, cfg_name, hyper):
-    # try:
-    MATLAB_eng = matlab.engine.start_matlab()
+    try:
+        MATLAB_eng = matlab.engine.start_matlab()
 
-    MATLAB_eng.addpath(MATLAB_eng.genpath(MATLAB_eng.fullfile("../")))
-    if (cfg["task_type"]["train"]):
-        MATLAB_eng.call_train(exp_name, cfg_name, hyper['max_eps'], hyper['VALVE_SIMULATION_MODEL_Train'],
-                              hyper['batch'],
-                              hyper['ACCEPTABLE_DELTA'], hyper['action_range'][0], hyper['action_range'][1],
-                              hyper['criticLearningRate'],
-                              hyper['actorLearningRate'], hyper['agent_sample_time'], hyper['SAVE_AGENT_THRESHOLD'],
-                              hyper['STOP_TRAINING'], hyper['maxsteps'])
-    if (cfg["task_type"]["test"]):
-        MATLAB_eng.call_test(exp_name, cfg_name, cfg["task_type"]["test_sample_time"],
-                             hyper['VALVE_SIMULATION_MODEL_Test'], hyper['action_range'][0], hyper['action_range'][1])
-    # except:
-    #     print("task error in", cfg)
+        MATLAB_eng.addpath(MATLAB_eng.genpath(MATLAB_eng.fullfile("../")))
+        if (cfg["task_type"]["train"]):
+            MATLAB_eng.call_train(exp_name, cfg_name, hyper['max_eps'], hyper['VALVE_SIMULATION_MODEL_Train'],
+                                  hyper['batch'],
+                                  hyper['ACCEPTABLE_DELTA'], hyper['action_range'][0], hyper['action_range'][1],
+                                  hyper['criticLearningRate'],
+                                  hyper['actorLearningRate'], hyper['agent_sample_time'], hyper['SAVE_AGENT_THRESHOLD'],
+                                  hyper['STOP_TRAINING'], hyper['maxsteps'])
+        if (cfg["task_type"]["test"]):
+            MATLAB_eng.call_test(exp_name, cfg_name, cfg["task_type"]["test_sample_time"],
+                                 hyper['VALVE_SIMULATION_MODEL_Test'], hyper['action_range'][0], hyper['action_range'][1])
+    except:
+       print("task error in", cfg)
 
     return hyper
 

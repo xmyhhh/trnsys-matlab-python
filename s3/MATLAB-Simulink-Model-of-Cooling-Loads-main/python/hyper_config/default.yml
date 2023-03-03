@@ -1,10 +1,9 @@
 #### general settings
 name: default
-max_matlab_start : 2
+max_matlab_start : 4
 task_type:
   train: true
   test: true
-
   test_sample_time: 2000.0
 
 #### Train Settings
@@ -13,32 +12,83 @@ Hyper_array:
     VALVE_SIMULATION_MODEL_Train: 'sm_DDPG_Training_Circuit_h0'
     VALVE_SIMULATION_MODEL_Test: 'sm_Experimental_Setup_h0'
     batch: 128.0
-    max_eps: 200.0
+    max_eps: 10000.0
     ACCEPTABLE_DELTA : 0.04
-    action_range: [0.0, 0.18]
+    action_range: [0.01, 0.17]
 
-    criticLearningRate : 0.0001
-    actorLearningRate  : 0.00001
+    criticLearningRate : 0.00001
+    actorLearningRate  : 0.000001
 
-    agent_sample_time : 0.5
-    maxsteps: 10.0      #每局游戏最大步长
+    agent_sample_time : 1.0
+    maxsteps: 1800.0      #每局游戏最大步长
 
     SAVE_AGENT_THRESHOLD  : 18000.0
     STOP_TRAINING : 20000.0
 
   h1:
-    VALVE_SIMULATION_MODEL_Train: 'sm_DDPG_Training_Circuit_h0'
+    VALVE_SIMULATION_MODEL_Train: 'sm_DDPG_Training_Circuit_h1'
     VALVE_SIMULATION_MODEL_Test: 'sm_Experimental_Setup_h0'
     batch: 128.0
-    max_eps: 200.0
+    max_eps: 10000.0
     ACCEPTABLE_DELTA: 0.04
-    action_range: [ 0.0, 0.18]
+    action_range: [ 0.01, 0.17]
 
-    criticLearningRate: 0.00005
-    actorLearningRate: 0.000005
+    criticLearningRate: 0.000005
+    actorLearningRate: 0.0000005
 
-    agent_sample_time: 0.5
-    maxsteps: 10.0      #每局游戏最大步长
+    agent_sample_time: 1.0
+    maxsteps: 1800.0      #每局游戏最大步长
 
     SAVE_AGENT_THRESHOLD: 18000.0
     STOP_TRAINING: 20000.0
+
+  h2:
+    VALVE_SIMULATION_MODEL_Train: 'sm_DDPG_Training_Circuit_h2'
+    VALVE_SIMULATION_MODEL_Test: 'sm_Experimental_Setup_h0'
+    batch: 128.0
+    max_eps: 10000.0
+    ACCEPTABLE_DELTA: 0.04
+    action_range: [ 0.01, 0.17]
+
+    criticLearningRate : 0.0001
+    actorLearningRate  : 0.00001
+
+    agent_sample_time: 1.0
+    maxsteps: 1800.0      #每局游戏最大步长
+
+    SAVE_AGENT_THRESHOLD: 18000.0
+    STOP_TRAINING: 20000.0
+
+  h3:
+    VALVE_SIMULATION_MODEL_Train: 'sm_DDPG_Training_Circuit_h3'
+    VALVE_SIMULATION_MODEL_Test: 'sm_Experimental_Setup_h0'
+    batch: 128.0
+    max_eps: 10000.0
+    ACCEPTABLE_DELTA: 0.04
+    action_range: [ 0.01, 0.17]
+
+    criticLearningRate : 0.00005
+    actorLearningRate  : 0.000005
+
+    agent_sample_time: 1.0
+    maxsteps: 1800.0      #每局游戏最大步长
+
+    SAVE_AGENT_THRESHOLD: 18000.0
+    STOP_TRAINING: 20000.0
+
+  h4:
+    VALVE_SIMULATION_MODEL_Train: 'sm_DDPG_Training_Circuit_h4'
+    VALVE_SIMULATION_MODEL_Test: 'sm_Experimental_Setup_h0'
+    batch: 128.0
+    max_eps: 10000.0
+    ACCEPTABLE_DELTA: 0.04
+    action_range: [ 0.01, 0.17 ]
+
+    criticLearningRate: 0.00001
+    actorLearningRate: 0.000001
+
+    agent_sample_time: 0.5
+    maxsteps: 3600.0      #每局游戏最大步长
+
+    SAVE_AGENT_THRESHOLD: 36000.0
+    STOP_TRAINING: 40000.0

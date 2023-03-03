@@ -1,0 +1,10 @@
+name: "default"
+
+train:
+  predictor:
+    max_epoch: 20
+    dataset:
+      mode: "predictor_Dataset"
+      path: "dataset/alldata.xls"
+      worker: 16
+      batch_size: 64

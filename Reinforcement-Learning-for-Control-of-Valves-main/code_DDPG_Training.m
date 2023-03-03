@@ -105,7 +105,7 @@ fD = 3.5243/2;        % Valve static friction
 
 %% MODEL parameters
 % Epsiode and time related
-MAX_EPISODES = 600;
+MAX_EPISODES = 10000;
 Ts = 1.0;   % Ts: Sample time (secs)
 Tf = 150;   % Tf: Simulation length (secs)
 
