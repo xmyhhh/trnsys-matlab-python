@@ -2,9 +2,9 @@ name: "default"
 
 train:
   predictor:
-    max_epoch: 20
+    max_epoch: 1000
     dataset:
       mode: "predictor_Dataset"
       path: "dataset/alldata.xls"
-      worker: 16
-      batch_size: 64
+      worker: 4
+      batch_size: 128
