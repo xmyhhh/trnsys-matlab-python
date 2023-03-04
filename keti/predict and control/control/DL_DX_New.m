@@ -10,6 +10,6 @@ function y= DL_DX_New( x,xset,alpha)
 len=length(x);
 dL_dx=zeros(1,len);
 for i=1:len
-dL_dx(i)=((x(i)-xset(i))^2)*alpha(i);
+    dL_dx(i)=((x(i)-xset(i))^2)*alpha(i);
 end
 y=dL_dx;

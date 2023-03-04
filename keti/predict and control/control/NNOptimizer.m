@@ -56,9 +56,9 @@ function [u,xpre,W1,W2]= NNOptimizer(x,xset,v,param,W1_M,W2_M,W1_C,W2_C)
     loop=0;
    while check==1
          loop=loop+1;
-
+    
         %% ‘§≤‚P≤Ω
-         for i=1:P    
+         for i=1:P
               upre(:,i)=CONTROLLER_FORWARD_New(xpre(:,i),xset,v,W1_C,W2_C);      
               xpre(:,i+1)=MODEL_FORWARD_New(xpre(:,i),upre(:,i),v,W1_M,W2_M);                      
          end
