@@ -8,3 +8,14 @@ train:
       path: "dataset/alldata.xls"
       worker: 4
       batch_size: 128
+
+
+test:
+  test_step: 60
+  predictor:
+    pretrain_model_path: "save.pt"
+  controller:
+    max_step: 10
+  dataset:
+    path: "dataset/alldata.xls"
+

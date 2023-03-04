@@ -285,7 +285,7 @@ telapsed
 function in = localResetFcn(in, RL_System)
     pramInit;
     block_Reference_Signal = strcat (RL_System, '/Reference_Signal');
-    Reference_Signal = 16 + randi(6) + rand;
+    Reference_Signal = 22  + rand;
     in = setBlockParameter(in, block_Reference_Signal, ...
         'Value', num2str(Reference_Signal));
 

@@ -1,76 +1,80 @@
-#!/usr/bin/python
-# -*- coding:utf-8 -*-
-# ------------------------------------------------- #
-#      作者：赵泽荣
-#      时间：2021年9月9日（农历八月初三）
-#      个人站点：1.https://zhao302014.github.io/
-#              2.https://blog.csdn.net/IT_charge/
-#      个人GitHub地址：https://github.com/zhao302014
-# ------------------------------------------------- #
+import os
+import yaml
 import torch
-from net import MyAlexNet
+from torch import nn
+from tqdm import tqdm
+
+from data import create_dataset, create_dataloader
+from data.predictor_Dataset import predictor_Dataset
+from optimizer import SphericalOptimizer
+from utils.util import OrderedYaml
+from net import MLP
 import numpy as np
-from torch.autograd import Variable
-from torchvision import datasets, transforms
-from torchvision.transforms import ToPILImage
+from torch.optim import lr_scheduler
 
-data_transform = transforms.Compose([
-    transforms.Resize((224, 224)),  # 缩放图像大小为 224*224
-    transforms.ToTensor()  # 仅对数据做转换为 tensor 格式操作
-])
+def evala(model, data, kernel_code, loss_fn, optimizer, device, iter_num = 1000):
+    for iteration in tqdm(range(iter_num), ncols=60):
+        data["x"] = data["x"].to(device)
+        data["T_sf_set"] = data["T_sf_set"].to(device)
+        data["PUE_set"] = data["PUE_set"].to(device)
+        optimizer.zero_grad()
+        '''
+        # ---------------------
+        # (2.1) forward
+        # ---------------------
+         '''
 
-# 加载训练数据集
-train_dataset = datasets.MNIST(root='./MNIST', train=True, transform=data_transform, download=True)
-# 给训练集创建一个数据集加载器
-train_dataloader = torch.utils.data.DataLoader(dataset=train_dataset, batch_size=16, shuffle=True)
-# 加载测试数据集
-test_dataset = datasets.MNIST(root='./MNIST', train=False, transform=data_transform, download=True)
-# 给测试集创建一个数据集加载器
-test_dataloader = torch.utils.data.DataLoader(dataset=train_dataset, batch_size=16, shuffle=True)
+        # generate sr image
+        input = torch.cat([data["x"], kernel_code],dim = 0).unsqueeze(0)
+        out = model(input)
+        out = out + torch.tensor([data["x"][5], data["x"][8]]).unsqueeze(0).to(device)
+        '''
+        # ---------------------
+        # (2.2) backward
+        # ---------------------
+         '''
 
-# 如果显卡可用，则用显卡进行训练
-device = "cuda" if torch.cuda.is_available() else 'cpu'
+        loss = loss_fn(out, torch.tensor([data["T_sf_set"], data["PUE_set"]]).unsqueeze(0).to(device))
 
-# 调用 net 里定义的模型，如果 GPU 可用则将模型转到 GPU
-model = MyAlexNet().to(device)
-# 加载 train.py 里训练好的模型
-#model.load_state_dict(torch.load("./save_model/99model.pth"))
+        loss.backward()
+        optimizer.step()
 
-# 获取预测结果
-classes = [
-    "0",
-    "1",
-    "2",
-    "3",
-    "4",
-    "5",
-    "6",
-    "7",
-    "8",
-    "9",
-]
+        if (iteration % 10 == 0 or iteration == 1) :
+            print('\n Iter {}, loss: {}'.format(iteration, loss.data))
 
-# 把 tensor 转成 Image，方便可视化
-show = ToPILImage()
-# 进入验证阶段
-model.eval()
-# 对 test_dataset 里 10000 张手写数字图片进行推理
-for i in range(len(test_dataset)):
-    x, y = test_dataset[i][0], test_dataset[i][1]
-    # tensor格式数据可视化
-    show(x).show()
-    # 扩展张量维度为 4 维
-    x = Variable(torch.unsqueeze(x, dim=0).float(), requires_grad=False).to(device)
-    # 单通道转为三通道
-    x = x.cpu()
-    x = np.array(x)
-    x = x.transpose((1, 0, 2, 3))  # array 转置
-    x = np.concatenate((x, x, x), axis=0)
-    x = x.transpose((1, 0, 2, 3))  # array 转置回来
-    x = torch.tensor(x).to(device)  # 将 numpy 数据格式转为 tensor，并转回 cuda 格式
-    with torch.no_grad():
-        pred = model(x)
-        # 得到预测类别中最高的那一类，再把最高的这一类对应classes中的哪一个标签
-        predicted, actual = classes[torch.argmax(pred[0])], classes[y]
-        # 最终输出预测值与真实值
-        print(f'Predicted: "{predicted}", Actual: "{actual}"')
+if __name__ == '__main__':
+    config_path = "config/default.yml"
+    Loader, Dumper = OrderedYaml()
+    with open(config_path, mode='r') as f:
+        opt = yaml.load(f, Loader=Loader)
+
+    dataset = create_dataset(opt["train"]["predictor"]["dataset"])
+    # 如果显卡可用，则用显卡进行训练
+    device = "cuda" if torch.cuda.is_available() else 'cpu'
+
+    # 调用 net 里定义的模型，如果 GPU 可用则将模型转到 GPU
+    predictor_model = torch.load(opt["test"]["predictor"]["pretrain_model_path"])
+
+    predictor_model.eval()
+    for p in predictor_model.parameters(): p.requires_grad = False
+    kernel_code = torch.zeros(2).to(device)
+    kernel_code.requires_grad = True
+
+    optimizer = torch.optim.Adam([{'params': kernel_code}], lr=0.001)
+
+    # 定义损失函数
+    loss_fn = nn.MSELoss(reduction='mean')
+
+    for t in tqdm(range(opt["test"]["test_step"])):
+        print(f"Step {t + 1}\n----------------------")
+        #给定设定值、当前时刻的扰动、当前时刻的pue和送风温度
+        data = dataset.getitem(20000)
+        data["T_sf_set"] = torch.tensor(20)
+        data["PUE_set"] = torch.tensor(1.112)
+
+        evala(predictor_model, data, kernel_code, loss_fn, optimizer, device)
+
+
+
+
+    print("Done!")
