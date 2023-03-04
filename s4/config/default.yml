@@ -11,7 +11,7 @@ train:
 
 
 test:
-  test_step: 60
+  test_step: 1
   predictor:
     pretrain_model_path: "save.pt"
   controller:

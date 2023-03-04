@@ -3,7 +3,7 @@ import yaml
 import torch
 from torch import nn
 from tqdm import tqdm
-
+import matplotlib.pyplot as plt
 from data import create_dataset, create_dataloader
 from data.predictor_Dataset import predictor_Dataset
 from optimizer import SphericalOptimizer
@@ -13,7 +13,8 @@ import numpy as np
 from torch.optim import lr_scheduler
 
 def evala(model, data, kernel_code, loss_fn, optimizer, device, iter_num = 1000):
-    for iteration in tqdm(range(iter_num), ncols=60):
+    out = None
+    for iteration in range(iter_num):
         data["x"] = data["x"].to(device)
         data["T_sf_set"] = data["T_sf_set"].to(device)
         data["PUE_set"] = data["PUE_set"].to(device)
@@ -42,6 +43,8 @@ def evala(model, data, kernel_code, loss_fn, optimizer, device, iter_num = 1000)
         if (iteration % 10 == 0 or iteration == 1) :
             print('\n Iter {}, loss: {}'.format(iteration, loss.data))
 
+    return out
+
 if __name__ == '__main__':
     config_path = "config/default.yml"
     Loader, Dumper = OrderedYaml()
@@ -64,17 +67,38 @@ if __name__ == '__main__':
 
     # 定义损失函数
     loss_fn = nn.MSELoss(reduction='mean')
-
+    start = 20000
+    y_lable = []
+    res_Tsf = []
+    res_PUE = []
     for t in tqdm(range(opt["test"]["test_step"])):
+        y_lable.append(t)
         print(f"Step {t + 1}\n----------------------")
         #给定设定值、当前时刻的扰动、当前时刻的pue和送风温度
-        data = dataset.getitem(20000)
+        data = dataset.getitem(start+t)
         data["T_sf_set"] = torch.tensor(20)
-        data["PUE_set"] = torch.tensor(1.112)
+        data["PUE_set"] = torch.tensor(1.08)
 
-        evala(predictor_model, data, kernel_code, loss_fn, optimizer, device)
+        final = evala(predictor_model, data, kernel_code, loss_fn, optimizer, device)
+        pass
+        res_Tsf.append(final.squeeze(0)[0].cpu().detach().numpy())
+        res_PUE.append(final.squeeze(0)[1].cpu().detach().numpy())
 
 
+    #plot
+    res_Tsf_np = np.array(res_Tsf)
+    res_PUE_np = np.array(res_PUE)
+    y_lable_np = np.array(y_lable)
+    import matplotlib.pyplot as plt
 
+    # plt.plot(y_lable, res_Tsf)
+    # plt.show()
+
+
+    x = [1, 2, 3, 4]
+    y = [1, 4, 9, 16]
+    plt.plot(x, y)
+    plt.show()
+    plt.savefig("D:/tmp/Figure_1.png")
 
     print("Done!")
