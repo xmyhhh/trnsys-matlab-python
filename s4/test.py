@@ -10,6 +10,9 @@ from optimizer import SphericalOptimizer
 from utils.util import OrderedYaml
 from net import MLP
 import numpy as np
+import matplotlib as mpl
+
+
 from torch.optim import lr_scheduler
 
 def evala(model, data, kernel_code, loss_fn, optimizer, device, iter_num = 1000):
@@ -40,12 +43,13 @@ def evala(model, data, kernel_code, loss_fn, optimizer, device, iter_num = 1000)
         loss.backward()
         optimizer.step()
 
-        if (iteration % 10 == 0 or iteration == 1) :
-            print('\n Iter {}, loss: {}'.format(iteration, loss.data))
+        # if (iteration % 10 == 0 or iteration == 1) :
+        #     print('\n Iter {}, loss: {}'.format(iteration, loss.data))
 
     return out
 
 if __name__ == '__main__':
+    mpl.use('TkAgg')  # !IMPORTANT
     config_path = "config/default.yml"
     Loader, Dumper = OrderedYaml()
     with open(config_path, mode='r') as f:
@@ -60,7 +64,7 @@ if __name__ == '__main__':
 
     predictor_model.eval()
     for p in predictor_model.parameters(): p.requires_grad = False
-    kernel_code = torch.zeros(2).to(device)
+    kernel_code = torch.ones(2).to(device)*0.5
     kernel_code.requires_grad = True
 
     optimizer = torch.optim.Adam([{'params': kernel_code}], lr=0.001)
@@ -71,6 +75,7 @@ if __name__ == '__main__':
     y_lable = []
     res_Tsf = []
     res_PUE = []
+    res_kernel = []
     for t in tqdm(range(opt["test"]["test_step"])):
         y_lable.append(t)
         print(f"Step {t + 1}\n----------------------")
@@ -78,27 +83,32 @@ if __name__ == '__main__':
         data = dataset.getitem(start+t)
         data["T_sf_set"] = torch.tensor(20)
         data["PUE_set"] = torch.tensor(1.08)
-
-        final = evala(predictor_model, data, kernel_code, loss_fn, optimizer, device)
+        if(t>20):
+            data["T_sf_set"] = torch.tensor(18)
+        final = evala(predictor_model, data, kernel_code, loss_fn, optimizer, device, iter_num = opt["test"]["controller"]["max_step"])
         pass
         res_Tsf.append(final.squeeze(0)[0].cpu().detach().numpy())
         res_PUE.append(final.squeeze(0)[1].cpu().detach().numpy())
-
+        res_kernel.append(kernel_code.cpu().detach().numpy())
 
     #plot
     res_Tsf_np = np.array(res_Tsf)
     res_PUE_np = np.array(res_PUE)
     y_lable_np = np.array(y_lable)
+    res_kernel_np = np.array(res_kernel)
+
     import matplotlib.pyplot as plt
 
-    # plt.plot(y_lable, res_Tsf)
-    # plt.show()
+    fig = plt.figure()
+    plt.plot(y_lable, res_Tsf)
 
+    plt.savefig("Figure_sf.png")
+    fig = plt.figure()
+    plt.plot(y_lable, res_kernel_np[:,0])
 
-    x = [1, 2, 3, 4]
-    y = [1, 4, 9, 16]
-    plt.plot(x, y)
-    plt.show()
-    plt.savefig("D:/tmp/Figure_1.png")
+    plt.savefig("kernel_0.png")
+    fig = plt.figure()
+    plt.plot(y_lable, res_kernel_np[:,1])
 
+    plt.savefig("kernel_1.png")
     print("Done!")

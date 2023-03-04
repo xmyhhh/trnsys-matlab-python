@@ -11,11 +11,11 @@ train:
 
 
 test:
-  test_step: 1
+  test_step: 40
   predictor:
     pretrain_model_path: "save.pt"
   controller:
-    max_step: 10
+    max_step: 1000
   dataset:
     path: "dataset/alldata.xls"
 
