@@ -112,8 +112,6 @@ MAX_EPISODES = hyper_MAX_EPISODES;
 
 Ts = hyper_agent_sample_time;   % Ts: Sample time (secs)
 
-assignin('base','Ts',Ts);
-
 AVERAGE_WINDOW = 50;        % Average over 50 time-steps 
 ACCEPTABLE_DELTA = hyper_ACCEPTABLE_DELTA;
 
@@ -285,9 +283,10 @@ telapsed
 function in = localResetFcn(in, RL_System)
     pramInit;
     block_Reference_Signal = strcat (RL_System, '/Reference_Signal');
-    Reference_Signal = 22  + rand;
-    in = setBlockParameter(in, block_Reference_Signal, ...
-        'Value', num2str(Reference_Signal));
+    Reference_Signal = 22  + rand * 2;
+    assignin('base','Reference_Signal', Reference_Signal);
+%     in = setBlockParameter(in, block_Reference_Signal, ...
+%         'Value', num2str(Reference_Signal));
 
 
  
