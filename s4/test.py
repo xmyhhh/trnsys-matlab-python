@@ -61,7 +61,7 @@ if __name__ == '__main__':
     device = "cuda" if torch.cuda.is_available() else 'cpu'
 
     # 调用 net 里定义的模型，如果 GPU 可用则将模型转到 GPU
-    predictor_model = torch.load(opt["test"]["predictor"]["pretrain_model_path"])
+    predictor_model = torch.load(opt["test"]["predictor"]["pretrain_model_path"], map_location=torch.device('cpu'))
 
     predictor_model.eval()
     for p in predictor_model.parameters(): p.requires_grad = False

@@ -1,0 +1,4 @@
+模型输出层-隐层激活函数修改为logsig，以下三个文件有改动。要求训练模型时输出-隐层激活函数修改为logsig
+MODEL_FORWARD_New
+DF_DX_New
+DF_DU_New
