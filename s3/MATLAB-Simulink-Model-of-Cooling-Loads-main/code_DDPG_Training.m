@@ -283,7 +283,7 @@ telapsed
 function in = localResetFcn(in, RL_System)
     pramInit;
     block_Reference_Signal = strcat (RL_System, '/Reference_Signal');
-    Reference_Signal = 22  + rand * 2;
+    Reference_Signal = 22  + (rand-0.5) * 4;
     assignin('base','Reference_Signal', Reference_Signal);
 %     in = setBlockParameter(in, block_Reference_Signal, ...
 %         'Value', num2str(Reference_Signal));

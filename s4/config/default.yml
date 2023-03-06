@@ -2,16 +2,16 @@ name: "default"
 
 train:
   predictor:
-    max_epoch: 1000
+    max_epoch: 80
     dataset:
       mode: "predictor_Dataset"
-      path: "dataset/alldata.xls"
+      path: "dataset/alldata.xlsx"
       worker: 4
       batch_size: 128
 
 
 test:
-  test_step: 400
+  test_step: 40
   predictor:
     pretrain_model_path: "save.pt"
   controller:

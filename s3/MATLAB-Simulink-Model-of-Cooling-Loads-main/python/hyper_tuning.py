@@ -37,13 +37,15 @@ def start_train(cfg, exp_name, cfg_name, hyper):
                                   hyper['batch'],
                                   hyper['ACCEPTABLE_DELTA'], hyper['action_range'][0], hyper['action_range'][1],
                                   hyper['criticLearningRate'],
-                                  hyper['actorLearningRate'], hyper['agent_sample_time'], hyper['SAVE_AGENT_THRESHOLD'],
-                                  hyper['STOP_TRAINING'], hyper['maxsteps'])
+                                  hyper['actorLearningRate'], hyper['agent_sample_time'],
+                                  eval(hyper['SAVE_AGENT_THRESHOLD']),
+                                  eval(hyper['STOP_TRAINING']), hyper['maxsteps'])
         if (cfg["task_type"]["test"]):
             MATLAB_eng.call_test(exp_name, cfg_name, cfg["task_type"]["test_sample_time"],
-                                 hyper['VALVE_SIMULATION_MODEL_Test'], hyper['action_range'][0], hyper['action_range'][1])
+                                 hyper['VALVE_SIMULATION_MODEL_Test'], hyper['action_range'][0],
+                                 hyper['action_range'][1])
     except:
-       print("task error in", cfg)
+        print("task error in", cfg)
 
     return hyper
 

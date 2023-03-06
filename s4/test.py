@@ -43,8 +43,8 @@ def evala(model, data, kernel_code, loss_fn, optimizer, device, iter_num=1000):
         loss.backward()
         optimizer.step()
 
-        if (iteration % 10 == 0 or iteration == 1) :
-            print('\n Iter {}, loss: {}'.format(iteration, loss.data))
+        # if (iteration % 10 == 0 or iteration == 1) :
+        #     print('\n Iter {}, loss: {}'.format(iteration, loss.data))
 
     return out
 
@@ -82,10 +82,10 @@ if __name__ == '__main__':
         print(f"Step {t + 1}\n----------------------")
         # 给定设定值、当前时刻的扰动、当前时刻的pue和送风温度
         data = dataset.getitem(start + t)
-        data["T_sf_set"] = torch.tensor(20)
-        data["PUE_set"] = torch.tensor(1.08)
+        data["T_sf_set"] = torch.tensor(21)
+        data["PUE_set"] = torch.tensor(1.18)
         if (t > 20):
-            data["T_sf_set"] = torch.tensor(18)
+            data["T_sf_set"] = torch.tensor(20)
         final = evala(predictor_model, data, kernel_code, loss_fn, optimizer, device,
                       iter_num=opt["test"]["controller"]["max_step"])
         pass
