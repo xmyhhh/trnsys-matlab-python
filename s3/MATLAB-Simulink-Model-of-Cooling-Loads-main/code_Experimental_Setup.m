@@ -126,7 +126,7 @@ hold on
 plot(experiences.Observation.observations.Time, experiences.Observation.observations.Data(3,:), 'b');
 title('rl_Observation')
 legend('Observation-delta','Observation-accDelta');
-
+savefig(strcat(MODELS_PATH, "rl.fig"))
 saveas(gcf, strcat(MODELS_PATH, "rl.png"))
 
 

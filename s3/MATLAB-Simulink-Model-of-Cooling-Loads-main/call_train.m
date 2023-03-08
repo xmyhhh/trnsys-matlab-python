@@ -9,7 +9,12 @@ function outputArg = call_train(exp_name, cfg_name, max_eps, VALVE_SIMULATION_MO
 %     max_eps = 2;
 %     action_min = 0.00;
 %     action_max = 0.16;
-
+%     criticLearningRate = 0.001;
+%     actorLearningRate = 0.0001;
+%     agent_sample_time = 1;
+%     SAVE_AGENT_THRESHOLD = 100000;
+%     STOP_TRAINING = 100000;
+%     maxsteps = 100;
 
     hyper_MODELS_PATH = strcat('./results/' , exp_name , '/' , cfg_name , '/' );
     hyper_VALVE_SIMULATION_MODEL = VALVE_SIMULATION_MODEL;

@@ -9,6 +9,12 @@ function outputArg = call_test(exp_name, cfg_name, sample_time,VALVE_SIMULATION_
 %     action_min = 0.01;
 %     action_max = 0.23;
 
+
+%     agent_sample_time = 1;
+%     SAVE_AGENT_THRESHOLD = 100000;
+%     STOP_TRAINING = 100000;
+%     maxsteps = 100;
+
     hyper_MODELS_PATH = strcat('./results/' , exp_name , '/' , cfg_name , '/' );
     hyper_VALVE_SIMULATION_MODEL = VALVE_SIMULATION_MODEL;
     hyper_action_min = action_min;
@@ -16,13 +22,6 @@ function outputArg = call_test(exp_name, cfg_name, sample_time,VALVE_SIMULATION_
     hyper_sample_time = sample_time;
 
     code_Experimental_Setup;
-
-
-
-
-
-
-
 
     outputArg = 0;
 end
