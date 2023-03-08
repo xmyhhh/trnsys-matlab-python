@@ -15,7 +15,7 @@ C = C';
 
 %% 参数
 param.P=6;                  %步长
-param.maxEpoch=3000;    %最大迭代步数
+param.maxEpoch=60000;    %最大迭代步数
 param.ep=1.0e-12;          %目标精度
 param.alpha=[0.5,0.5]';          %状态权重系数
 param.gamma=0.9;          %动量因子
@@ -29,9 +29,9 @@ base(1,1:k) = 1;
 
 
 %两个设定值（期望值）
-PUEset = (1.11-min(B(1,:)))/(max(B(1,:))-min(B(1,:)));
+PUEset = (1.1-min(B(1,:)))/(max(B(1,:))-min(B(1,:)));
 % Tsf_set = (20-min(B(2,:)))/(max(B(2,:))-min(B(2,:)));
-Tsf_set = (20-min(B(2,:)))/(23-min(B(2,:)));
+Tsf_set = (21-min(B(2,:)))/(23-min(B(2,:)));
 
 Xsim = [eerrc,zeros(2,k)];
 usim = [uc,zeros(2,k)];
@@ -48,10 +48,10 @@ W1_C = rands(20,13)*1;  %隐层
 W2_C = rands(2,21)*1;
  
 %  扰动归一化
-for i=1:size(disturbance(:,24888:30000),1)
+for i=1:size(disturbance,1)
     Dis(i,:)=(disturbance(i,:)-min(disturbance(i,:)))/(max(disturbance(i,:))-min(disturbance(i,:)));
 end
-for i=1:size(C(:,24888:30000),1)
+for i=1:size(C,1)
     x_c(i,:)=(C(i,:)-min(C(i,:)))/(max(C(i,:))-min(C(i,:)));
 end
 % 
@@ -77,7 +77,7 @@ figure
 plot(Xsim(1,2:k)*(max(B(1,:))-min(B(1,:)))+min(B(1,:)),'b')
 % title('PUE')
 hold on
-plot(1.11*base(1,1:k),'r')
+plot(1.08*base(1,1:k),'r')
 axis([0 k,1 1.5])
 xlabel('数据点')
 ylabel('PUE')
@@ -88,7 +88,7 @@ plot(Xsim(2,2:k)*(23-min(B(2,:)))+min(B(2,:)),'b')
 xlabel('数据点')
 ylabel('送风温度/°C')
 hold on
-plot(20*base(1,1:k),'r')
+plot(21*base(1,1:k),'r')
 axis([0 k, 15 25])
 
 

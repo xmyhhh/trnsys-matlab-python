@@ -19,3 +19,6 @@
 *.jpg
 *.png
 **/results/**
+
+*.out
+*.xlsx
